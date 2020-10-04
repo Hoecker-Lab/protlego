@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>structural.analysestrc &mdash; ProtLego 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ProtLego
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#further-structural-analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../network.html">1. Drawing relationships between two superfamilies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ProtLego</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>structural.analysestrc</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for structural.analysestrc</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">mdtraj</span> <span class="k">as</span> <span class="nn">md</span>
+<span class="kn">from</span> <span class="nn">protlego.builder.chimera</span> <span class="k">import</span> <span class="n">Chimera</span>
+<span class="kn">from</span> <span class="nn">moleculekit.projections.metricdistance</span> <span class="k">import</span> <span class="n">MetricSelfDistance</span>
+<span class="kn">from</span> <span class="nn">moleculekit.projections.metricdistance</span> <span class="k">import</span> <span class="n">contactVecToMatrix</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;protlego&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="calc_sasa"><a class="viewcode-back" href="../../analyse.html#structural.analysestrc.calc_sasa">[docs]</a><span class="k">def</span> <span class="nf">calc_sasa</span><span class="p">(</span><span class="n">chimera</span><span class="p">:</span> <span class="n">Chimera</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="n">probe_radius</span><span class="p">:</span><span class="nb">float</span> <span class="o">=</span><span class="mf">0.14</span><span class="p">,</span> <span class="n">n_sphere_points</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span><span class="mi">960</span><span class="p">,</span> <span class="n">sasa_type</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the Solvent Accessible Surface Area of the protein.</span>
+<span class="sd">    This funcion uses the MDtraj shrake_rupley implementation as a basis.</span>
+<span class="sd">    :param chimera: A Chimera object.</span>
+<span class="sd">    :param filename: Path to a pdb file</span>
+<span class="sd">    :param probe_radius The radius of the probe, in nm.</span>
+<span class="sd">    :param the number of points representing the sufrace of each atom. Higher values lead to more accuracy.</span>
+<span class="sd">    :mode In mode == ‘atom’, the extracted areas are resolved per-atom.</span>
+<span class="sd">        In mode == ‘residue’, this is consolidated down to the per-residue SASA by summing over the atoms in each residue.</span>
+<span class="sd">    :param type: Type of calculation to perform. To select from polar, apolar, or total.</span>
+<span class="sd">    :return:</span>
+<span class="sd">        areas: np.array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sasa_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;polar&quot;</span><span class="p">,</span><span class="s2">&quot;apolar&quot;</span><span class="p">,</span><span class="s2">&quot;total&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sasa_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sasa_types</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Invalid type. Expected one of </span><span class="si">{sasa_types}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">chimera</span><span class="p">:</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;/tmp/structure.pdb&quot;</span>
+        <span class="n">chimera</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">polars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SER&#39;</span><span class="p">,</span><span class="s1">&#39;THR&#39;</span><span class="p">,</span><span class="s1">&#39;CYS&#39;</span><span class="p">,</span><span class="s1">&#39;TYR&#39;</span><span class="p">,</span><span class="s1">&#39;ASN&#39;</span><span class="p">,</span><span class="s1">&#39;GLN&#39;</span><span class="p">,</span><span class="s1">&#39;ASP&#39;</span><span class="p">,</span><span class="s1">&#39;GLU&#39;</span><span class="p">,</span><span class="s1">&#39;LYS&#39;</span><span class="p">,</span><span class="s1">&#39;ARG&#39;</span><span class="p">,</span><span class="s1">&#39;HIS&#39;</span><span class="p">]</span>
+    <span class="n">apolars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GLY&#39;</span><span class="p">,</span><span class="s1">&#39;ALA&#39;</span><span class="p">,</span><span class="s1">&#39;VAL&#39;</span><span class="p">,</span><span class="s1">&#39;LEU&#39;</span><span class="p">,</span><span class="s1">&#39;ILE&#39;</span><span class="p">,</span><span class="s1">&#39;MET&#39;</span><span class="p">,</span><span class="s1">&#39;TRP&#39;</span><span class="p">,</span><span class="s1">&#39;PHE&#39;</span><span class="p">,</span><span class="s1">&#39;PRO&#39;</span><span class="p">]</span>
+    <span class="n">structure</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sasa_type</span><span class="o">==</span><span class="s1">&#39;polar&#39;</span><span class="p">:</span>
+        <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">residue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">residues</span><span class="p">)</span> <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">polars</span> <span class="p">]</span>
+    <span class="k">elif</span> <span class="n">sasa_type</span><span class="o">==</span><span class="s1">&#39;apolar&#39;</span><span class="p">:</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">residue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">residues</span><span class="p">)</span> <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">apolars</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">residue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">residues</span><span class="p">)]</span>
+
+    <span class="n">sasa</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">shrake_rupley</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="n">probe_radius</span><span class="o">=</span><span class="n">probe_radius</span><span class="p">,</span><span class="n">n_sphere_points</span><span class="o">=</span><span class="n">n_sphere_points</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;residue&quot;</span><span class="p">)</span>
+    <span class="n">area</span><span class="o">=</span><span class="n">sasa</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Area is </span><span class="si">{area}</span><span class="s2"> (nm)^2&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">area</span></div>
+
+<div class="viewcode-block" id="calc_dssp"><a class="viewcode-back" href="../../analyse.html#structural.analysestrc.calc_dssp">[docs]</a><span class="k">def</span> <span class="nf">calc_dssp</span><span class="p">(</span><span class="n">chimera</span><span class="p">:</span><span class="n">Chimera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">simplified</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute Dictionary of protein secondary structure (DSSP) secondary structure assignments.</span>
+<span class="sd">    This funcion uses the MDtraj compute_dssp implementation as a basis.</span>
+<span class="sd">    :param chimera: A Chimera object.</span>
+<span class="sd">    :param pdb: path to a pdb file</span>
+<span class="sd">    :param simplified: Use the simplified 3-category assignment scheme. Otherwise the original 8-category scheme is used.</span>
+<span class="sd">    :return:</span>
+<span class="sd">        assignments np.ndarray. The secondary structure assignment for each residue</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">chimera</span><span class="p">:</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;/tmp/structure.pdb&quot;</span>
+        <span class="n">chimera</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">structure</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">dssp</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">compute_dssp</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="n">simplified</span><span class="o">=</span><span class="n">simplified</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dssp</span></div>
+
+<div class="viewcode-block" id="calc_dist_matrix"><a class="viewcode-back" href="../../analyse.html#structural.analysestrc.calc_dist_matrix">[docs]</a><span class="k">def</span> <span class="nf">calc_dist_matrix</span><span class="p">(</span><span class="n">chimera</span><span class="p">:</span><span class="n">Chimera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">filename</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">selection</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;residue&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;contacts&#39;</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a matrix of C-alpha distances for a given pdb</span>
+<span class="sd">    :param chimera: A Chimera object with n residues.</span>
+<span class="sd">    :param filename: path to a pdb file</span>
+<span class="sd">    :param type: between contacts (contact map when distances are below 8 armstrongs) or distances</span>
+<span class="sd">    :param selection: How to compute the distance. &#39;residue&#39; (the closest two</span>
+<span class="sd">    atoms between two residues) or &#39;alpha&#39; distance of the alpha carbons.</span>
+<span class="sd">    :return:</span>
+<span class="sd">        matrix. np.array. An n by n distance matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="n">chimera</span><span class="o">=</span><span class="n">Chimera</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">selection</span> <span class="o">==</span> <span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+        <span class="n">metr</span> <span class="o">=</span> <span class="n">MetricSelfDistance</span><span class="p">(</span><span class="s2">&quot;protein&quot;</span><span class="p">,</span><span class="n">groupsel</span><span class="o">=</span><span class="s2">&quot;residue&quot;</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;distances&quot;</span><span class="p">,</span><span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">mapping</span> <span class="o">=</span> <span class="n">metr</span><span class="o">.</span><span class="n">getMapping</span><span class="p">(</span><span class="n">chimera</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">metr</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">chimera</span><span class="p">)</span>
+        <span class="n">matrix</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">contactVecToMatrix</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mapping</span><span class="o">.</span><span class="n">atomIndexes</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">selection</span> <span class="o">==</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span>
+        <span class="n">metr</span><span class="o">=</span> <span class="n">MetricSelfDistance</span><span class="p">(</span><span class="s2">&quot;protein and name CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;distances&quot;</span><span class="p">,</span><span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">metr</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">chimera</span><span class="p">)</span>
+        <span class="n">mapping</span> <span class="o">=</span> <span class="n">metr</span><span class="o">.</span><span class="n">getMapping</span><span class="p">(</span><span class="n">chimera</span><span class="p">)</span>
+        <span class="n">matrix</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">contactVecToMatrix</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mapping</span><span class="o">.</span><span class="n">atomIndexes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Specify a selection type: &#39;residue&#39; or &#39;atom&#39;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;contacts&quot;</span><span class="p">:</span>
+        <span class="n">matrix</span><span class="o">=</span><span class="n">matrix</span><span class="o">&lt;</span><span class="mi">8</span>
+    <span class="k">elif</span> <span class="nb">type</span> <span class="o">!=</span> <span class="s2">&quot;contacts&quot;</span> <span class="ow">and</span> <span class="nb">type</span> <span class="o">!=</span> <span class="s2">&quot;distances&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please select contact type between &#39;contacts&#39; or distances&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;binary&#39;</span>
+        <span class="n">cax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="o">==</span><span class="s1">&#39;distances&#39;</span><span class="p">:</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gist_rainbow&#39;</span>
+            <span class="n">cax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>
+            <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;xlabel&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;ylabel&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Residue index&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Residue index&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">matrix</span></div>
+
+<span class="c1"># def calc_FCR(chimera:Chimera=None,pH:float=None) -&gt; float:</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Get the fraction of charged residues in the sequence. (pH keyword allows for a pH specific value)</span>
+<span class="c1">#     This uses the localcider toolkit as a basis</span>
+<span class="c1">#     Please refer to it for further documentation:</span>
+<span class="c1">#     http://pappulab.github.io/localCIDER/</span>
+<span class="c1">#     :param chimera: A chimera object</span>
+<span class="c1">#     :param pH: The pH at which compute the charge seggregation</span>
+<span class="c1">#     :return: Fraction of charged residues  (FCR)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     sequence =chimera.sequence()[&#39;0&#39;]</span>
+<span class="c1">#     SeqOb = SequenceParameters(sequence)</span>
+<span class="c1">#     return SeqOb.get_FCR(pH=pH)</span>
+<span class="c1">#</span>
+<span class="c1"># def calc_kappa(chimera:Chimera) -&gt; float:</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Get the sequence’s kappa value.</span>
+<span class="c1">#     κ is a parameter to describe the extent of charged amino acid mixing in a sequence.</span>
+<span class="c1">#     (http://pappulab.wustl.edu/CIDER/help/)</span>
+<span class="c1">#     This uses the localcider toolkit as a basis</span>
+<span class="c1">#     Please refer to it for further documentation:</span>
+<span class="c1">#     http://pappulab.github.io/localCIDER/</span>
+<span class="c1">#     :param chimera: A chimera object</span>
+<span class="c1">#     :return: kappa</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     sequence =chimera.sequence()[&#39;0&#39;]</span>
+<span class="c1">#     SeqOb = SequenceParameters(sequence)</span>
+<span class="c1">#     return SeqOb.get_kappa()</span>
+
+
+<div class="viewcode-block" id="calc_contact_order"><a class="viewcode-back" href="../../analyse.html#structural.analysestrc.calc_contact_order">[docs]</a><span class="k">def</span> <span class="nf">calc_contact_order</span><span class="p">(</span><span class="n">chimera</span><span class="p">:</span><span class="n">Chimera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">diss_cutoff</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The contact order of a protein is a measure of the locality of the inter-amino acid contacts in the</span>
+<span class="sd">    native folded state. It is computed as the average seqeuence distance between residues that form contacts</span>
+<span class="sd">    below a threshold in the folded protein divided by the total length of the protein&quot;</span>
+<span class="sd">    :param chimera: A Chimera object with n residues.</span>
+<span class="sd">    :param filename: path to a pdb file</span>
+<span class="sd">    :paam diss_cutoff: The maximum distance in Armstrong between two residues to be in contact</span>
+<span class="sd">    :return: the contact order (%)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="n">chimera</span><span class="o">=</span><span class="n">Chimera</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">chimera</span><span class="o">.</span><span class="n">renumberResidues</span><span class="p">()</span>
+    <span class="n">metr</span> <span class="o">=</span> <span class="n">MetricSelfDistance</span><span class="p">(</span><span class="s2">&quot;protein and noh&quot;</span><span class="p">,</span> <span class="n">groupsel</span><span class="o">=</span><span class="s2">&quot;residue&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;contacts&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">diss_cutoff</span><span class="p">,</span><span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">metr</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">chimera</span><span class="p">)</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="n">metr</span><span class="o">.</span><span class="n">getMapping</span><span class="p">(</span><span class="n">chimera</span><span class="p">)</span>
+    <span class="n">matrix</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">contactVecToMatrix</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mapping</span><span class="o">.</span><span class="n">atomIndexes</span><span class="p">)</span>
+    <span class="n">triang</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+    <span class="n">idx1</span><span class="p">,</span><span class="n">idx2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">triang</span><span class="p">)</span>
+    <span class="n">total_contacts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx1</span><span class="p">)</span>
+    <span class="n">total_residues</span> <span class="o">=</span> <span class="n">chimera</span><span class="o">.</span><span class="n">numResidues</span>
+    <span class="n">summation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">idx2</span> <span class="o">-</span> <span class="n">idx1</span><span class="p">)</span>
+    <span class="n">co</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">total_contacts</span><span class="o">*</span><span class="n">total_residues</span><span class="p">)</span><span class="o">*</span><span class="n">summation</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Contact order is {co*100} %&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">co</span><span class="o">*</span><span class="mi">100</span></div>
+
+<div class="viewcode-block" id="hhbond_plot"><a class="viewcode-back" href="../../analyse.html#structural.analysestrc.hhbond_plot">[docs]</a><span class="k">def</span> <span class="nf">hhbond_plot</span><span class="p">(</span><span class="n">chimera</span><span class="p">:</span><span class="n">Chimera</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">chimera</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least a Chimera object or the path to a pdb file must be specified&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">chimera</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/tmp/structure.pdb&quot;</span>
+        <span class="n">chimera</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">load_pdb</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">hbonds</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">baker_hubbard</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">hbond</span> <span class="ow">in</span> <span class="n">hbonds</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">atom</span><span class="p">(</span><span class="n">hbond</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">residue1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">resid1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">residue1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">atom</span><span class="p">(</span><span class="n">hbond</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">residue2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">resid2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">residue2</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">resid1</span><span class="p">,</span> <span class="n">resid2</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Noelia Ferruz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

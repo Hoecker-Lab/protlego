@@ -1,0 +1,821 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Building chimeras &mdash; ProtLego 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Structural analysis of chimeras" href="structural.html" />
+    <link rel="prev" title="1. Drawing relationships between two superfamilies" href="network.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ProtLego
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">1. Drawing relationships between two superfamilies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building chimeras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Chimera-Building-using-Protlego">Chimera-Building using Protlego</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ProtLego</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Building chimeras</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/building.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Building-chimeras">
+<h1>Building chimeras<a class="headerlink" href="#Building-chimeras" title="Permalink to this headline">¶</a></h1>
+<p>We can build chimeras from two proteins that present a fragment in common. There are several ways to do this, but we will here build a chimera by aligning the domains (in the fragment they have in common) and finding a crossover point in this region that divides the two parents in two parts. The parts are then shuffled and recombined.</p>
+<p>First import the protlego module.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">protlego</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<p>Fetch for example by the HitID from the Fuzzle database. As explained more in detail in the “Fetching from the Fuzzle database” section. We are fetching a hit between the P-loop and the Tim-barrel folds in this case.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myhit</span><span class="o">=</span> <span class="n">fetch_id</span><span class="p">(</span><span class="s1">&#39;10002347&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Chimera-Building-using-Protlego">
+<h2>Chimera-Building using Protlego<a class="headerlink" href="#Chimera-Building-using-Protlego" title="Permalink to this headline">¶</a></h2>
+<p>First create an instance of the Builder class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2020-07-31 10:08:19,602 - protlego - INFO - Attempting to download domain d1thfd_ from the SCOP server
+2020-07-31 10:08:21,006 - protlego - INFO - File downloaded as /tmp/tmpx5chghyk.pdb
+2020-07-31 10:08:21,007 - protlego - INFO - Attempting to download domain d2yhsa2 from the SCOP server
+2020-07-31 10:08:22,236 - protlego - INFO - File downloaded as /tmp/tmp8iz9xjtq.pdb
+2020-07-31 10:08:22,238 - protlego - INFO - Loading /tmp/tmpx5chghyk.pdb as a chimera object
+2020-07-31 10:08:22,433 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=&#34;all&#34; option when reading the file.
+2020-07-31 10:08:22,437 - protlego - INFO - Loading /tmp/tmp8iz9xjtq.pdb as a chimera object
+2020-07-31 10:08:22,506 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=&#34;all&#34; option when reading the file.
+</pre></div></div>
+</div>
+<p>You can see the query and the subject of the hit stored in the variables qPDB and sPDB as chimera objects</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span><span class="o">.</span><span class="n">qPDB</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;protlego.builder.chimera.Chimera object at 0x7f875cdccbe0&gt;
+Protein with:
+Number of residues: 253
+Number of atoms: 1949
+</pre></div>
+</div>
+</div>
+<p>As described in the previous tutorial, myhit includes information about the two proteins that share a fragment, like the scop IDs, length, and TM-align scores, among others.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">q_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">s_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">score_tm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Hit between d1thfd_ and d2yhsa2 with probability 88.1 %
+
+c.1.2.1
+c.37.1.10
+166
+0.40627
+</pre></div></div>
+</div>
+<p>Align the sequences of query and subject with HHPred using get_alignment function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">aln</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">get_alignment</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">query</span><span class="p">,</span><span class="n">myhit</span><span class="o">.</span><span class="n">no</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2020-07-31 10:08:22,533 - protlego - INFO - Attempting to download hhs file for d1thfd_ from the FUZZLE server
+2020-07-31 10:08:22,709 - protlego - INFO - File downloaded as /tmp/tmpsakmp68n.hhs
+</pre></div></div>
+</div>
+<p>Now we can have a look at the sequence alignment:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">subject</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+LGKFYSEIGIDELVFLDITASVEKRKTMLELVEKVAEQIDIPFTVGGGIHD-----FETASELILRGADKVSINTAAV--ENPSLITQIAQTFG---------SQAVVVAIDAKRVDGEFMVFTYSGKKNTGILLRDWVVEV-EKRGAGEILLTSIDRDGTKSGYDTEMIRFVRPLTTLPIIASGGAGKMEHFLEAFLAGADAALAAS
+LARQFEQQG-KSVMLAAGDT---FRAAAVEQLQVWGQRNNIPVIAQHTGADSASVIFDAIQAAKARNIDVLIADTAGRLQNKSHLMEELKKIVRVMKKLDVEAPHEVMLTIDAS----------------TGQNAVSQAKLFHEAVGLTGITLTKLDGTAKGGVI-----FSVADQFGIPIRYIGVGERIEDLRPFKADDFIEALFAR
+</pre></div></div>
+</div>
+<p>The sequence alignment corresponds to the exact fragment that the two proteins have in common, so it does not include the full protein sequences. Now, we need to map these alignments to the protein structures, because ultimately we need to align the two protein structures in these fragment region.</p>
+<p>We can thus superimpose the structures with the superimpose_structures() function, and we choose to align the structures using partial alignment. This means that instead of only one, global alignment being produced, rather, several alignments comprising smaller regions of the fragment (10-20 residues) are undertaken in parallel. We do this to provide multiple regions where the two proteins are closer than 1 armstrong in distance, and thus obtain more fusion points for the chimeras.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">qPDB</span><span class="p">,</span> <span class="n">sPDB</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superimpose_structures</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2020-07-31 10:08:24,046 - protlego - INFO - Performing alignment 1 with TMalign
+2020-07-31 10:08:27,661 - protlego - INFO - The RMSD between the fragments is 0.33239004015922546 over 9 alpha carbons
+2020-07-31 10:08:27,672 - protlego - INFO - Performing alignment 2 with TMalign
+2020-07-31 10:08:27,762 - protlego - INFO - The RMSD between the fragments is 1.2737349271774292 over 10 alpha carbons
+2020-07-31 10:08:27,775 - protlego - INFO - Performing alignment 3 with TMalign
+2020-07-31 10:08:27,873 - protlego - INFO - The RMSD between the fragments is 3.9785287380218506 over 28 alpha carbons
+2020-07-31 10:08:27,884 - protlego - INFO - Performing alignment 4 with TMalign
+2020-07-31 10:08:27,974 - protlego - INFO - The RMSD between the fragments is 3.051856756210327 over 22 alpha carbons
+2020-07-31 10:08:27,985 - protlego - INFO - Performing alignment 5 with TMalign
+2020-07-31 10:08:28,072 - protlego - INFO - The RMSD between the fragments is 1.534366488456726 over 14 alpha carbons
+2020-07-31 10:08:28,082 - protlego - INFO - Performing alignment 6 with TMalign
+2020-07-31 10:08:28,166 - protlego - INFO - The RMSD between the fragments is 2.1622886657714844 over 11 alpha carbons
+2020-07-31 10:08:28,177 - protlego - INFO - Performing alignment 7 with TMalign
+2020-07-31 10:08:28,277 - protlego - INFO - The RMSD between the fragments is 2.422672986984253 over 12 alpha carbons
+2020-07-31 10:08:28,288 - protlego - INFO - Performing alignment 8 with TMalign
+2020-07-31 10:08:28,391 - protlego - INFO - The RMSD between the fragments is 5.102012634277344 over 22 alpha carbons
+2020-07-31 10:08:28,401 - protlego - INFO - Performing alignment 9 with TMalign
+2020-07-31 10:08:28,497 - protlego - INFO - The RMSD between the fragments is 9.403940200805664 over 38 alpha carbons
+</pre></div></div>
+</div>
+<p>The two variables produced are two dictionaries, which contain several molecules, each pair in a geometry that optimizes each of the alignments. We can visualize these structures easily, by simply calling the view() method. A new VMD window will open showing the structure. For example, less visualize the first alignment by slicing the first key in the dictionary:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">qPDB</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The superimpose_structures() command also produces two lists for query and subject. One of them is global_qpairs, which simply contains the indices of the protein that correspond to the srquence aligment. This list is used when we superimpose the structures using a global alignment (all atoms taken into account at once). The other is qpairs, which correspond to the same residues, but they are clustered in smaller regions that will be aligned iteratively if we choose to perform a partial
+alignment.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">qpairs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">global_qpairs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[261, 269, 273, 282, 293, 305, 311, 320, 328], [340, 348, 357, 365, 372, 383, 391, 399, 407, 414], [441, 450, 461, 470, 477, 485, 493, 502, 510, 517, 526, 535, 542, 547, 556, 565, 573, 581, 589, 596, 607, 614, 621, 625, 629, 633, 641, 651], [659, 670, 679, 686, 691, 697, 706, 714, 722, 730, 741, 745, 750, 758, 767, 774, 780, 788, 796, 803, 808, 813], [820, 829, 837, 844, 850, 858, 866, 873, 882, 890, 895, 904, 911, 922], [926, 932, 941, 946, 953, 960, 967, 972, 980, 988, 993], [1133, 1140, 1144, 1152, 1160, 1168, 1179, 1187, 1201, 1208, 1215, 1224], [1231, 1240, 1249, 1260, 1264, 1269, 1273, 1282, 1290, 1298, 1306, 1313, 1319, 1327, 1335, 1346, 1354, 1358, 1365, 1374, 1380, 1384], [1436, 1447, 1458, 1465, 1476, 1483, 1491, 1498, 1505, 1513, 1520, 1528, 1536, 1541, 1547, 1551, 1555, 1560, 1564, 1573, 1581, 1590, 1600, 1611, 1619, 1628, 1633, 1644, 1652, 1657, 1661, 1666, 1674, 1679, 1684, 1692, 1697, 1702]]
+[[261, 269, 273, 282, 293, 305, 311, 320, 328, 340, 348, 357, 365, 372, 383, 391, 399, 407, 414, 441, 450, 461, 470, 477, 485, 493, 502, 510, 517, 526, 535, 542, 547, 556, 565, 573, 581, 589, 596, 607, 614, 621, 625, 629, 633, 641, 651, 659, 670, 679, 686, 691, 697, 706, 714, 722, 730, 741, 745, 750, 758, 767, 774, 780, 788, 796, 803, 808, 813, 820, 829, 837, 844, 850, 858, 866, 873, 882, 890, 895, 904, 911, 922, 926, 932, 941, 946, 953, 960, 967, 972, 980, 988, 993, 1133, 1140, 1144, 1152, 1160, 1168, 1179, 1187, 1201, 1208, 1215, 1224, 1231, 1240, 1249, 1260, 1264, 1269, 1273, 1282, 1290, 1298, 1306, 1313, 1319, 1327, 1335, 1346, 1354, 1358, 1365, 1374, 1380, 1384, 1436, 1447, 1458, 1465, 1476, 1483, 1491, 1498, 1505, 1513, 1520, 1528, 1536, 1541, 1547, 1551, 1555, 1560, 1564, 1573, 1581, 1590, 1600, 1611, 1619, 1628, 1633, 1644, 1652, 1657, 1661, 1666, 1674, 1679, 1684, 1692, 1697, 1702]]
+</pre></div></div>
+</div>
+<p>Now we can build all the possible chimeras and store them in a dictionary.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">chimeras</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">build_chimeras</span><span class="p">(</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">chimeras</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;comb1_155&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8703525400&gt;
+ Protein with:
+ Number of residues: 221
+ Number of atoms: 1695,
+ &#39;comb1_156&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f87033a0668&gt;
+ Protein with:
+ Number of residues: 221
+ Number of atoms: 1700,
+ &#39;comb1_157&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f87033a0940&gt;
+ Protein with:
+ Number of residues: 221
+ Number of atoms: 1702,
+ &#39;comb1_158&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8702a84e80&gt;
+ Protein with:
+ Number of residues: 221
+ Number of atoms: 1700,
+ &#39;comb1_159&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8703300c88&gt;
+ Protein with:
+ Number of residues: 221
+ Number of atoms: 1701,
+ &#39;comb2_165&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8702f940f0&gt;
+ Protein with:
+ Number of residues: 244
+ Number of atoms: 1854,
+ &#39;comb2_166&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8702f94198&gt;
+ Protein with:
+ Number of residues: 244
+ Number of atoms: 1857,
+ &#39;comb2_167&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f870323b9b0&gt;
+ Protein with:
+ Number of residues: 244
+ Number of atoms: 1852,
+ &#39;comb2_168&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8702fe1390&gt;
+ Protein with:
+ Number of residues: 244
+ Number of atoms: 1852,
+ &#39;comb1_169&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8703525940&gt;
+ Protein with:
+ Number of residues: 220
+ Number of atoms: 1695,
+ &#39;comb1_170&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8702fc7cc0&gt;
+ Protein with:
+ Number of residues: 220
+ Number of atoms: 1695,
+ &#39;comb1_171&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f870329c630&gt;
+ Protein with:
+ Number of residues: 220
+ Number of atoms: 1695,
+ &#39;comb2_190&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f870320ff60&gt;
+ Protein with:
+ Number of residues: 239
+ Number of atoms: 1796,
+ &#39;comb2_191&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f870320f0f0&gt;
+ Protein with:
+ Number of residues: 239
+ Number of atoms: 1790,
+ &#39;comb2_192&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f87033e4358&gt;
+ Protein with:
+ Number of residues: 239
+ Number of atoms: 1791,
+ &#39;comb2_193&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8703221b00&gt;
+ Protein with:
+ Number of residues: 239
+ Number of atoms: 1792,
+ &#39;comb2_202&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f87029bfd68&gt;
+ Protein with:
+ Number of residues: 239
+ Number of atoms: 1805,
+ &#39;comb2_203&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f8702a87240&gt;
+ Protein with:
+ Number of residues: 239
+ Number of atoms: 1808}
+</pre></div>
+</div>
+</div>
+<p>From the Builder class you can plot all the possible chimeras, showing the distance on the y-axis and the fragment of the query relative to the domain in the subject. There are five possible scenarios. For every two fussion point that is under the cutoff distanc (1 Armstrong in this case) we can build chimeras starting from the N-terminus and C-terminus. When the two resulting chimeras at this point present backbone clashes, the plot shows a black dot at this position. If the N-terminus or
+C-terminus is chimera is buildable, we show that position with a cross in yellow, and red, respectively. In some fusion points, like position 145 in this example, it is possible to build both N-terminus and C-terminus chimeras.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span><span class="o">.</span><span class="n">plot_curves</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/building_28_0.png" src="_images/building_28_0.png" />
+</div>
+</div>
+<p>To access the chimeras we can retrieve them from the key value in the dictionary. Combinations starting with 1 come from the query, and combinations starting with 2 come from the subject.</p>
+<p>To view or write the structures out you can store the chimera from the chimeras dictionary in a variable and use the view and the write function.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mychimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb2_190&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mychimera</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>When we represent the structures we can see the part that comes from each parent is shown in different colors. We can also save the structure as a pdb anytime:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mychimera</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;./mychimera.pdb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can, in fact, visualize all of them at once by looping over the structures:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">chimera</span> <span class="ow">in</span> <span class="n">chimeras</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">chimera</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Note that VMD guesses the bonds between atoms by computing distances. As these structures have not been minimized they do not have idealized bond distances and sometimes VMD cannot guess properly the NewCartoon representation. Choose Licorice Method to represent those cases.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="structural.html" class="btn btn-neutral float-right" title="Structural analysis of chimeras" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="network.html" class="btn btn-neutral float-left" title="1. Drawing relationships between two superfamilies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Noelia Ferruz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
