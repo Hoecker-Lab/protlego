@@ -84,12 +84,9 @@ def generate_sphere_points(coords: np.array, n: int = 610, radius: float = 1.88)
 
 def retrieve_neighbor_positions(atom: Atom, mol: Molecule) -> Tuple[np.array, Dict[int, int]]:
     """
-
     :param atom: an Atom object
     :param mol: a htmd.htmd.molecule object
-    :return:
-    Positions of the neighboring atoms
-    A dictionary indexing column positions to resid positions
+    :return: A tuple object with the positions of the neighboring atoms. A dictionary indexing column positions to resid positions
     """
     positions = mol.coords[atom.neighbor_indices][:, :, 0]
     position_index_to_resid = {index: mol.resid[neighbor_indice] for index, neighbor_indice in
@@ -289,7 +286,7 @@ def postprocess_session(inputmolfile: str, outputname: str) -> None:
     Modifies the VMD session to not include tmp files
     :param outputname: The vmd session (output file)
     :param inputmolfile: Path to the pdb file already processed (filtered and or protonated)
-    :return:
+    :return: None. Modifies the file inline
     """
     f = open(outputname, "r")
     lines = f.readlines()

@@ -17,7 +17,7 @@ def protonate_mol(inputmolfile: str) -> Molecule:
     Loads, filters the object to chain A and protonates the selection.
     It then writes the filtered protonated pdb out.
     :param inputmolfile: path to the pdb file
-    :return: the Molecule object
+    :return: a Molecule object with the correct protonation state
     """
     mol1 = Molecule(inputmolfile)
     mol1.filter("protein and chain A")
@@ -27,6 +27,12 @@ def protonate_mol(inputmolfile: str) -> Molecule:
 
 
 def make_graph_hh(hbonds: np.array, trajectory: md.Trajectory) -> Graph:
+    """
+
+    :param hbonds: a np.array indicating indexes of atoms that have an h-bond
+    :param trajectory: an mdtraj trajectory. It can also be a pdb file processed with mdtraj as trajectory
+    :return: A graph-tool graph object
+    """
     g = Graph(directed=False)
     g.vp.resid = g.new_vertex_property("int")
     g.vp.atom = g.new_vertex_property("int")
@@ -53,11 +59,11 @@ def make_graph_hh(hbonds: np.array, trajectory: md.Trajectory) -> Graph:
 
 def write_networks(g: Graph, components: PropertyArray, inputmolfile: str, outputname: str) -> None:
     """
-    This function outputs the HH networks into a VMD session
-    :param g: A Graph object
-    :param outputname: The pdb filename.
-    :param outputname: The file name to output the VMD session to.
-    :return:
+    :param g:  A graph-tool graph object
+    :param components: the components of the graph
+    :param inputmolfile: the pdb of the input protein
+    :param outputname: a path wehre to write the output
+    :return: Writes a file named outputname + "hh-networks.txt"
     """
     f = open(outputname[:-4] + "hh-networks.txt", "w")
     mol = Molecule(inputmolfile)
@@ -91,6 +97,13 @@ def write_networks(g: Graph, components: PropertyArray, inputmolfile: str, outpu
 
 
 def add_networks(mol, g: Graph, components: PropertyArray):
+    """
+
+    :param mol: the Chimera where to add the representations to.
+    :param g: a graph-tool graph object with the networks property
+    :param components: the components from the graph
+    :return: INcludes the representations in the Chimera object.
+    """
     bonds = []
     mol.reps.add(sel='protein', style='NewCartoon', color=8)
     for network_index in range(max(components) + 1):

@@ -192,7 +192,7 @@
 <span class="sd">    Loads, filters the object to chain A and protonates the selection.</span>
 <span class="sd">    It then writes the filtered protonated pdb out.</span>
 <span class="sd">    :param inputmolfile: path to the pdb file</span>
-<span class="sd">    :return: the Molecule object</span>
+<span class="sd">    :return: a Molecule object with the correct protonation state</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mol1</span> <span class="o">=</span> <span class="n">Molecule</span><span class="p">(</span><span class="n">inputmolfile</span><span class="p">)</span>
     <span class="n">mol1</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;protein and chain A&quot;</span><span class="p">)</span>
@@ -201,7 +201,13 @@
     <span class="k">return</span> <span class="n">mol</span></div>
 
 
-<span class="k">def</span> <span class="nf">make_graph_hh</span><span class="p">(</span><span class="n">hbonds</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">:</span> <span class="n">md</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
+<div class="viewcode-block" id="make_graph_hh"><a class="viewcode-back" href="../../analyse.html#structural.hh_networks.make_graph_hh">[docs]</a><span class="k">def</span> <span class="nf">make_graph_hh</span><span class="p">(</span><span class="n">hbonds</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">:</span> <span class="n">md</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param hbonds: a np.array indicating indexes of atoms that have an h-bond</span>
+<span class="sd">    :param trajectory: an mdtraj trajectory. It can also be a pdb file processed with mdtraj as trajectory</span>
+<span class="sd">    :return: A graph-tool graph object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">resid</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
@@ -223,16 +229,16 @@
         <span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">atom</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">atom</span><span class="p">[</span><span class="n">v2</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
         <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">g</span>
+    <span class="k">return</span> <span class="n">g</span></div>
 
 
 <div class="viewcode-block" id="write_networks"><a class="viewcode-back" href="../../analyse.html#structural.hh_networks.write_networks">[docs]</a><span class="k">def</span> <span class="nf">write_networks</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">components</span><span class="p">:</span> <span class="n">PropertyArray</span><span class="p">,</span> <span class="n">inputmolfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function outputs the HH networks into a VMD session</span>
-<span class="sd">    :param g: A Graph object</span>
-<span class="sd">    :param outputname: The pdb filename.</span>
-<span class="sd">    :param outputname: The file name to output the VMD session to.</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param g:  A graph-tool graph object</span>
+<span class="sd">    :param components: the components of the graph</span>
+<span class="sd">    :param inputmolfile: the pdb of the input protein</span>
+<span class="sd">    :param outputname: a path wehre to write the output</span>
+<span class="sd">    :return: Writes a file named outputname + &quot;hh-networks.txt&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">outputname</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;hh-networks.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
     <span class="n">mol</span> <span class="o">=</span> <span class="n">Molecule</span><span class="p">(</span><span class="n">inputmolfile</span><span class="p">)</span>
@@ -265,7 +271,14 @@
     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
-<span class="k">def</span> <span class="nf">add_networks</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">components</span><span class="p">:</span> <span class="n">PropertyArray</span><span class="p">):</span>
+<div class="viewcode-block" id="add_networks"><a class="viewcode-back" href="../../analyse.html#structural.hh_networks.add_networks">[docs]</a><span class="k">def</span> <span class="nf">add_networks</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">components</span><span class="p">:</span> <span class="n">PropertyArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param mol: the Chimera where to add the representations to.</span>
+<span class="sd">    :param g: a graph-tool graph object with the networks property</span>
+<span class="sd">    :param components: the components from the graph</span>
+<span class="sd">    :return: INcludes the representations in the Chimera object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bonds</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;NewCartoon&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">network_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">components</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
@@ -280,7 +293,7 @@
                      <span class="n">style</span><span class="o">=</span><span class="s2">&quot;Licorice&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">network_index</span><span class="p">)</span>
         <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;chain A and noh and resid </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">resid_network</span><span class="p">)),</span>
                      <span class="n">style</span><span class="o">=</span><span class="s2">&quot;HBonds&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">network_index</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">bonds</span>
+    <span class="k">return</span> <span class="n">bonds</span></div>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>

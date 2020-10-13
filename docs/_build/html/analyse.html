@@ -337,7 +337,7 @@ A list with Cluster objects</p>
 <dd><p>Modifies the VMD session to not include tmp files
 :param outputname: The vmd session (output file)
 :param inputmolfile: Path to the pdb file already processed (filtered and or protonated)
-:return:</p>
+:return: None. Modifies the file inline</p>
 </dd></dl>
 
 <dl class="function">
@@ -362,11 +362,9 @@ A list with Cluster objects</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>A tuple object with the positions of the neighboring atoms. A dictionary indexing column positions to resid positions</p>
 </dd>
 </dl>
-<p>Positions of the neighboring atoms
-A dictionary indexing column positions to resid positions</p>
 </dd></dl>
 
 <dl class="function">
@@ -395,22 +393,63 @@ into a VMD session
 <div class="section" id="module-structural.hh_networks">
 <span id="hh-networks"></span><h1>HH-networks<a class="headerlink" href="#module-structural.hh_networks" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
+<dt id="structural.hh_networks.add_networks">
+<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">add_networks</code><span class="sig-paren">(</span><em class="sig-param">mol</em>, <em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">components: graph_tool.PropertyArray</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/hh_networks.html#add_networks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.add_networks" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mol</strong> – the Chimera where to add the representations to.</p></li>
+<li><p><strong>g</strong> – a graph-tool graph object with the networks property</p></li>
+<li><p><strong>components</strong> – the components from the graph</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>INcludes the representations in the Chimera object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.hh_networks.make_graph_hh">
+<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">make_graph_hh</code><span class="sig-paren">(</span><em class="sig-param">hbonds: numpy.array</em>, <em class="sig-param">trajectory: mdtraj.core.trajectory.Trajectory</em><span class="sig-paren">)</span> &#x2192; graph_tool.Graph<a class="reference internal" href="_modules/structural/hh_networks.html#make_graph_hh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.make_graph_hh" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hbonds</strong> – a np.array indicating indexes of atoms that have an h-bond</p></li>
+<li><p><strong>trajectory</strong> – an mdtraj trajectory. It can also be a pdb file processed with mdtraj as trajectory</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A graph-tool graph object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="structural.hh_networks.protonate_mol">
 <code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">protonate_mol</code><span class="sig-paren">(</span><em class="sig-param">inputmolfile: str</em><span class="sig-paren">)</span> &#x2192; moleculekit.molecule.Molecule<a class="reference internal" href="_modules/structural/hh_networks.html#protonate_mol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.protonate_mol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads, filters the object to chain A and protonates the selection.
 It then writes the filtered protonated pdb out.
 :param inputmolfile: path to the pdb file
-:return: the Molecule object</p>
+:return: a Molecule object with the correct protonation state</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="structural.hh_networks.write_networks">
 <code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">write_networks</code><span class="sig-paren">(</span><em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">components: graph_tool.PropertyArray</em>, <em class="sig-param">inputmolfile: str</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/hh_networks.html#write_networks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.write_networks" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function outputs the HH networks into a VMD session
-:param g: A Graph object
-:param outputname: The pdb filename.
-:param outputname: The file name to output the VMD session to.
-:return:</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A graph-tool graph object</p></li>
+<li><p><strong>components</strong> – the components of the graph</p></li>
+<li><p><strong>inputmolfile</strong> – the pdb of the input protein</p></li>
+<li><p><strong>outputname</strong> – a path wehre to write the output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Writes a file named outputname + “hh-networks.txt”</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
