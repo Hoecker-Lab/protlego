@@ -99,6 +99,7 @@ def retrieve_neighbor_positions(atom: Atom, mol: Molecule) -> Tuple[np.array, Di
 
 def retrieve_indices(matrix: np.array, coords: np.array, neighborpositions: np.array, radius: float = 1.88) -> np.array:
     """
+
     Computes if each of the n sphere points are penetrating neighboring spheres
     :param matrix: n x m Distance matrix where n is the number of sphere points and m the number of neighbors
     :param coords: the coordinates of the atom

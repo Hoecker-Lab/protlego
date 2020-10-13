@@ -191,8 +191,9 @@
 <div class="viewcode-block" id="write_salt_bridges"><a class="viewcode-back" href="../../analyse.html#structural.salt_bridges.write_salt_bridges">[docs]</a><span class="k">def</span> <span class="nf">write_salt_bridges</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">mol</span><span class="p">:</span> <span class="n">Molecule</span><span class="p">,</span> <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function outputs the HH networks into a VMD session</span>
-<span class="sd">    :param g: A Graph object</span>
-<span class="sd">    :param outputname: The pdb filename.</span>
+<span class="sd">    :param data: A MetricDistance object</span>
+<span class="sd">    :param mapping: A DataFrame object including the index - residue mapping</span>
+<span class="sd">    :param mol: The pdb filename.</span>
 <span class="sd">    :param outputname: The file name to output the VMD session to.</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
