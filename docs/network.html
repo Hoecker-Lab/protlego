@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. Drawing relationships between two superfamilies &mdash; ProtLego 1.0.0 documentation</title>
+  <title>Drawing networks &mdash; ProtLego 1.0.0 documentation</title>
   
 
   
@@ -108,7 +108,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Drawing relationships between two superfamilies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Drawing networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#1.-Drawing-relationships-between-two-superfamilies">1. Drawing relationships between two superfamilies</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
@@ -157,7 +160,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>1. Drawing relationships between two superfamilies</li>
+      <li>Drawing networks</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -398,21 +401,20 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<p># Drawing networks</p>
+<div class="section" id="Drawing-networks">
+<h1>Drawing networks<a class="headerlink" href="#Drawing-networks" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/agh/projects/noelia/github/&quot;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">protlego</span> <span class="k">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">protlego</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
 <p>Besides retrieving hits, usually we might one to have a look at the fragments in their structural context, or visualize the protein space via network representations. We will cover that in this tutorial.</p>
 <div class="section" id="1.-Drawing-relationships-between-two-superfamilies">
-<h1>1. Drawing relationships between two superfamilies<a class="headerlink" href="#1.-Drawing-relationships-between-two-superfamilies" title="Permalink to this headline">¶</a></h1>
+<h2>1. Drawing relationships between two superfamilies<a class="headerlink" href="#1.-Drawing-relationships-between-two-superfamilies" title="Permalink to this headline">¶</a></h2>
 <p>In the previous tutorial, we built chimeras between a Rossmann and a P-loop domain. In this tutorial we are going to represent the relationships between these two folds. We will focus on two superfamilies of the folds:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -975,6 +977,7 @@ d2hjra1 c.2 d1cp2a_ c.37
 <div class="highlight"><pre>
 d2hjra1 d2afhe_ 13 49 2 41
 </pre></div></div>
+</div>
 </div>
 </div>
 

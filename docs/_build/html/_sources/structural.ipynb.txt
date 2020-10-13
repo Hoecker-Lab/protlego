@@ -27,8 +27,6 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "import sys\n",
-    "sys.path.append('/agh/projects/noelia/github') # Path where ProtLego folder is located\n",
     "from protlego import *"
    ]
   },
