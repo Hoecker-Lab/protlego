@@ -90,13 +90,13 @@
               <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#salt-bridges">Salt-bridges</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -200,97 +200,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="module-network.networks">
-<span id="networks"></span><h1>Networks<a class="headerlink" href="#module-network.networks" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="network.networks.Network">
-<em class="property">class </em><code class="sig-prename descclassname">network.networks.</code><code class="sig-name descname">Network</code><span class="sig-paren">(</span><em class="sig-param">hits: protlego.database.data.Result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/network/networks.html#Network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#network.networks.Network" title="Permalink to this definition">¶</a></dt>
-<dd><p>Graph constructor and visualizer</p>
-<p class="rubric">Examples</p>
-<p>hits = fetch_subspace(<a href="#id1"><span class="problematic" id="id2">*</span></a>args)
-g = Network(hits)
-g.create_graph()
-g.plot_graph(labels=[‘ids’,’domains’,’folds’])
-g.get_fragments()
-g.view_vertex(v1)
-g.view_edge(v1,v2)
-g.view_component(n)</p>
-<dl class="method">
-<dt id="network.networks.Network.create_network">
-<code class="sig-name descname">create_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; graph_tool.Graph<a class="reference internal" href="_modules/network/networks.html#Network.create_network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#network.networks.Network.create_network" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a network based on the hits. It draws a node for every unique cluster
-and linkes two cluster when they have a fragment in common.
-:return: graph. A Graph object</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.networks.Network.fragments">
-<em class="property">property </em><code class="sig-name descname">fragments</code><a class="headerlink" href="#network.networks.Network.fragments" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function creates and prints out the number of fragments in the graph
-:rtype : integer, number of fragments</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.networks.Network.get_representative_domain">
-<code class="sig-name descname">get_representative_domain</code><span class="sig-paren">(</span><em class="sig-param">frag: int</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/network/networks.html#Network.get_representative_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#network.networks.Network.get_representative_domain" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>frag</strong> – </p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.networks.Network.plot_graph">
-<code class="sig-name descname">plot_graph</code><span class="sig-paren">(</span><em class="sig-param">graph</em>, <em class="sig-param">fill</em>, <em class="sig-param">**keyword_parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/network/networks.html#Network.plot_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#network.networks.Network.plot_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function plots the graph
-with customized labels
-fill = [‘fam’,’sufam’,’fold’,’class’]
-keyword_parameters = labels, output (filename)
-labels can be: “domain”,”fam”,”sufam”,”fold”,”scopclass”</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.networks.Network.show_component">
-<code class="sig-name descname">show_component</code><span class="sig-paren">(</span><em class="sig-param">fragment: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/network/networks.html#Network.show_component"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#network.networks.Network.show_component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aligns the fragment(s) of all domains belonging to a component, provided the component
-has less than 50 vertices.
-Note that all domains in the same component present a fragment
-in common in different protein environments
-:param fragment:
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.networks.Network.show_edge">
-<code class="sig-name descname">show_edge</code><span class="sig-paren">(</span><em class="sig-param">edge: graph_tool.Graph.edge</em><span class="sig-paren">)</span> &#x2192; Tuple[protlego.builder.chimera.Chimera, protlego.builder.chimera.Chimera]<a class="reference internal" href="_modules/network/networks.html#Network.show_edge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#network.networks.Network.show_edge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shows an alignment of the two domains that the edge links with their respective
-fragment they have in common colored in red
-:param edge:
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.networks.Network.show_vertex">
-<code class="sig-name descname">show_vertex</code><span class="sig-paren">(</span><em class="sig-param">vertex: graph_tool.Graph.vertex</em><span class="sig-paren">)</span> &#x2192; protlego.builder.chimera.Chimera<a class="reference internal" href="_modules/network/networks.html#Network.show_vertex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#network.networks.Network.show_vertex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shows the protein that corresponds to that specific vertex with the
-fragment colored in red
-:param vertex: A Graph.vertex object. The domain to be shown,
-:return: A Chimera object with an internal representation of the fragment</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.networks.Network.sizes">
-<em class="property">property </em><code class="sig-name descname">sizes</code><a class="headerlink" href="#network.networks.Network.sizes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the average size for each fragment.
-:return: list of tuples with the average and the stds of sizes (float)</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="networks">
+<h1>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

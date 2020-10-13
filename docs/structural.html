@@ -89,13 +89,13 @@
               <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#salt-bridges">Salt-bridges</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -414,36 +414,35 @@ div.rendered_html tbody tr:hover {
 <p>We have seen how to find fragments from the Fuzzle database and build chimeras with them. We have also evaluated their potential energy with several energy scoring functions. Now we are going to have a look at the structures of these chimeras in depth.</p>
 <p>First import the protlego module.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/agh/projects/noelia/chimAuto/&#39;</span><span class="p">)</span> <span class="c1"># Path where ProtLego folder is located</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/agh/projects/noelia/github&#39;</span><span class="p">)</span> <span class="c1"># Path where ProtLego folder is located</span>
 <span class="kn">from</span> <span class="nn">protlego</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
 <p>Fetch for example by the HitID from the Fuzzle-database, as explained in detail in the “Fetching from the Fuzzle database” section. We can have a look at the chimeras that we built in tutorial 3.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">myhit</span><span class="o">=</span> <span class="n">fetch_id</span><span class="p">(</span><span class="s1">&#39;hh207clusters&#39;</span><span class="p">,</span><span class="s1">&#39;6242020&#39;</span><span class="p">)</span>
+<span></span><span class="n">myhit</span><span class="o">=</span> <span class="n">fetch_id</span><span class="p">(</span><span class="s1">&#39;4413706&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>Let’s build all possible chimera-combinations from query and subject, as explained in detail in the “Building chimeras” section. The chimeras will be stored as a dictionary in the variable chimeras:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">a</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
 <span class="n">aln</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">get_alignment</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">query</span><span class="p">,</span><span class="n">myhit</span><span class="o">.</span><span class="n">no</span><span class="p">)</span>
-<span class="n">qpairs</span><span class="p">,</span> <span class="n">spairs</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">get_pairs</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
-<span class="n">qPDB</span><span class="p">,</span> <span class="n">sPDB</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superimpose_structures</span><span class="p">(</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">qPDB</span><span class="p">,</span> <span class="n">sPDB</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superimpose_structures</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">chimeras</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">build_chimeras</span><span class="p">(</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -453,44 +452,67 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2020-01-21 12:26:22,079 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=&#34;all&#34; option when reading the file.
-2020-01-21 12:26:23,329 - protlego - INFO - Found the following non-standar residue: MSE
-2020-01-21 12:26:23,382 - protlego - INFO - Found the following non-standar residue: MSE
-2020-01-21 12:26:23,471 - protlego - INFO - Performing alignment 1 with TMalign
-2020-01-21 12:26:26,566 - protlego - INFO - The RMSD between the fragments is 2.92824649810791 over 9 alpha carbons
-2020-01-21 12:26:26,583 - protlego - INFO - Performing alignment 2 with TMalign
-2020-01-21 12:26:26,659 - protlego - INFO - The RMSD between the fragments is 1.9147093296051025 over 16 alpha carbons
-2020-01-21 12:26:26,675 - protlego - INFO - Performing alignment 3 with TMalign
-2020-01-21 12:26:26,752 - protlego - INFO - The RMSD between the fragments is 1.1340450048446655 over 11 alpha carbons
-2020-01-21 12:26:26,772 - protlego - INFO - Performing alignment 4 with TMalign
-2020-01-21 12:26:26,851 - protlego - INFO - The RMSD between the fragments is 1.791361927986145 over 19 alpha carbons
-2020-01-21 12:26:26,871 - protlego - INFO - Performing alignment 5 with TMalign
-2020-01-21 12:26:26,950 - protlego - INFO - The RMSD between the fragments is 3.4196701049804688 over 18 alpha carbons
-2020-01-21 12:26:26,970 - protlego - INFO - Performing alignment 6 with TMalign
-2020-01-21 12:26:27,045 - protlego - INFO - The RMSD between the fragments is 0.019341103732585907 over 3 alpha carbons
-2020-01-21 12:26:27,064 - protlego - INFO - Performing alignment 7 with TMalign
-2020-01-21 12:26:27,148 - protlego - INFO - The RMSD between the fragments is 1.3557014465332031 over 11 alpha carbons
-2020-01-21 12:26:27,168 - protlego - INFO - Performing alignment 8 with TMalign
-2020-01-21 12:26:27,267 - protlego - INFO - The RMSD between the fragments is 3.035205364227295 over 24 alpha carbons
+2020-10-12 15:49:46,155 - protlego - INFO - Attempting to download domain d2dfda1 from the SCOP server
+2020-10-12 15:49:47,510 - protlego - INFO - File downloaded as /tmp/tmpc55d_xpa.pdb
+2020-10-12 15:49:47,511 - protlego - INFO - Attempting to download domain d1wa5a_ from the SCOP server
+2020-10-12 15:49:49,156 - protlego - INFO - File downloaded as /tmp/tmpbnqv9qmo.pdb
+2020-10-12 15:49:49,157 - protlego - INFO - Loading /tmp/tmpc55d_xpa.pdb as a chimera object
+2020-10-12 15:49:49,239 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=&#34;all&#34; option when reading the file.
+2020-10-12 15:49:49,241 - protlego - INFO - Loading /tmp/tmpbnqv9qmo.pdb as a chimera object
+2020-10-12 15:49:49,302 - protlego - INFO - Attempting to download hhs file for d2dfda1 from the FUZZLE server
+2020-10-12 15:49:49,435 - protlego - INFO - File downloaded as /tmp/tmpnxx_3e1q.hhs
+2020-10-12 15:49:50,463 - protlego - INFO - Performing alignment 1 with TMalign
+2020-10-12 15:49:53,556 - protlego - INFO - The RMSD between the fragments is 0.6881080269813538 over 6 alpha carbons
+2020-10-12 15:49:53,564 - protlego - INFO - Performing alignment 2 with TMalign
+2020-10-12 15:49:53,629 - protlego - INFO - The RMSD between the fragments is 2.3234670162200928 over 6 alpha carbons
+2020-10-12 15:49:53,637 - protlego - INFO - Performing alignment 3 with TMalign
+2020-10-12 15:49:53,705 - protlego - INFO - The RMSD between the fragments is 1.1804629564285278 over 9 alpha carbons
+2020-10-12 15:49:53,712 - protlego - INFO - Performing alignment 4 with TMalign
+2020-10-12 15:49:53,792 - protlego - INFO - The RMSD between the fragments is 10.348335266113281 over 34 alpha carbons
+2020-10-12 15:49:53,802 - protlego - INFO - Performing alignment 5 with TMalign
+2020-10-12 15:49:53,874 - protlego - INFO - The RMSD between the fragments is 4.646137714385986 over 17 alpha carbons
+2020-10-12 15:49:53,883 - protlego - INFO - Performing alignment 6 with TMalign
+2020-10-12 15:49:53,962 - protlego - INFO - The RMSD between the fragments is 3.52919340133667 over 29 alpha carbons
 </pre></div></div>
 </div>
 <div class="section" id="1.-Hydrophobic-cluster-analysis">
 <h2>1. Hydrophobic cluster analysis<a class="headerlink" href="#1.-Hydrophobic-cluster-analysis" title="Permalink to this headline">¶</a></h2>
-<p>The side chains of isoleucine, leucine, and valine (ILV) residues often form large hydrophobic clusters that very effectively impede the penetration of water to their underlying hydrogen bond networks and, thereby, enables these ILV clusters to serve as cores of stability in high‐energy partially folded states. For more information, see this publication: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1002/pro.2860">https://onlinelibrary.wiley.com/doi/full/10.1002/pro.2860</a> To compute hydrophobic clusters for a chimera object, we use the
-compute_hydrophobic_clusters() function. The ouput will be for each computed cluster:</p>
-<p>The cluster index, the residues involved in the cluster formation, the total area, the number of contacts, the contacts per residues, and the area per residue.</p>
+<p>The side chains of isoleucine, leucine, and valine (ILV) residues often form large hydrophobic clusters that very effectively impede the penetration of water to their underlying hydrogen bond networks. These ILV clusters serve as cores of stability in high‐energy partially folded states. For more information, see this publication: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1002/pro.2860">https://onlinelibrary.wiley.com/doi/full/10.1002/pro.2860</a> To compute hydrophobic clusters for a chimera object, we use the compute_hydrophobic_clusters() function. The
+ouput will be for each computed cluster:</p>
+<ul class="simple">
+<li><p>the cluster index,</p></li>
+<li><p>the residues involved in the cluster formation,</p></li>
+<li><p>the total area,</p></li>
+<li><p>the number of contacts,</p></li>
+<li><p>the contacts per residues, and</p></li>
+<li><p>the area per residue.</p></li>
+</ul>
 <p>The output can be stored in a variable to print it out for example write it into a file.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">clusters</span><span class="o">=</span> <span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_hydrophobic_clusters</span><span class="p">()</span>
+<span></span><span class="n">clusters</span><span class="o">=</span> <span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_hydrophobic_clusters</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2020-10-12 15:53:00,434 - protlego - INFO - Initializing final output
+2020-10-12 15:53:00,438 - protlego - INFO - Computing clusters
+2020-10-12 15:53:03,739 - hydrophobic_clusters - INFO - Cluster index 1:Residues 17. Total area 2120.7734167837134 A^2. Number of contacts: 52. Contacts / Residue: 3.0588235294117645. Area / Residue 40.784104168917565
+2020-10-12 15:53:03,742 - hydrophobic_clusters - INFO - Cluster index 2:Residues 12. Total area 1748.6573579708954 A^2. Number of contacts: 35. Contacts / Residue: 2.9166666666666665. Area / Residue 49.96163879916844
+2020-10-12 15:53:03,746 - hydrophobic_clusters - INFO - Cluster index 4:Residues 3. Total area 104.60916007126269 A^2. Number of contacts: 4. Contacts / Residue: 1.3333333333333333. Area / Residue 26.152290017815673
+2020-10-12 15:53:03,749 - hydrophobic_clusters - INFO - Cluster index 8:Residues 2. Total area 27.260437899926508 A^2. Number of contacts: 2. Contacts / Residue: 1.0. Area / Residue 13.630218949963254
+2020-10-12 15:53:03,752 - hydrophobic_clusters - INFO - Cluster index 11:Residues 2. Total area 100.6198276956637 A^2. Number of contacts: 2. Contacts / Residue: 1.0. Area / Residue 50.30991384783185
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -498,8 +520,16 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Cluster(area=2120.7734167837134, residues=[3, 5, 12, 16, 18, 20, 26, 29, 31, 40, 44, 47, 53, 79, 110, 141, 156], contacts=52, ratio_contacts_residue=3.0588235294117645, ratio_area_residue=40.784104168917565)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -511,55 +541,77 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2120.77341678
+[3, 5, 12, 16, 18, 20, 26, 29, 31, 40, 44, 47, 53, 79, 110, 141, 156]
+52
+3.0588235294117645
+40.7841041689
+</pre></div></div>
+</div>
 <p>With the view function one can visualize the clusters using vmd. They are displayed with VDW-spheres in different colors.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span></span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <p>There is also the possibility to change the selection for computing the clusters.The default selection are the hydrophobic residues Valine, Leucine and Isoleucine. For example, we can add PHE to the selection.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_hydrophobic_clusters</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein and noh and not backbone and resname PHE LEU VAL ILE&#39;</span><span class="p">)</span>
-<span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span></span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_hydrophobic_clusters</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein and noh and not backbone and resname PHE LEU VAL ILE&#39;</span><span class="p">)</span>
+<span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<p>Instead of a chimera object one can also work with a pdb initialized as a chimera object. Let’s use the pdb from HisF, the pdb we used for the first VMD practical</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">protein</span><span class="o">=</span><span class="n">Chimera</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/agh/projects/noelia/abhishek/chimera/2lle.pdb&#39;</span><span class="p">)</span>
-<span class="n">protein</span><span class="o">.</span><span class="n">compute_hydrophobic_clusters</span><span class="p">()</span>
-<span class="n">protein</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2020-10-12 15:53:29,968 - protlego - INFO - Initializing final output
+2020-10-12 15:53:29,972 - protlego - INFO - Computing clusters
+2020-10-12 15:53:34,019 - hydrophobic_clusters - INFO - Cluster index 1:Residues 25. Total area 4122.088491875879 A^2. Number of contacts: 74. Contacts / Residue: 2.96. Area / Residue 55.703898538863236
+2020-10-12 15:53:34,024 - hydrophobic_clusters - INFO - Cluster index 2:Residues 18. Total area 2627.861887637631 A^2. Number of contacts: 54. Contacts / Residue: 3.0. Area / Residue 48.6641090303265
+</pre></div></div>
 </div>
-</div>
+<p>Instead of chimeras, one could also work with a standard pdb, by initializing it as a chimera object.</p>
 </div>
 <div class="section" id="2.-Salt-bridges-analysis">
 <h2>2. Salt bridges analysis<a class="headerlink" href="#2.-Salt-bridges-analysis" title="Permalink to this headline">¶</a></h2>
 <p>A salt bridge is a combination of two non-covalent interactions: hydrogen bonding and ionic bonding. Ion pairing is one of the most important noncovalent forces in biological systems and it contributes to the stability to the entropically unfavorable folded conformation of proteins.</p>
 <p>To compute the salt bridges for a chimera object use the compute_salt_bridges() function.</p>
 <p>Use the view() function to visualize the salt bridges they will be displayed in Licorice. The positively charged residues are displayed in blue and the negatively charged residue are displayed in red. As before, one can also work with a pdb initialized as a chimera object.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">protein</span><span class="o">=</span><span class="n">Chimera</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/agh/projects/noelia/abhishek/chimera/2lle.pdb&#39;</span><span class="p">)</span>
-<span class="n">protein</span><span class="o">.</span><span class="n">compute_salt_bridges</span><span class="p">()</span>
-<span class="n">protein</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span></span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span>
+<span class="n">chimera</span><span class="o">.</span><span class="n">compute_salt_bridges</span><span class="p">()</span>
+<span class="n">chimera</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+563 823
+1041 873
+1265 1196
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="3.-Hydrogen-Network-analysis">
@@ -572,9 +624,8 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">protein</span><span class="o">=</span><span class="n">Chimera</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/agh/projects/noelia/abhishek/chimera/2lle.pdb&#39;</span><span class="p">)</span>
-<span class="n">protein</span><span class="o">.</span><span class="n">compute_hydrogen_networks</span><span class="p">()</span>
-<span class="n">protein</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span></span><span class="n">chimera</span><span class="o">.</span><span class="n">compute_hydrogen_networks</span><span class="p">()</span>
+<span class="n">chimera</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -595,15 +646,13 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 <h3>4.1 Calculate solvent accessible surface area<a class="headerlink" href="#4.1-Calculate-solvent-accessible-surface-area" title="Permalink to this headline">¶</a></h3>
 <p>The solvent-accessible surface area (SASA) is the surface area of a biomolecule that is accessible to a solvent. The function calc_sasa() calculates for a chimera object the solvent accessible surface area. By default, the function computes the total SASA, but it is also possible to calculate the polar or apolar surface area with the parameter sasa_type=“polar”, sasa_type=“apolar”.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">total</span><span class="o">=</span><span class="n">calc_sasa</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">])</span>
-<span class="n">polar</span><span class="o">=</span><span class="n">calc_sasa</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">]</span> <span class="p">,</span><span class="n">sasa_type</span><span class="o">=</span><span class="s2">&quot;polar&quot;</span><span class="p">)</span>
-<span class="n">apolar</span><span class="o">=</span><span class="n">calc_sasa</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">]</span> <span class="p">,</span><span class="n">sasa_type</span><span class="o">=</span><span class="s2">&quot;apolar&quot;</span><span class="p">)</span>
-<span class="n">totalpdbfile</span><span class="o">=</span><span class="n">calc_sasa</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/agh/projects/noelia/abhishek/chimera/2lle.pdb&#39;</span><span class="p">)</span>
-
+<span></span><span class="n">total</span><span class="o">=</span><span class="n">calc_sasa</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">])</span>
+<span class="n">polar</span><span class="o">=</span><span class="n">calc_sasa</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span> <span class="p">,</span><span class="n">sasa_type</span><span class="o">=</span><span class="s2">&quot;polar&quot;</span><span class="p">)</span>
+<span class="n">apolar</span><span class="o">=</span><span class="n">calc_sasa</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span> <span class="p">,</span><span class="n">sasa_type</span><span class="o">=</span><span class="s2">&quot;apolar&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -612,12 +661,9 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2020-01-21 12:28:29,533 - protlego - INFO - Area is 120.56597900390625 (nm)^2
-2020-01-21 12:28:29,788 - protlego - INFO - Area is 94.2850341796875 (nm)^2
-2020-01-21 12:28:30,033 - protlego - INFO - Area is 24.696435928344727 (nm)^2
-/agh/projects/noelia/miniconda3/envs/my-rdkit-env/lib/python3.6/site-packages/mdtraj/formats/pdb/pdbfile.py:196: UserWarning: Unlikely unit cell vectors detected in PDB file likely resulting from a dummy CRYST1 record. Discarding unit cell vectors.
-  warnings.warn(&#39;Unlikely unit cell vectors detected in PDB file likely &#39;
-2020-01-21 12:28:32,717 - protlego - INFO - Area is 126.6241455078125 (nm)^2
+2020-10-12 16:04:08,365 - protlego - INFO - Area is 87.79385375976562 (nm)^2
+2020-10-12 16:04:08,526 - protlego - INFO - Area is 60.05790710449219 (nm)^2
+2020-10-12 16:04:08,699 - protlego - INFO - Area is 27.735942840576172 (nm)^2
 </pre></div></div>
 </div>
 </div>
@@ -630,38 +676,32 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 <li><p>E: Sheet</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">calc_dssp</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">])</span>
+<span></span><span class="n">calc_dssp</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([[&#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;,
-        &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;,
-        &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;]],
+<span></span>array([[&#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;,
+        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;,
+        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;,
+        &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;,
+        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;,
+        &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;,
+        &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;,
+        &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;]],
       dtype=&#39;&lt;U2&#39;)
 </pre></div>
 </div>
@@ -678,38 +718,32 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 <li><p>’ ’: None</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">calc_dssp</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">],</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="n">calc_dssp</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">],</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([[&#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39;S&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;S&#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;,
-        &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39;H&#39;, &#39;I&#39;, &#39;I&#39;, &#39;I&#39;, &#39;I&#39;,
-        &#39;I&#39;, &#39;I&#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39;S&#39;, &#39;S&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;S&#39;, &#39;T&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39; &#39;, &#39;S&#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39; &#39;, &#39;S&#39;, &#39;S&#39;, &#39;S&#39;, &#39; &#39;, &#39; &#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39;G&#39;, &#39;G&#39;, &#39;G&#39;, &#39;T&#39;,
-        &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;S&#39;, &#39;S&#39;, &#39; &#39;, &#39; &#39;, &#39;S&#39;, &#39; &#39;, &#39; &#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39;E&#39;, &#39;E&#39;,
-        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;G&#39;, &#39;G&#39;, &#39;G&#39;, &#39;G&#39;, &#39;G&#39;, &#39;G&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;T&#39;, &#39;S&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39;S&#39;, &#39;S&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
-        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39; &#39;, &#39; &#39;]],
+<span></span>array([[&#39; &#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;S&#39;, &#39;T&#39;, &#39;T&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;,
+        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;S&#39;, &#39;S&#39;, &#39;S&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39;S&#39;, &#39;S&#39;, &#39;S&#39;, &#39;S&#39;, &#39; &#39;,
+        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;S&#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39; &#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;,
+        &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;S&#39;, &#39;S&#39;, &#39;S&#39;, &#39; &#39;, &#39; &#39;, &#39;E&#39;,
+        &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39;S&#39;, &#39;S&#39;, &#39; &#39;, &#39; &#39;, &#39;S&#39;,
+        &#39;S&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39; &#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;T&#39;,
+        &#39; &#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39; &#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;,
+        &#39;T&#39;, &#39;T&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;,
+        &#39;T&#39;, &#39; &#39;, &#39;T&#39;, &#39;T&#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;]],
       dtype=&#39;&lt;U2&#39;)
 </pre></div>
 </div>
@@ -719,12 +753,12 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 <h3>4.3 Calculating distance matrices<a class="headerlink" href="#4.3-Calculating-distance-matrices" title="Permalink to this headline">¶</a></h3>
 <p>The function calc_dist_matrix calculates a distance matrix for a chimera object or a pdb file. The selection can be defined, default selection is by residue but selection can be also alpha for taking only the C alpha atoms into account. Also the type can be defined default is contacts for calculating only a contact map, but the parameter type can be also set to distances to draw a distance matrix. The parameter plot can be set to true to draw a plot.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">contact_map</span><span class="o">=</span><span class="n">calc_dist_matrix</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">],</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">distance_matrix</span><span class="o">=</span><span class="n">calc_dist_matrix</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">],</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;distances&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">contact_map</span><span class="o">=</span><span class="n">calc_dist_matrix</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">],</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">distance_matrix</span><span class="o">=</span><span class="n">calc_dist_matrix</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">],</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;distances&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -732,14 +766,14 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/structural_36_0.png" src="_images/structural_36_0.png" />
+<img alt="_images/structural_35_0.png" src="_images/structural_35_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/structural_36_1.png" src="_images/structural_36_1.png" />
+<img alt="_images/structural_35_1.png" src="_images/structural_35_1.png" />
 </div>
 </div>
 </div>
@@ -748,11 +782,11 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 <p>The function calc_contact_order can be used to calculate the contact order of a protein. It is a measure of the locality of the inter-amino acid contacts in the native folded state. It is computed as the average sequence distance between residues that form contacts below a threshold in the folded protein divided by the total length of the protein. The function can calculate the contact order of a chimera object or a pdb file and the distance cutoff can be set, the default distance cutoff is 8
 Ångström. The output is the contact order.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">calc_contact_order</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_103&#39;</span><span class="p">])</span>
+<span></span><span class="n">calc_contact_order</span><span class="p">(</span><span class="n">chimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -761,24 +795,15 @@ compute_hydrophobic_clusters() function. The ouput will be for each computed clu
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Contact order is 14.391958203440714 %
+Contact order is 16.048235723913784 %
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>14.391958203440714
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span>16.048235723913784
 </pre></div>
 </div>
 </div>

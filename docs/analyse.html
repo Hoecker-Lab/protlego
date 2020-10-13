@@ -90,13 +90,13 @@
               <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Clusters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#module-structural.hh_networks">HH-networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#salt-bridges">Salt-bridges</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -392,117 +392,14 @@ into a VMD session
 </dd></dl>
 
 </div>
-<div class="section" id="module-structural.hh_networks">
-<span id="hh-networks"></span><h1>HH-networks<a class="headerlink" href="#module-structural.hh_networks" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="structural.hh_networks.protonate_mol">
-<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">protonate_mol</code><span class="sig-paren">(</span><em class="sig-param">inputmolfile: str</em><span class="sig-paren">)</span> &#x2192; moleculekit.molecule.Molecule<a class="reference internal" href="_modules/structural/hh_networks.html#protonate_mol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.protonate_mol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads, filters the object to chain A and protonates the selection.
-It then writes the filtered protonated pdb out.
-:param inputmolfile: path to the pdb file
-:return: the Molecule object</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="structural.hh_networks.write_networks">
-<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">write_networks</code><span class="sig-paren">(</span><em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">components: graph_tool.PropertyArray</em>, <em class="sig-param">inputmolfile: str</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/hh_networks.html#write_networks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.write_networks" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function outputs the HH networks into a VMD session
-:param g: A Graph object
-:param outputname: The pdb filename.
-:param outputname: The file name to output the VMD session to.
-:return:</p>
-</dd></dl>
-
+<div class="section" id="hh-networks">
+<h1>HH-networks<a class="headerlink" href="#hh-networks" title="Permalink to this headline">¶</a></h1>
 </div>
-<div class="section" id="module-structural.salt_bridges">
-<span id="salt-bridges"></span><h1>Salt-bridges<a class="headerlink" href="#module-structural.salt_bridges" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="structural.salt_bridges.write_salt_bridges">
-<code class="sig-prename descclassname">structural.salt_bridges.</code><code class="sig-name descname">write_salt_bridges</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.ndarray</em>, <em class="sig-param">mapping: pandas.core.frame.DataFrame</em>, <em class="sig-param">mol: moleculekit.molecule.Molecule</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/salt_bridges.html#write_salt_bridges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.salt_bridges.write_salt_bridges" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function outputs the HH networks into a VMD session
-:param g: A Graph object
-:param outputname: The pdb filename.
-:param outputname: The file name to output the VMD session to.
-:return:</p>
-</dd></dl>
-
+<div class="section" id="salt-bridges">
+<h1>Salt-bridges<a class="headerlink" href="#salt-bridges" title="Permalink to this headline">¶</a></h1>
 </div>
 <div class="section" id="further-structural-analysis">
 <h1>Further structural analysis<a class="headerlink" href="#further-structural-analysis" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-structural.analysestrc"></span><dl class="function">
-<dt id="structural.analysestrc.calc_contact_order">
-<code class="sig-prename descclassname">structural.analysestrc.</code><code class="sig-name descname">calc_contact_order</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">diss_cutoff: int = 8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysestrc.html#calc_contact_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysestrc.calc_contact_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>The contact order of a protein is a measure of the locality of the inter-amino acid contacts in the
-native folded state. It is computed as the average seqeuence distance between residues that form contacts
-below a threshold in the folded protein divided by the total length of the protein”
-:param chimera: A Chimera object with n residues.
-:param filename: path to a pdb file
-:paam diss_cutoff: The maximum distance in Armstrong between two residues to be in contact
-:return: the contact order (%)</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="structural.analysestrc.calc_dist_matrix">
-<code class="sig-prename descclassname">structural.analysestrc.</code><code class="sig-name descname">calc_dist_matrix</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">selection: str = 'residue'</em>, <em class="sig-param">type='contacts'</em>, <em class="sig-param">plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysestrc.html#calc_dist_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysestrc.calc_dist_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a matrix of C-alpha distances for a given pdb
-:param chimera: A Chimera object with n residues.
-:param filename: path to a pdb file
-:param type: between contacts (contact map when distances are below 8 armstrongs) or distances
-:param selection: How to compute the distance. ‘residue’ (the closest two
-atoms between two residues) or ‘alpha’ distance of the alpha carbons.
-:return:</p>
-<blockquote>
-<div><p>matrix. np.array. An n by n distance matrix.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="structural.analysestrc.calc_dssp">
-<code class="sig-prename descclassname">structural.analysestrc.</code><code class="sig-name descname">calc_dssp</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">simplified: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysestrc.html#calc_dssp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysestrc.calc_dssp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute Dictionary of protein secondary structure (DSSP) secondary structure assignments.
-This funcion uses the MDtraj compute_dssp implementation as a basis.
-:param chimera: A Chimera object.
-:param pdb: path to a pdb file
-:param simplified: Use the simplified 3-category assignment scheme. Otherwise the original 8-category scheme is used.
-:return:</p>
-<blockquote>
-<div><p>assignments np.ndarray. The secondary structure assignment for each residue</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="structural.analysestrc.calc_sasa">
-<code class="sig-prename descclassname">structural.analysestrc.</code><code class="sig-name descname">calc_sasa</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">probe_radius: float = 0.14</em>, <em class="sig-param">n_sphere_points: int = 960</em>, <em class="sig-param">sasa_type='total'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysestrc.html#calc_sasa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysestrc.calc_sasa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the Solvent Accessible Surface Area of the protein.
-This funcion uses the MDtraj shrake_rupley implementation as a basis.
-:param chimera: A Chimera object.
-:param filename: Path to a pdb file
-:param probe_radius The radius of the probe, in nm.
-:param the number of points representing the sufrace of each atom. Higher values lead to more accuracy.
-:mode In mode == ‘atom’, the extracted areas are resolved per-atom.</p>
-<blockquote>
-<div><p>In mode == ‘residue’, this is consolidated down to the per-residue SASA by summing over the atoms in each residue.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>type</strong> – Type of calculation to perform. To select from polar, apolar, or total.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>areas: np.array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="structural.analysestrc.hhbond_plot">
-<code class="sig-prename descclassname">structural.analysestrc.</code><code class="sig-name descname">hhbond_plot</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysestrc.html#hhbond_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysestrc.hhbond_plot" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 
