@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>structural.clusters &mdash; ProtLego 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ProtLego
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builder.html#chimera-class">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#salt-bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#further-structural-analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../network.html">1. Drawing relationships between two superfamilies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ProtLego</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>structural.clusters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for structural.clusters</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">moleculekit.molecule</span> <span class="k">import</span> <span class="n">Molecule</span>
+<span class="kn">from</span> <span class="nn">moleculekit.vmdviewer</span> <span class="k">import</span> <span class="n">viewer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="k">import</span> <span class="n">cdist</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">getopt</span>
+<span class="kn">from</span> <span class="nn">graph_tool.all</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">moleculekit</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">moleculekit</span><span class="o">.</span><span class="n">molecule</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;hydrophobic_clusters&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">NamedTuple</span>
+
+
+<div class="viewcode-block" id="Cluster"><a class="viewcode-back" href="../../analyse.html#structural.clusters.Cluster">[docs]</a><span class="k">class</span> <span class="nc">Cluster</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">area</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+    <span class="n">residues</span><span class="p">:</span> <span class="nb">list</span>
+    <span class="n">contacts</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">ratio_contacts_residue</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ratio_area_residue</span><span class="p">:</span> <span class="nb">float</span></div>
+
+
+<span class="c1"># Paths and variables</span>
+<span class="n">sel</span> <span class="o">=</span> <span class="s2">&quot;protein and chain A and not backbone and noh and resname ILE VAL LEU&quot;</span>
+<span class="c1"># mol_path=&#39;/agh/projects/PotF/data/potf/ligand/structures/potfwt-spd/3pk1/phenix/Refine_49/wt_potf_spd_refine_TLS_NCSfull_hydrogens_b20_049.pdb&#39;</span>
+<span class="n">_ATOMIC_RADII</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mf">1.88</span><span class="p">}</span>
+<span class="n">water_radius</span> <span class="o">=</span> <span class="mf">1.4</span>
+<span class="n">sphere_radius_carbon</span> <span class="o">=</span> <span class="n">_ATOMIC_RADII</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">water_radius</span>
+<span class="n">sphere_points</span> <span class="o">=</span> <span class="mi">610</span>
+<span class="n">sphere_area_const</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">sphere_radius_carbon</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sphere_points</span>
+
+
+<div class="viewcode-block" id="Atom"><a class="viewcode-back" href="../../analyse.html#structural.clusters.Atom">[docs]</a><span class="k">class</span> <span class="nc">Atom</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to handle ILV atoms</span>
+<span class="sd">    index: the vmd atom index</span>
+<span class="sd">    mol: an htmd.htmd.molecule object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">_ATOMIC_RADII</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>  <span class="c1"># All distances in Angstrom</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mol</span><span class="p">:</span> <span class="n">Molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">index</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resid</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">resid</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point_coords</span> <span class="o">=</span> <span class="n">generate_sphere_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">sphere_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Atom.get_neighbors"><a class="viewcode-back" href="../../analyse.html#structural.clusters.Atom.get_neighbors">[docs]</a>    <span class="k">def</span> <span class="nf">get_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">:</span> <span class="n">Molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides all indices of atoms within 6.56 A of this atom.</span>
+<span class="sd">        6.56 is the upper bound of a possible neighbor 1.88 (C) + 1.4 + 1.4 + 1.88 (C).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">neighbor_indices</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">sel</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;protein and chain A</span><span class="se">\</span>
+<span class="s2">        and noh and not resid &#39;</span><span class="si">{self.resid}</span><span class="s2">&#39; and within 6.56 of index &#39;</span><span class="si">{self.index}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">neighbor_indices</span></div></div>
+
+
+<div class="viewcode-block" id="generate_sphere_points"><a class="viewcode-back" href="../../analyse.html#structural.clusters.generate_sphere_points">[docs]</a><span class="k">def</span> <span class="nf">generate_sphere_points</span><span class="p">(</span><span class="n">coords</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">610</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.88</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param coords: The coordinates of the center of the atom</span>
+<span class="sd">    :param n: number of points to sample</span>
+<span class="sd">    :param radius: the radius of the atom</span>
+<span class="sd">    :return: a nx3 vector with the point coordinates</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">total_radius</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">+</span> <span class="n">water_radius</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inc</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">offset</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">offset</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">inc</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">])</span>
+    <span class="n">vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">vec</span> <span class="o">*=</span> <span class="n">total_radius</span>
+    <span class="n">vec</span> <span class="o">+=</span> <span class="n">coords</span>
+    <span class="k">return</span> <span class="n">vec</span></div>
+
+
+<div class="viewcode-block" id="retrieve_neighbor_positions"><a class="viewcode-back" href="../../analyse.html#structural.clusters.retrieve_neighbor_positions">[docs]</a><span class="k">def</span> <span class="nf">retrieve_neighbor_positions</span><span class="p">(</span><span class="n">atom</span><span class="p">:</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">mol</span><span class="p">:</span> <span class="n">Molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param atom: an Atom object</span>
+<span class="sd">    :param mol: a htmd.htmd.molecule object</span>
+<span class="sd">    :return:</span>
+<span class="sd">    Positions of the neighboring atoms</span>
+<span class="sd">    A dictionary indexing column positions to resid positions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">positions</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">neighbor_indices</span><span class="p">][:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">position_index_to_resid</span> <span class="o">=</span> <span class="p">{</span><span class="n">index</span><span class="p">:</span> <span class="n">mol</span><span class="o">.</span><span class="n">resid</span><span class="p">[</span><span class="n">neighbor_indice</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">neighbor_indice</span> <span class="ow">in</span>
+                               <span class="nb">enumerate</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">neighbor_indices</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">positions</span><span class="p">,</span> <span class="n">position_index_to_resid</span></div>
+
+
+<div class="viewcode-block" id="retrieve_indices"><a class="viewcode-back" href="../../analyse.html#structural.clusters.retrieve_indices">[docs]</a><span class="k">def</span> <span class="nf">retrieve_indices</span><span class="p">(</span><span class="n">matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">coords</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">neighborpositions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.88</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes if each of the n sphere points are penetrating neighboring spheres</span>
+<span class="sd">    :param matrix: n x m Distance matrix where n is the number of sphere points and m the number of neighbors</span>
+<span class="sd">    :param coords: the coordinates of the atom</span>
+<span class="sd">    :param neighborpositions: Coordinates of the neighbors</span>
+<span class="sd">    :param radius: radius of the atom</span>
+<span class="sd">    :return: The atoms that are in closest with each n sphere points.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">## When a row contains several atoms in contact,</span>
+    <span class="c1">#  select the one with the closest center to the center of atom A</span>
+    <span class="n">sphere_radius</span> <span class="o">=</span> <span class="n">water_radius</span> <span class="o">+</span> <span class="n">radius</span>
+    <span class="c1">#When a point is within the sphere of other atoms, the atom that is closest is chosen.</span>
+    <span class="c1"># We need to compute the distances between all atom-neighbor pairs.</span>
+    <span class="n">dist_center_atoms</span> <span class="o">=</span> <span class="n">cdist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="n">neighborpositions</span><span class="p">)</span>
+    <span class="n">ranking</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">dist_center_atoms</span><span class="p">)</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">&lt;=</span> <span class="n">sphere_radius</span>
+    <span class="n">idx2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">valid</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="c1"># 1. ordering the row with Falses and Trues according to the ranking order</span>
+            <span class="c1"># 2. Getting the first element that is true, which will be the first in the</span>
+            <span class="c1"># raking list, thus the index of the closest atom.</span>
+            <span class="n">idx2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ranking</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">ranking</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">row</span><span class="p">)))[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">idx2</span></div>
+
+
+<div class="viewcode-block" id="fill_matrices"><a class="viewcode-back" href="../../analyse.html#structural.clusters.fill_matrices">[docs]</a><span class="k">def</span> <span class="nf">fill_matrices</span><span class="p">(</span><span class="n">atom</span><span class="p">:</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">mol</span><span class="p">:</span> <span class="n">Molecule</span><span class="p">,</span> <span class="n">atom_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+                  <span class="n">resid_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">resids</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param atom: An Atom class</span>
+<span class="sd">    :param mol: an htmd.htmd.molecule object</span>
+<span class="sd">    :param atom_matrix: the index x index area matrix</span>
+<span class="sd">    :param resid_matrix: the ILVresid x ILVresid area matrix</span>
+<span class="sd">    :param indices: the indices that belong to ILV sidechain heavy atoms</span>
+<span class="sd">    :param resids: the resids that belong to ILV sidechain heavy atoms</span>
+<span class="sd">    :return: Updated atom_matrix and resid_matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">neighbor_positions</span><span class="p">,</span> <span class="n">position_index_to_resid</span> <span class="o">=</span> <span class="n">retrieve_neighbor_positions</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="n">mol</span><span class="p">)</span>
+    <span class="c1"># Compute distances between all sphere points and the neighbors.</span>
+    <span class="c1"># THe shape will be 610 (rows) x nr. of neighbors (columns).</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">cdist</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">point_coords</span><span class="p">,</span> <span class="n">neighbor_positions</span><span class="p">)</span>
+    <span class="n">column_indices</span> <span class="o">=</span> <span class="n">retrieve_indices</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">atom</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">neighbor_positions</span><span class="p">)</span>
+    <span class="n">colpos_occurrences</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">column_indices</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">colpos</span><span class="p">,</span> <span class="n">occurrences</span> <span class="ow">in</span> <span class="n">colpos_occurrences</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">atom</span><span class="o">.</span><span class="n">neighbor_indices</span><span class="p">[</span><span class="n">colpos</span><span class="p">]</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="n">area</span> <span class="o">=</span> <span class="n">sphere_area_const</span> <span class="o">*</span> <span class="n">occurrences</span>
+            <span class="n">atom_matrix</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">atom</span><span class="o">.</span><span class="n">neighbor_indices</span><span class="p">[</span><span class="n">colpos</span><span class="p">]]</span> <span class="o">=</span> <span class="n">area</span>
+            <span class="n">index_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">resids</span> <span class="o">==</span> <span class="n">atom</span><span class="o">.</span><span class="n">resid</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">index_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">resids</span> <span class="o">==</span> <span class="n">position_index_to_resid</span><span class="p">[</span><span class="n">colpos</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">resid_matrix</span><span class="p">[</span><span class="n">index_i</span><span class="p">,</span> <span class="n">index_j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">area</span>
+    <span class="k">return</span> <span class="n">atom_matrix</span><span class="p">,</span> <span class="n">resid_matrix</span></div>
+
+
+<div class="viewcode-block" id="create_graph"><a class="viewcode-back" href="../../analyse.html#structural.clusters.create_graph">[docs]</a><span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="n">resid_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">resid_list</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">cutoff_area</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param resid_matrix: the ILVresid x ILVresid area matrix</span>
+<span class="sd">    :param resid_list: the index x index area matrix</span>
+<span class="sd">    :return: A Graph object where each component is a ILV cluster</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">resid</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">ep</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">new_edge_property</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    <span class="c1"># 1. Create all vertices</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">resid_matrix</span><span class="p">)):</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">resid</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span> <span class="o">=</span> <span class="n">resid_list</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+
+    <span class="c1"># 2. Create edges and fill its values with areas</span>
+    <span class="k">for</span> <span class="n">row_index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">resid_matrix</span><span class="p">):</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">vertex</span><span class="p">(</span><span class="n">row_index</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">column_index</span><span class="p">,</span> <span class="n">area</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+            <span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">vertex</span><span class="p">(</span><span class="n">column_index</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="n">cutoff_area</span><span class="p">:</span>
+                <span class="n">ae</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">ep</span><span class="o">.</span><span class="n">area</span><span class="p">[</span><span class="n">ae</span><span class="p">]</span> <span class="o">=</span> <span class="n">area</span>
+    <span class="k">return</span> <span class="n">g</span></div>
+
+
+<div class="viewcode-block" id="filter_mol"><a class="viewcode-back" href="../../analyse.html#structural.clusters.filter_mol">[docs]</a><span class="k">def</span> <span class="nf">filter_mol</span><span class="p">(</span><span class="n">inputmolfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Molecule</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads, filters the object to chain A and writes filtered pdb out.</span>
+<span class="sd">    :param inputmolfile: path to the pdb file</span>
+<span class="sd">    :return: the Molecule object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">Molecule</span><span class="p">(</span><span class="n">inputmolfile</span><span class="p">)</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;protein and chain A&quot;</span><span class="p">)</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{inputmolfile[:-4]}</span><span class="s2">-chainA.pdb&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mol</span></div>
+
+
+<div class="viewcode-block" id="write_clusters"><a class="viewcode-back" href="../../analyse.html#structural.clusters.write_clusters">[docs]</a><span class="k">def</span> <span class="nf">write_clusters</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">components</span><span class="p">:</span> <span class="n">PropertyArray</span><span class="p">,</span> <span class="n">inputmolfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function prints the clusters to the terminal and outputs them</span>
+<span class="sd">    into a VMD session</span>
+<span class="sd">    :param g: A Graph object</span>
+<span class="sd">    :param outputname: The pdb filename.</span>
+<span class="sd">    :param outputname: The file name to output the VMD session to.</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">outputname</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">Molecule</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{inputmolfile[:-4]}</span><span class="s2">-chainA.pdb&quot;</span><span class="p">)</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;NewCartoon&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">cluster_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">components</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">components</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">cluster_index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">vfilt</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="s1">&#39;bool&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">:</span> <span class="n">vfilt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">GraphView</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">vfilt</span><span class="p">)</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">g</span><span class="o">.</span><span class="n">ep</span><span class="o">.</span><span class="n">area</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span> <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">edges</span><span class="p">()])</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Cluster index </span><span class="si">{cluster_index}</span><span class="s2">:</span><span class="se">\t</span><span class="s2">&quot;</span>
+                <span class="n">f</span><span class="s2">&quot;Residues {len(cluster)}. Total area </span><span class="si">{area}</span><span class="s2"> A^2.</span><span class="se">\t</span><span class="s2"> &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;Number of contacts: {sub.num_edges()}.</span><span class="se">\t</span><span class="s2"> &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;Contacts / Residue: {sub.num_edges() / len(cluster) }.</span><span class="se">\t</span><span class="s2"> &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;Area / Residue {area / sub.num_edges()}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># sum reverse and inverse</span>
+        <span class="n">resid_cluster</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">resid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">]</span>
+        <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;chain A and noh and not backbone and resid </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">resid_cluster</span><span class="p">)),</span>
+                     <span class="n">style</span><span class="o">=</span><span class="s2">&quot;VDW&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cluster_index</span><span class="p">)</span>
+
+    <span class="n">vmdobject</span> <span class="o">=</span> <span class="n">viewer</span><span class="p">(</span><span class="n">dispdev</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+    <span class="n">vmdobject</span><span class="o">.</span><span class="n">loadMol</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">inputmolfile</span><span class="p">)</span>
+    <span class="n">vmdobject</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;save_state &quot;</span> <span class="o">+</span> <span class="n">outputname</span><span class="p">)</span>
+    <span class="n">vmdobject</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="add_clusters"><a class="viewcode-back" href="../../analyse.html#structural.clusters.add_clusters">[docs]</a><span class="k">def</span> <span class="nf">add_clusters</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">components</span><span class="p">:</span> <span class="n">PropertyArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param mol:</span>
+<span class="sd">    :param g:</span>
+<span class="sd">    :param components:</span>
+<span class="sd">    :return: Molecule representations</span>
+<span class="sd">            A list with Cluster objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;NewCartoon&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">cluster_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">components</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">components</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">cluster_index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">vfilt</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="s1">&#39;bool&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">:</span> <span class="n">vfilt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">GraphView</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">vfilt</span><span class="p">)</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">g</span><span class="o">.</span><span class="n">ep</span><span class="o">.</span><span class="n">area</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span> <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">edges</span><span class="p">()])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Cluster index </span><span class="si">{cluster_index}</span><span class="s2">:&quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;Residues {len(cluster)}. Total area </span><span class="si">{area}</span><span class="s2"> A^2. &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;Number of contacts: {sub.num_edges()}. &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;Contacts / Residue: {sub.num_edges() / len(cluster) }. &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;Area / Residue {area / sub.num_edges()}&quot;</span><span class="p">)</span>  <span class="c1"># sum reverse and inverse</span>
+        <span class="n">resid_cluster</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">resid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">]</span>
+        <span class="n">clusters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Cluster</span><span class="p">(</span>
+            <span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span>
+            <span class="n">residues</span><span class="o">=</span><span class="n">resid_cluster</span><span class="p">,</span>
+            <span class="n">contacts</span><span class="o">=</span><span class="n">sub</span><span class="o">.</span><span class="n">num_edges</span><span class="p">(),</span>
+            <span class="n">ratio_contacts_residue</span><span class="o">=</span><span class="n">sub</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">),</span>
+            <span class="n">ratio_area_residue</span><span class="o">=</span><span class="n">area</span> <span class="o">/</span> <span class="n">sub</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+        <span class="p">))</span>
+        <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;chain A and noh and not backbone and resid </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">resid_cluster</span><span class="p">)),</span>
+                     <span class="n">style</span><span class="o">=</span><span class="s2">&quot;VDW&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cluster_index</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">clusters</span></div>
+
+
+<div class="viewcode-block" id="write_largest_cluster"><a class="viewcode-back" href="../../analyse.html#structural.clusters.write_largest_cluster">[docs]</a><span class="k">def</span> <span class="nf">write_largest_cluster</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">inputmolfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function prints the clusters to the terminal and outputs them</span>
+<span class="sd">    into a VMD session</span>
+<span class="sd">    :param g: A Graph object</span>
+<span class="sd">    :param outputname: The pdb filename.</span>
+<span class="sd">    :param outputname: The file name to output the VMD session to.</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">Molecule</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{inputmolfile[:-4]}</span><span class="s2">-chainA.pdb&quot;</span><span class="p">)</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;NewCartoon&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">label_largest_component</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">GraphView</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">vfilt</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">resid_cluster</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">resid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">vertices</span><span class="p">()]</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;chain A and noh and not backbone and resid </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">resid_cluster</span><span class="p">)),</span>
+                 <span class="n">style</span><span class="o">=</span><span class="s2">&quot;VDW&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># red</span>
+    <span class="n">vmdobject</span> <span class="o">=</span> <span class="n">viewer</span><span class="p">(</span><span class="n">dispdev</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+    <span class="n">vmdobject</span><span class="o">.</span><span class="n">loadMol</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">inputmolfile</span><span class="p">)</span>
+    <span class="n">vmdobject</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;save_state &quot;</span> <span class="o">+</span> <span class="n">outputname</span><span class="p">)</span>
+    <span class="n">vmdobject</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="postprocess_session"><a class="viewcode-back" href="../../analyse.html#structural.clusters.postprocess_session">[docs]</a><span class="k">def</span> <span class="nf">postprocess_session</span><span class="p">(</span><span class="n">inputmolfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modifies the VMD session to not include tmp files</span>
+<span class="sd">    :param outputname: The vmd session (output file)</span>
+<span class="sd">    :param inputmolfile: Path to the pdb file already processed (filtered and or protonated)</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">outputname</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{outputname}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;mol new /tmp/&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;mol new </span><span class="si">{inputmolfile}</span><span class="s2">&quot;</span> \
+                   <span class="n">f</span><span class="s2">&quot; type pdb first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&quot;mol addfile /tmp/&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
+    <span class="n">inputfile</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">outputfile</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="s2">&quot;hi:o:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;ifile=&quot;</span><span class="p">,</span> <span class="s2">&quot;ofile=&quot;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="n">getopt</span><span class="o">.</span><span class="n">GetoptError</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hydroClusters.py -i &lt;inputfile&gt; -o &lt;outputfile&gt;&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">opts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;-h&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test.py -i &lt;inputfile&gt; -o &lt;outputfile&gt;&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="s2">&quot;--ifile&quot;</span><span class="p">):</span>
+            <span class="n">inputfile</span> <span class="o">=</span> <span class="n">arg</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--ofile&quot;</span><span class="p">):</span>
+            <span class="n">outputfile</span> <span class="o">=</span> <span class="n">arg</span>
+
+    <span class="c1"># Initialize molecules</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Filtering and writing PDB&quot;</span><span class="p">)</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">filter_mol</span><span class="p">(</span><span class="n">inputfile</span><span class="p">)</span>
+    <span class="n">resids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resid&quot;</span><span class="p">,</span> <span class="n">sel</span><span class="o">=</span><span class="n">sel</span><span class="p">))</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">((</span><span class="n">resids</span><span class="p">))</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">sel</span><span class="o">=</span><span class="n">sel</span><span class="p">)</span>
+    <span class="n">dims_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">sel</span><span class="o">=</span><span class="s2">&quot;protein and chain A&quot;</span><span class="p">))</span>
+
+    <span class="c1"># Initializing Final output</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing final output&quot;</span><span class="p">)</span>
+    <span class="n">contacts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dims</span><span class="p">,</span> <span class="n">dims</span><span class="p">))</span>
+    <span class="n">atoms_to_atoms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dims_indices</span><span class="p">,</span> <span class="n">dims_indices</span><span class="p">))</span>
+
+    <span class="c1"># Filling matrices</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computing clusters&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">mol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">neighbor_indices</span><span class="o">.</span><span class="n">any</span><span class="p">():</span> <span class="k">continue</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">contacts</span> <span class="o">=</span> <span class="n">fill_matrices</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mol</span><span class="p">,</span> <span class="n">atoms_to_atoms</span><span class="p">,</span> <span class="n">contacts</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">resids</span><span class="p">)</span>
+
+    <span class="c1"># Rendering clusters</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">create_graph</span><span class="p">(</span><span class="n">contacts</span><span class="p">,</span> <span class="n">resids</span><span class="p">)</span>
+    <span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">label_components</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">comp</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">write_clusters</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">comp</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">inputfile</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">)</span>
+        <span class="n">inputfile_processed</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{inputfile[:-4]}</span><span class="s2">-chainA.pdb&quot;</span>
+        <span class="n">postprocess_session</span><span class="p">(</span><span class="n">inputfile_processed</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">)</span>
+        <span class="n">summary_output</span> <span class="o">=</span> <span class="n">outputfile</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;-major.vmd&quot;</span>
+        <span class="n">write_largest_cluster</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">inputfile</span><span class="p">,</span> <span class="n">summary_output</span><span class="p">)</span>
+        <span class="n">postprocess_session</span><span class="p">(</span><span class="n">inputfile</span><span class="p">,</span> <span class="n">summary_output</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving VMD sessions&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The ILV residues are not in contact&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Noelia Ferruz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

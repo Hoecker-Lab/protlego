@@ -1,8 +1,8 @@
 import csv, sqlite3
-conn = sqlite3.connect('fuzzle2.06.db')
+conn = sqlite3.connect('fuzzle2.07.db')
 
 c = conn.cursor()
-c.execute('''CREATE TABLE IF NOT EXISTS hh206clusters
+c.execute('''CREATE TABLE IF NOT EXISTS hh207clusters
             (id integer, query text, q_scop_id varchar, no integer, sbjct text,
             s_scop_id varchar, s_desc text, prob double precision,
             eval double precision, pval double precision, score double precision,
@@ -15,7 +15,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS hh206clusters
             ca_tm integer, q_tm_start integer, q_tm_end integer,s_tm_start integer,
             s_tm_end integer, q_cluster text, s_cluster text)''')
 
-with open('/agh/projects/noelia/fuzzle/hemd/hh206clusters.csv','r') as fin:
+with open('./hh207clusters.csv','r') as fin:
     dr = csv.DictReader(fin)
     to_db = [(i['id'], i['query'],i['q_scop_id'],i['no'],
               i['sbjct'], i['s_scop_id'], i['s_desc'], i['prob'],
@@ -28,15 +28,15 @@ with open('/agh/projects/noelia/fuzzle/hemd/hh206clusters.csv','r') as fin:
               i['q_tm_start'], i['q_tm_end'], i['s_tm_start'], i['s_tm_end'],
               i['q_cluster'], i['s_cluster']) for i in dr]
 
-c.executemany("INSERT INTO hh206clusters (id,query,q_scop_id,no,sbjct,s_scop_id,s_desc,prob,eval,pval,score,ss,cols,q_start,q_end,s_start,s_end,hmm,ident,q_sufam_id,s_sufam_id,q_fold_id,s_fold_id,rmsd_pair,ca_pair,rmsd_tm_pair,score_tm_pair,ca_tm_pair,rmsd_tm,score_tm,ca_tm,q_tm_start,q_tm_end,s_tm_start,s_tm_end,q_cluster,s_cluster) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", to_db)
+c.executemany("INSERT INTO hh207clusters (id,query,q_scop_id,no,sbjct,s_scop_id,s_desc,prob,eval,pval,score,ss,cols,q_start,q_end,s_start,s_end,hmm,ident,q_sufam_id,s_sufam_id,q_fold_id,s_fold_id,rmsd_pair,ca_pair,rmsd_tm_pair,score_tm_pair,ca_tm_pair,rmsd_tm,score_tm,ca_tm,q_tm_start,q_tm_end,s_tm_start,s_tm_end,q_cluster,s_cluster) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", to_db)
 
-c.execute("CREATE INDEX query ON hh206clusters (query)")
-c.execute("CREATE INDEX sbjct ON hh206clusters (sbjct)")
-c.execute("CREATE INDEX query_subject ON hh206clusters (query,sbjct)")
-c.execute("CREATE INDEX fuzzle_id ON hh206clusters (id)")
-c.execute("CREATE INDEX folds ON hh206clusters (q_fold_id,s_fold_id)")
-c.execute("CREATE INDEX sufams ON hh206clusters (q_sufam_id,s_sufam_id)")
-c.execute("CREATE INDEX fams ON hh206clusters (q_scop_id,s_scop_id)")
+c.execute("CREATE INDEX query ON hh207clusters (query)")
+c.execute("CREATE INDEX sbjct ON hh207clusters (sbjct)")
+c.execute("CREATE INDEX query_subject ON hh207clusters (query,sbjct)")
+c.execute("CREATE INDEX fuzzle_id ON hh207clusters (id)")
+c.execute("CREATE INDEX folds ON hh207clusters (q_fold_id,s_fold_id)")
+c.execute("CREATE INDEX sufams ON hh207clusters (q_sufam_id,s_sufam_id)")
+c.execute("CREATE INDEX fams ON hh207clusters (q_scop_id,s_scop_id)")
 
 conn.commit()
 c.close()

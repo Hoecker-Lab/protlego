@@ -4,7 +4,7 @@ import numpy as np
 import sqlite3
 from typing import NamedTuple
 
-conn = sqlite3.connect(f'{ROOT_DIR}/fuzzle.db')
+conn = sqlite3.connect(f'{ROOT_DIR}/fuzzle2.07.db')
 cur = conn.cursor()
 
 class Hit(NamedTuple):

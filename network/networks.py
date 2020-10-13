@@ -5,6 +5,7 @@ from protlego.database.data import fetch_id
 from protlego.network.colors import *
 import os
 from protlego.builder.chimera import Chimera
+from protlego.builder.chimera import get_SCOP_domain
 from protlego.builder.builder import Builder
 import numpy as np
 from typing import Tuple
@@ -229,7 +230,7 @@ class Network():
         domain = graph.vp.domain[vertex]
         start = int(round(np.mean(graph.vp.start[vertex])))
         end = int(round(np.mean(graph.vp.end[vertex])))
-        domain_path = Chimera.get_SCOP_domain(domain)
+        domain_path = get_SCOP_domain(domain)
         mol = Chimera(filename=domain_path, validateElements=False)
         mol.renumberResidues()
         mol.reps.add(sel='protein', style='NewCartoon', color=8)
@@ -266,7 +267,7 @@ class Network():
         sbjct_mol.reps.add(sel=f"protein and resid '{sstart}' to '{send}'", style='NewCartoon', color=1)
         query_mol.view()
         sbjct_mol.view()
-        print(hit.query,hit.sbjct,qstart,qend,sstart,send)
+
         return query_mol, sbjct_mol
 
     def show_component(self, fragment: int):

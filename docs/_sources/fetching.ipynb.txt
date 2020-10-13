@@ -16,11 +16,10 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
-    "import sys\n",
     "from protlego import *"
    ]
   },
@@ -28,7 +27,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The webserver fuzzle is a useful source to find fragments shared by different folds. It uses the SCOP95 subset of the SCOP database. For each domain a Hidden Markov Modell(HMM) was generated and all-against-all HMM profile comparisons with HHsearch were perfomed. The structural similarity was measured using TM-align. A final set of more than 8 million Hits have been identified and are contained in fuzzle."
+    "The webserver fuzzle is a useful source to find fragments shared by different folds. It uses the SCOP95 subset of the SCOP database. For each domain a Hidden Markov Model (HMM) was generated and all-against-all HMM profile comparisons with HHsearch were perfomed. The structural similarity was measured using TM-align. A final set of more than 10 million Hits have been identified and are contained in fuzzle."
    ]
   },
   {
@@ -49,22 +48,22 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "There are several ways to fetch from the Fuzzle database, the easiest way is fetching by the Hit ID. \n",
+    "There are several ways to fetch from the Fuzzle database, perhaps one of the easiest way is fetching by the Hit ID. \n",
     "Each Hit in fuzzle has an ID which eases its identification. "
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
-    "myhit= fetch_id('10002347')"
+    "myhit= fetch_id('4413706')"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -73,7 +72,7 @@
        "protlego.database.data.Hit"
       ]
      },
-     "execution_count": 3,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -86,12 +85,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "You can get the documentation of anyfunction or variable by using the function help()"
+    "You can always get the documentation of any function or variable by using the function help()"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -133,7 +132,7 @@
       " |  ----------------------------------------------------------------------\n",
       " |  Class methods defined here:\n",
       " |  \n",
-      " |  _make(iterable, new=<built-in method __new__ of type object at 0x559dd8013240>, len=<built-in function len>) from builtins.type\n",
+      " |  _make(iterable, new=<built-in method __new__ of type object at 0x55c615dfe240>, len=<built-in function len>) from builtins.type\n",
       " |      Make a new Hit object from a sequence or iterable\n",
       " |  \n",
       " |  ----------------------------------------------------------------------\n",
@@ -340,21 +339,21 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "166\n",
-      "88.1\n",
-      "d1thfd__9\n",
-      "d2yhsa2_18\n",
-      "4.93\n",
-      "c.1.2.1\n",
-      "c.37.1.10\n",
-      "0.40627\n"
+      "101\n",
+      "81.7\n",
+      "d2dfda1_1\n",
+      "d1wa5a__2\n",
+      "2.86\n",
+      "c.2.1.5\n",
+      "c.37.1.8\n",
+      "0.54938\n"
      ]
     }
    ],
@@ -378,11 +377,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [],
    "source": [
-    "myhits=fetch_by_domain('d1thfd_')"
+    "myhits=fetch_by_domain('d1wa5a_')"
    ]
   },
   {
@@ -409,24 +408,24 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The variable myhits could contain one or more hits (or none), depending on the promiscuity of the domain. In this case it appears in 121 folds, where overall 9 different folds are involved.\n",
+    "The variable myhits could contain one or more hits (or none), depending on the promiscuity of the domain. In this case it appears in 9 hits, where overall 9 different folds are involved.\n",
     "\n",
     "From the variable myhits, we can directly retrieve a few statistical values:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "[1016230, 1269755, 3965388, 3965521, 9748560, 10414464, 10002381, 10002422, 10002450]\n",
-      "70.0\n",
-      "19.4422220952\n",
-      "['a.140' 'c.1' 'c.23']\n"
+      "[2290353, 361595, 787549, 1181040, 1258170, 2081517, 4413706, 6818256, 9075069, 7536792, 7536798, 7536807, 7536816, 7536888, 7536911, 7536939, 7536971, 7536978]\n",
+      "66.5555555556\n",
+      "41.6616293251\n",
+      "['c.2' 'c.37' 'c.91']\n"
      ]
     }
    ],
@@ -448,30 +447,30 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "One can also fetch by the domain names of the two parents. This type of search could also produce none, one or several hits, as there could be query-subject and subject combinations, along with different ways to superimpose the structures in each of them."
+    "One can also fetch by the domain names of the two parents. This type of search could also produce none, one, or several hits, as there could be query-subject and subject combinations, along with different ways to superimpose the structures in each of them."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
-    "myhits2 = fetch_by_domains('d1thfd_','d2yhsa2')"
+    "myhits2 = fetch_by_domains('d1wa5a_','d2dfda1')"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "Query from Fuzzle with 0 hits belonging to 0 fold(s)"
+       "Query from Fuzzle with 2 hits belonging to 2 fold(s)"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -513,51 +512,8 @@
    ]
   },
   {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "As these conditions did not retrieve any hits, we will try to relax some of the cutoffs above a bit. We can try with a higher RMSD tolerance."
-   ]
-  },
-  {
    "cell_type": "code",
-   "execution_count": 12,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "myhits2 = fetch_by_domains('d1thfd_','d2yhsa2', rmsd=5)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 13,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "Query from Fuzzle with 2 hits belonging to 2 fold(s)"
-      ]
-     },
-     "execution_count": 13,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "myhits2"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Now we obtain 2 hits. myhits2 is a variable of the protlego Results class. The class allows for slicing; the retrieved variable belongs then to the class Hit, like in the previous section:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -566,20 +522,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "166\n",
-      "88.1\n",
-      "d1thfd__9\n",
-      "d2yhsa2_18\n",
-      "c.1.2.1\n",
-      "c.37.1.10\n",
-      "0.40627\n"
+      "101\n",
+      "76.2\n",
+      "d1wa5a__2\n",
+      "d2dfda1_1\n",
+      "c.37.1.8\n",
+      "c.2.1.5\n",
+      "0.48058\n"
      ]
     }
    ],
@@ -623,7 +579,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 20,
    "metadata": {},
    "outputs": [
     {
@@ -648,7 +604,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [
     {
@@ -686,7 +642,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -695,7 +651,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [
     {
@@ -704,7 +660,7 @@
        "Query from Fuzzle with 1859 hits belonging to 2 fold(s)"
       ]
      },
-     "execution_count": 19,
+     "execution_count": 23,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -729,70 +685,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "myhits_1 = fetch_group('c.23','c.93',prob=70) # searching for hits with probability over 70% "
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 21,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "Query from Fuzzle with 4946 hits belonging to 2 fold(s)"
-      ]
-     },
-     "execution_count": 21,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "myhits_1"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 22,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "myhits_2 = fetch_group('c.23','c.93',prob=80,rmsd=3) # fetching hits with prob. over 80 and rmsd <3"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 23,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "Query from Fuzzle with 2554 hits belonging to 2 fold(s)"
-      ]
-     },
-     "execution_count": 23,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "myhits_2"
-   ]
-  },
-  {
-   "cell_type": "code",
    "execution_count": 24,
    "metadata": {},
    "outputs": [],
    "source": [
-    "myhits_3=fetch_group('c.23','c.93',prob=80, rmsd=3,ca_min=50) # fetching hits that besides\\\n",
-    "#are larger than 50 aminoacids"
+    "myhits_1 = fetch_group('c.23','c.93',prob=70) # searching for hits with probability over 70% "
    ]
   },
   {
@@ -803,10 +700,69 @@
     {
      "data": {
       "text/plain": [
-       "Query from Fuzzle with 2478 hits belonging to 2 fold(s)"
+       "Query from Fuzzle with 4946 hits belonging to 2 fold(s)"
       ]
      },
      "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "myhits_1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "myhits_2 = fetch_group('c.23','c.93',prob=80,rmsd=3) # fetching hits with prob. over 80 and rmsd <3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Query from Fuzzle with 2554 hits belonging to 2 fold(s)"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "myhits_2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "myhits_3=fetch_group('c.23','c.93',prob=80, rmsd=3,ca_min=50) # fetching hits that besides\\\n",
+    "#are larger than 50 aminoacids"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Query from Fuzzle with 2478 hits belonging to 2 fold(s)"
+      ]
+     },
+     "execution_count": 29,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -845,7 +801,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 30,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -854,7 +810,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 31,
    "metadata": {},
    "outputs": [
     {
@@ -933,7 +889,7 @@
        "      dtype='<U5')"
       ]
      },
-     "execution_count": 27,
+     "execution_count": 31,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -958,7 +914,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 32,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -967,7 +923,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 33,
    "metadata": {},
    "outputs": [
     {
@@ -976,7 +932,7 @@
        "Query from Fuzzle with 95755 hits belonging to 451 fold(s)"
       ]
      },
-     "execution_count": 29,
+     "execution_count": 33,
      "metadata": {},
      "output_type": "execute_result"
     }
