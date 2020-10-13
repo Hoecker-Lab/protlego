@@ -382,7 +382,7 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">q_scop_id</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">s_scop_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="fetch_subspace"><a class="viewcode-back" href="../../database.html#database.data.fetch_subspace">[docs]</a><span class="k">def</span> <span class="nf">fetch_subspace</span><span class="p">(</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+<div class="viewcode-block" id="fetch_subspace"><a class="viewcode-back" href="../../database.html#database.data.fetch_subspace">[docs]</a><span class="k">def</span> <span class="nf">fetch_subspace</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
                    <span class="n">ca_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ca_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.25</span><span class="p">,</span>
                    <span class="n">scop_q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Returns the entries in Fuzzle that satisfy the conditions:</span>
@@ -624,8 +624,7 @@
 <span class="sd">    (&#39;_&#39; if not). Sids are currently all lower case,</span>
 <span class="sd">    even when the chain letter is upper case.</span>
 <span class="sd">    Examples:  include d4akea1, d1reqa2, and d1cph.1.</span>
-
-<span class="sd">        :param query: The seven letter domain for the query</span>
+<span class="sd">    :param query: The seven letter domain for the query</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">query</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span></div>
@@ -635,6 +634,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the hit in fuzzle with that ID</span>
 <span class="sd">    :param fuzzle_id: The Fuzzle HIT id to retrieve from hh207clusters</span>
+<span class="sd">    :return: A Hit object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from hh207clusters where id = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">fuzzle_id</span><span class="p">,))</span>
@@ -651,7 +651,7 @@
 <span class="sd">    or inside one specific group (group1)</span>
 
 <span class="sd">    :param group1: The first group from where to search. E.g &#39;c.2&#39;</span>
-<span class="sd">    :param group2 (optional): The second group from where to search. E.g &#39;c.2e&#39;</span>
+<span class="sd">    :param group2 (optional): The second group from where to search. E.g &#39;c.2&#39;</span>
 <span class="sd">    :param prob: the minimum allowed HHsearch probability</span>
 <span class="sd">    :param rmsd: The maximum allowed RMSD (rmsd_tm_pair: &quot;RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</span>
 <span class="sd">    :param ca_min: The minimum allowed fragment length (for the TMalign alignment)</span>

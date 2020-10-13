@@ -97,7 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysestrc">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -593,7 +593,7 @@ or inside one specific group (group1)</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group1</strong> – The first group from where to search. E.g ‘c.2’</p></li>
-<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>group2</em>) – The second group from where to search. E.g ‘c.2e’</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>group2</em>) – The second group from where to search. E.g ‘c.2’</p></li>
 <li><p><strong>prob</strong> – the minimum allowed HHsearch probability</p></li>
 <li><p><strong>rmsd</strong> – The maximum allowed RMSD (rmsd_tm_pair: “RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</p></li>
 <li><p><strong>ca_min</strong> – The minimum allowed fragment length (for the TMalign alignment)</p></li>
@@ -612,7 +612,8 @@ or inside one specific group (group1)</p>
 <dt id="database.data.fetch_id">
 <code class="sig-prename descclassname">database.data.</code><code class="sig-name descname">fetch_id</code><span class="sig-paren">(</span><em class="sig-param">fuzzle_id: int</em><span class="sig-paren">)</span> &#x2192; database.data.Hit<a class="reference internal" href="_modules/database/data.html#fetch_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the hit in fuzzle with that ID
-:param fuzzle_id: The Fuzzle HIT id to retrieve from hh207clusters</p>
+:param fuzzle_id: The Fuzzle HIT id to retrieve from hh207clusters
+:return: A Hit object</p>
 </dd></dl>
 
 <dl class="function">
@@ -677,14 +678,8 @@ case in genetic domains), and a single character
 (usually an integer) if needed to specify the domain uniquely
 (‘_’ if not). Sids are currently all lower case,
 even when the chain letter is upper case.
-Examples:  include d4akea1, d1reqa2, and d1cph.1.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param query</dt>
-<dd class="field-odd"><p>The seven letter domain for the query</p>
-</dd>
-</dl>
-</div></blockquote>
+Examples:  include d4akea1, d1reqa2, and d1cph.1.
+:param query: The seven letter domain for the query</p>
 </dd></dl>
 
 </div>

@@ -15,12 +15,12 @@ logger = logging.getLogger('salt_bridges')
 
 def write_salt_bridges(data: np.ndarray, mapping:DataFrame, mol: Molecule, outputname: str) -> None:
     """
-    This function outputs the HH networks into a VMD session
+    This function outputs the salt bridges into a VMD session
     :param data: A MetricDistance object
     :param mapping: A DataFrame object including the index - residue mapping
     :param mol: The pdb filename.
-    :param outputname: The file name to output the VMD session to.
-    :return:
+    :param outputname: The file prefix name to output the VMD session to. Example: "protein2"
+    :return: A file with the VMD session named outputname+"-salt-bridges.txt"
     """
     f=open(outputname[:-4]+"-salt-bridges.txt","w")
     mol.reps.add(sel='protein' , style='NewCartoon', color=8)

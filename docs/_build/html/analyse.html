@@ -419,12 +419,12 @@ It then writes the filtered protonated pdb out.
 <dl class="function">
 <dt id="structural.salt_bridges.write_salt_bridges">
 <code class="sig-prename descclassname">structural.salt_bridges.</code><code class="sig-name descname">write_salt_bridges</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.ndarray</em>, <em class="sig-param">mapping: pandas.core.frame.DataFrame</em>, <em class="sig-param">mol: moleculekit.molecule.Molecule</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/salt_bridges.html#write_salt_bridges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.salt_bridges.write_salt_bridges" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function outputs the HH networks into a VMD session
+<dd><p>This function outputs the salt bridges into a VMD session
 :param data: A MetricDistance object
 :param mapping: A DataFrame object including the index - residue mapping
 :param mol: The pdb filename.
-:param outputname: The file name to output the VMD session to.
-:return:</p>
+:param outputname: The file prefix name to output the VMD session to. Example: “protein2”
+:return: A file with the VMD session named outputname+”-salt-bridges.txt”</p>
 </dd></dl>
 
 </div>

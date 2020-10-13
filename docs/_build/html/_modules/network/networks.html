@@ -186,20 +186,19 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Tuple</span>
 
 
-<div class="viewcode-block" id="Network"><a class="viewcode-back" href="../../networks.html#network.networks.Network">[docs]</a><span class="k">class</span> <span class="nc">Network</span><span class="p">():</span>
+<div class="viewcode-block" id="Network"><a class="viewcode-back" href="../../networks.html#network.networks.Network">[docs]</a><span class="k">class</span> <span class="nc">Network</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Graph constructor and visualizer</span>
-
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">        hits = fetch_subspace(*args)</span>
-<span class="sd">        g = Network(hits)</span>
-<span class="sd">        g.create_graph()</span>
-<span class="sd">        g.plot_graph(labels=[&#39;ids&#39;,&#39;domains&#39;,&#39;folds&#39;])</span>
-<span class="sd">        g.get_fragments()</span>
-<span class="sd">        g.view_vertex(v1)</span>
-<span class="sd">        g.view_edge(v1,v2)</span>
-<span class="sd">        g.view_component(n)</span>
+<span class="sd">    hits = fetch_subspace(args)</span>
+<span class="sd">    g = Network(hits)</span>
+<span class="sd">    g.create_graph()</span>
+<span class="sd">    g.plot_graph(labels=[&#39;ids&#39;,&#39;domains&#39;,&#39;folds&#39;])</span>
+<span class="sd">    g.get_fragments()</span>
+<span class="sd">    g.view_vertex(v1)</span>
+<span class="sd">    g.view_edge(v1,v2)</span>
+<span class="sd">    g.view_component(n)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hits</span><span class="p">:</span> <span class="n">Result</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -226,7 +225,6 @@
             <span class="n">graph</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">scopclass</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">s_sufam_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">graph</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">fold</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">s_fold_id</span>
             <span class="n">graph</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">sufam</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">s_sufam_id</span>
-<span class="c1"># Then the 400s in a different folder</span>
             <span class="n">graph</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">fam</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">s_scop_id</span>
             <span class="n">graph</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">start</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">s_start</span><span class="p">)</span>
             <span class="n">graph</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">end</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">s_end</span><span class="p">)</span>
@@ -235,8 +233,8 @@
 <div class="viewcode-block" id="Network.create_network"><a class="viewcode-back" href="../../networks.html#network.networks.Network.create_network">[docs]</a>    <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a network based on the hits. It draws a node for every unique cluster</span>
-<span class="sd">        and linkes two cluster when they have a fragment in common.</span>
-<span class="sd">        :return: graph. A Graph object</span>
+<span class="sd">        and links two cluster when they have a fragment (hit) in common.</span>
+<span class="sd">        :return: A Graph object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -299,9 +297,10 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function plots the graph</span>
 <span class="sd">        with customized labels</span>
-<span class="sd">        fill = [&#39;fam&#39;,&#39;sufam&#39;,&#39;fold&#39;,&#39;class&#39;]</span>
-<span class="sd">        keyword_parameters = labels, output (filename)</span>
-<span class="sd">        labels can be: &quot;domain&quot;,&quot;fam&quot;,&quot;sufam&quot;,&quot;fold&quot;,&quot;scopclass&quot;</span>
+<span class="sd">        :param graph: A graph-tool object to plot</span>
+<span class="sd">        :param fill: To choose between [&#39;fam&#39;,&#39;sufam&#39;,&#39;fold&#39;,&#39;class&#39;]</span>
+<span class="sd">        :param keyword_parameters: labels, output (filename). labels can be: &quot;domain&quot;,&quot;fam&quot;,&quot;sufam&quot;,&quot;fold&quot;,&quot;scopclass&quot;</span>
+<span class="sd">        :return: A plot of the computed with the customized colors</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">fill</span> <span class="o">==</span> <span class="s1">&#39;class&#39;</span><span class="p">:</span>
             <span class="n">graph</span><span class="o">.</span><span class="n">vertex_properties</span><span class="p">[</span><span class="s1">&#39;class_color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
@@ -328,7 +327,7 @@
     <span class="k">def</span> <span class="nf">fragments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function creates and prints out the number of fragments in the graph</span>
-<span class="sd">        :rtype : integer, number of fragments</span>
+<span class="sd">        :rtype: integer, number of fragments</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot; You need to create a network first before computing its sizes.&quot;</span>
@@ -347,9 +346,9 @@
 
 <div class="viewcode-block" id="Network.get_representative_domain"><a class="viewcode-back" href="../../networks.html#network.networks.Network.get_representative_domain">[docs]</a>    <span class="k">def</span> <span class="nf">get_representative_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frag</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :param frag:</span>
-<span class="sd">        :return:</span>
+<span class="sd">        Gets the most representative domain of a fragment (or graph component)</span>
+<span class="sd">        :param frag: the index of the fragment</span>
+<span class="sd">        :return: A vertex object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp</span><span class="p">:</span>
             <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fragments</span><span class="p">()</span>
@@ -417,8 +416,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Shows an alignment of the two domains that the edge links with their respective</span>
 <span class="sd">        fragment they have in common colored in red</span>
-<span class="sd">        :param edge:</span>
-<span class="sd">        :return:</span>
+<span class="sd">        :param edge: A graph tool edge object</span>
+<span class="sd">        :return: The query and subject chimera objects. It also opens a VMD window with the superimposition.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span>

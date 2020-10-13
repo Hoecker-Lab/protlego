@@ -190,12 +190,12 @@
 
 <div class="viewcode-block" id="write_salt_bridges"><a class="viewcode-back" href="../../analyse.html#structural.salt_bridges.write_salt_bridges">[docs]</a><span class="k">def</span> <span class="nf">write_salt_bridges</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">mol</span><span class="p">:</span> <span class="n">Molecule</span><span class="p">,</span> <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function outputs the HH networks into a VMD session</span>
+<span class="sd">    This function outputs the salt bridges into a VMD session</span>
 <span class="sd">    :param data: A MetricDistance object</span>
 <span class="sd">    :param mapping: A DataFrame object including the index - residue mapping</span>
 <span class="sd">    :param mol: The pdb filename.</span>
-<span class="sd">    :param outputname: The file name to output the VMD session to.</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param outputname: The file prefix name to output the VMD session to. Example: &quot;protein2&quot;</span>
+<span class="sd">    :return: A file with the VMD session named outputname+&quot;-salt-bridges.txt&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">outputname</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;-salt-bridges.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
     <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span> <span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;NewCartoon&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>

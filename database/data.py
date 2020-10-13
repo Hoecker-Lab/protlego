@@ -207,7 +207,7 @@ class Result:
         return np.unique([(hit.q_scop_id, hit.s_scop_id) for hit in self.hits])
 
 
-def fetch_subspace( prob: int = 70, rmsd: float = 3.0,
+def fetch_subspace(prob: int = 70, rmsd: float = 3.0,
                    ca_min: int = 10, ca_max: int = 200, score_tm_pair: float = 0.3, ratio: float = 1.25,
                    scop_q: str = None, diff_folds: bool = True) -> Result:
     """ Returns the entries in Fuzzle that satisfy the conditions:
@@ -449,8 +449,7 @@ def validate_scopid(query: str) -> bool:
     ('_' if not). Sids are currently all lower case,
     even when the chain letter is upper case.
     Examples:  include d4akea1, d1reqa2, and d1cph.1.
-
-        :param query: The seven letter domain for the query
+    :param query: The seven letter domain for the query
     """
 
     return len(query) == 7 and query[0] == 'd'
@@ -460,6 +459,7 @@ def fetch_id(fuzzle_id: int) -> Hit:
     """
     Returns the hit in fuzzle with that ID
     :param fuzzle_id: The Fuzzle HIT id to retrieve from hh207clusters
+    :return: A Hit object
     """
 
     cur.execute("select * from hh207clusters where id = ?", (fuzzle_id,))
@@ -476,7 +476,7 @@ def fetch_group(group1, group2=None, prob: int = 70, rmsd: float = 3.0,
     or inside one specific group (group1)
 
     :param group1: The first group from where to search. E.g 'c.2'
-    :param group2 (optional): The second group from where to search. E.g 'c.2e'
+    :param group2 (optional): The second group from where to search. E.g 'c.2'
     :param prob: the minimum allowed HHsearch probability
     :param rmsd: The maximum allowed RMSD (rmsd_tm_pair: "RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)
     :param ca_min: The minimum allowed fragment length (for the TMalign alignment)

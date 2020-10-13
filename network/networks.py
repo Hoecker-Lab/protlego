@@ -11,20 +11,19 @@ import numpy as np
 from typing import Tuple
 
 
-class Network():
+class Network:
     """
     Graph constructor and visualizer
-
     Examples
     --------
-        hits = fetch_subspace(*args)
-        g = Network(hits)
-        g.create_graph()
-        g.plot_graph(labels=['ids','domains','folds'])
-        g.get_fragments()
-        g.view_vertex(v1)
-        g.view_edge(v1,v2)
-        g.view_component(n)
+    hits = fetch_subspace(args)
+    g = Network(hits)
+    g.create_graph()
+    g.plot_graph(labels=['ids','domains','folds'])
+    g.get_fragments()
+    g.view_vertex(v1)
+    g.view_edge(v1,v2)
+    g.view_component(n)
     """
 
     def __init__(self, hits: Result) -> None:
@@ -51,7 +50,6 @@ class Network():
             graph.vp.scopclass[v] = o.s_sufam_id.split('.')[0]
             graph.vp.fold[v] = o.s_fold_id
             graph.vp.sufam[v] = o.s_sufam_id
-# Then the 400s in a different folder
             graph.vp.fam[v] = o.s_scop_id
             graph.vp.start[v].append(o.s_start)
             graph.vp.end[v].append(o.s_end)
@@ -60,8 +58,8 @@ class Network():
     def create_network(self) -> Graph:
         """
         Creates a network based on the hits. It draws a node for every unique cluster
-        and linkes two cluster when they have a fragment in common.
-        :return: graph. A Graph object
+        and links two cluster when they have a fragment (hit) in common.
+        :return: A Graph object
         """
 
         graph = Graph(directed=False)
@@ -124,9 +122,10 @@ class Network():
         """
         This function plots the graph
         with customized labels
-        fill = ['fam','sufam','fold','class']
-        keyword_parameters = labels, output (filename)
-        labels can be: "domain","fam","sufam","fold","scopclass"
+        :param graph: A graph-tool object to plot
+        :param fill: To choose between ['fam','sufam','fold','class']
+        :param keyword_parameters: labels, output (filename). labels can be: "domain","fam","sufam","fold","scopclass"
+        :return: A plot of the computed with the customized colors
         """
         if fill == 'class':
             graph.vertex_properties['class_color'] = graph.new_vertex_property("string")
@@ -153,7 +152,7 @@ class Network():
     def fragments(self):
         """
         This function creates and prints out the number of fragments in the graph
-        :rtype : integer, number of fragments
+        :rtype: integer, number of fragments
         """
         if not self.graph:
             logger.info(" You need to create a network first before computing its sizes."
@@ -172,9 +171,9 @@ class Network():
 
     def get_representative_domain(self, frag: int) -> int:
         """
-
-        :param frag:
-        :return:
+        Gets the most representative domain of a fragment (or graph component)
+        :param frag: the index of the fragment
+        :return: A vertex object
         """
         if not self.comp:
             _ = self.fragments()
@@ -242,8 +241,8 @@ class Network():
         """
         Shows an alignment of the two domains that the edge links with their respective
         fragment they have in common colored in red
-        :param edge:
-        :return:
+        :param edge: A graph tool edge object
+        :return: The query and subject chimera objects. It also opens a VMD window with the superimposition.
         """
 
         graph = self.graph
