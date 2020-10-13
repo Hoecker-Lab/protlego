@@ -15,7 +15,7 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath('..'))
-sys.path.append("/agh/projects/noelia/chimAuto/ProtLego/")
+sys.path.append("/agh/projects/noelia/github/")
 sys.path.append("/agh/projects/noelia/miniconda3/envs/my-rdkit-env/lib/python3.6/site-packages/")
 sys.path.append("/agh/projects/noelia/miniconda3/envs/my-rdkit-env/lib/python3.6/site-packages/PROPKA-3.1-py3.6.egg")
 sys.path.append(os.path.join(os.path.dirname(__name__), '..'))

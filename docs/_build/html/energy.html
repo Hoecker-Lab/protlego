@@ -90,13 +90,13 @@
               <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#hh-networks">HH-networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#salt-bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -200,8 +200,51 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="energy-scoring">
-<h1>Energy scoring<a class="headerlink" href="#energy-scoring" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-scorer.mm_energies">
+<span id="energy-scoring"></span><h1>Energy scoring<a class="headerlink" href="#module-scorer.mm_energies" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="scorer.mm_energies.minimize_potential_energy">
+<code class="sig-prename descclassname">scorer.mm_energies.</code><code class="sig-name descname">minimize_potential_energy</code><span class="sig-paren">(</span><em class="sig-param">chimera</em>, <em class="sig-param">ff: str</em>, <em class="sig-param">output: str = '/tmp/build'</em>, <em class="sig-param">keep_output_files=False</em>, <em class="sig-param">cuda=False</em>, <em class="sig-param">restraint_backbone: bool = True</em><span class="sig-paren">)</span> &#x2192; Tuple[simtk.unit.quantity.Quantity, protlego.builder.chimera.Chimera]<a class="reference internal" href="_modules/scorer/mm_energies.html#minimize_potential_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scorer.mm_energies.minimize_potential_energy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chimera</strong> – A chimera object where to perform the minimization</p></li>
+<li><p><strong>forcefield</strong> – The forcefield to use for the minimization. Select between “amber” and “charmm”</p></li>
+<li><p><strong>output</strong> – A folder where to keep the files. If not provided they will be stored in the /tmp folder and later removed.</p></li>
+<li><p><strong>cuda</strong> – Whether to use GPU acceleration</p></li>
+<li><p><strong>restraint_backbone</strong> – Keep the backbone atoms constraint in space</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The chimera object that was minimized and the potential energy value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="scorer.mm_energies.prepare_protein">
+<code class="sig-prename descclassname">scorer.mm_energies.</code><code class="sig-name descname">prepare_protein</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera</em><span class="sig-paren">)</span> &#x2192; moleculekit.molecule.Molecule<a class="reference internal" href="_modules/scorer/mm_energies.html#prepare_protein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scorer.mm_energies.prepare_protein" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a water box around the chimera
+:param chimera:
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="scorer.mm_energies.score_pot_energy">
+<code class="sig-prename descclassname">scorer.mm_energies.</code><code class="sig-name descname">score_pot_energy</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera</em>, <em class="sig-param">ff: str</em>, <em class="sig-param">output: str = '/tmp/build'</em>, <em class="sig-param">keep_output_files: bool = False</em><span class="sig-paren">)</span> &#x2192; Tuple[protlego.builder.chimera.Chimera, simtk.unit.quantity.Quantity]<a class="reference internal" href="_modules/scorer/mm_energies.html#score_pot_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scorer.mm_energies.score_pot_energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Score the potential energy of a chimera with the amber or charmm forcefields
+:param chimera: A chimera object to compute the pot. E on.
+:param ff: Forcefield to use. Amber or charmm. The latest version with be used.
+:param output: A folder where to keep the files. If not provided they will be stored in
+the /tmp folder and later removed.
+:param keep_output_files: Whether to keep the produced folders. Default is remove.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The chimera object that whose pot.E was computed and the potential energy value.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

@@ -1,0 +1,758 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>database.data &mdash; ProtLego 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ProtLego
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.analysestrc">Further structural analysis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../network.html">Drawing networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ProtLego</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>database.data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for database.data</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">protlego.definitions</span> <span class="k">import</span> <span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">NamedTuple</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{ROOT_DIR}</span><span class="s1">/fuzzle2.07.db&#39;</span><span class="p">)</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Hit"><a class="viewcode-back" href="../../database.html#database.data.Hit">[docs]</a><span class="k">class</span> <span class="nc">Hit</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Some of the documentation of this function was</span>
+<span class="sd">    taken from the hhsuite python documentation:</span>
+<span class="sd">    https://github.com/soedinglab/hh-suite/wiki</span>
+<span class="sd">    as the sequence information from the Fuzzle hits</span>
+<span class="sd">    come from HHsearch.</span>
+<span class="sd">    The structural superimpositions were performed with</span>
+<span class="sd">    TMalign:   https://zhanglab.ccmb.med.umich.edu/TM-align/</span>
+
+<span class="sd">    =======================================================</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; The database id for this hit &quot;&quot;&quot;</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; The 7-letter SCOP95 code for the query domain&quot;&quot;&quot;</span>
+    <span class="n">q_scop_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; The SCOP family the query belongs to&quot;&quot;&quot;</span>
+    <span class="n">no</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; The HHsearch hit number for this query&quot;&quot;&quot;</span>
+    <span class="n">sbjct</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; A 7-letter SCOP95 code for the subject domain &quot;&quot;&quot;</span>
+    <span class="n">s_scop_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; The SCOP family the subject belongs to&quot;&quot;&quot;</span>
+    <span class="n">s_desc</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; Description of the subject domain.&quot;&quot;&quot;</span>
+    <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; HHsearch probability&quot;&quot;&quot;</span>
+    <span class="nb">eval</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; E-value&quot;&quot;&quot;</span>
+    <span class="n">pval</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; p-value&quot;&quot;&quot;</span>
+    <span class="n">score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; The raw score is computed by the Viterbi HMM-HMM alignment excluding the secondary structure score. It is the sum of similarities of the aligned profile columns minus the position-specific gap penalties in bits.&quot;&quot;&quot;</span>
+    <span class="n">ss</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; The secondary structure score. This score tells you how well the PSIPRED-predicted (3-state) or actual DSSP-determined (8-state) secondary structure sequences agree with each other.&quot;&quot;&quot;</span>
+    <span class="n">cols</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; The number of aligned Match columns in the HMM-HMM alignment.&quot;&quot;&quot;</span>
+    <span class="n">q_start</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue where the alignment starts for the query domain (sequence position)&quot;&quot;&quot;</span>
+    <span class="n">q_end</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue where the alignment ends for the query domain (sequence position) &quot;&quot;&quot;</span>
+    <span class="n">s_start</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue where the alignment starts for the subject domain (sequence position)&quot;&quot;&quot;</span>
+    <span class="n">s_end</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue where the alignment ends for the subject domain (sequence position)&quot;&quot;&quot;</span>
+    <span class="n">hmm</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; int &quot;&quot;&quot;</span>
+    <span class="n">ident</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; Identity %  for the sequence alignment&quot;&quot;&quot;</span>
+    <span class="n">q_sufam_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; The superfamily the query belongs to&quot;&quot;&quot;</span>
+    <span class="n">s_sufam_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; The superfamily the subject belongs to &quot;&quot;&quot;</span>
+    <span class="n">q_fold_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; The fold the query belongs to&quot;&quot;&quot;</span>
+    <span class="n">s_fold_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; The fold the query belongs to&quot;&quot;&quot;</span>
+    <span class="n">rmsd_pair</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; RMSD for the alignment between the two domains, strictly taking the alpha carbons from the structures that exactly appear in the HHsearch sequence alignment&quot;&quot;&quot;</span>
+    <span class="n">ca_pair</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; The number of alpha carbon pairs that were used for the rmsd_pair calculation.&quot;&quot;&quot;</span>
+    <span class="n">rmsd_tm_pair</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot;RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed&quot;&quot;&quot;</span>
+    <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; TM-score for the rmsd_tm_pair superposition&quot;&quot;&quot;</span>
+    <span class="n">ca_tm_pair</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; The number of alpha carbon pairs that were used for the rmsd_tm_pair calculation&quot;&quot;&quot;</span>
+    <span class="n">rmsd_tm</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; RMSD for the TMalign alignment between the two domains without seed &quot;&quot;&quot;</span>
+    <span class="n">score_tm</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot; TM-score for the rmsd_tm superposition&quot;&quot;&quot;</span>
+    <span class="n">ca_tm</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; The number of alpha carbon pairs that were used for the rmsd_tm calculation&quot;&quot;&quot;</span>
+    <span class="n">q_tm_start</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue in the query structure where the rmsd_tm_pair alignment starts &quot;&quot;&quot;</span>
+    <span class="n">q_tm_end</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue in the query structure where the rmsd_tm_pair alignment ends&quot;&quot;&quot;</span>
+    <span class="n">s_tm_start</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue in the subject structure where the rmsd_tm_pair alignment starts &quot;&quot;&quot;</span>
+    <span class="n">s_tm_end</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot; Residue in the subject structure where the rmsd_tm_pair alignment ends&quot;&quot;&quot;</span>
+    <span class="n">q_cluster</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; Query cluster where this fragment belongs to.&quot;&quot;&quot;</span>
+    <span class="n">s_cluster</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot; Subject cluster where this fragment belongs to &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;Hit between </span><span class="si">{self.query}</span><span class="s2"> and </span><span class="si">{self.sbjct}</span><span class="s2"> with probability </span><span class="si">{self.prob}</span><span class="s2"> %</span><span class="se">\n</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="parse_hit"><a class="viewcode-back" href="../../database.html#database.data.parse_hit">[docs]</a><span class="k">def</span> <span class="nf">parse_hit</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Hit</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param line:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Hit</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="n">query</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">q_scop_id</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">no</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+        <span class="n">sbjct</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+        <span class="n">s_scop_id</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+        <span class="n">s_desc</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+        <span class="n">prob</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">7</span><span class="p">]),</span>
+        <span class="nb">eval</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span>
+        <span class="n">pval</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">]),</span>
+        <span class="n">score</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">10</span><span class="p">]),</span>
+        <span class="n">ss</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">11</span><span class="p">]),</span>
+        <span class="n">cols</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">12</span><span class="p">]),</span>
+        <span class="n">q_start</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">13</span><span class="p">]),</span>
+        <span class="n">q_end</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">14</span><span class="p">]),</span>
+        <span class="n">s_start</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">15</span><span class="p">]),</span>
+        <span class="n">s_end</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">16</span><span class="p">]),</span>
+        <span class="n">hmm</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">17</span><span class="p">]),</span>
+        <span class="n">ident</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">18</span><span class="p">]),</span>
+        <span class="n">q_sufam_id</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span>
+        <span class="n">s_sufam_id</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span>
+        <span class="n">q_fold_id</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span>
+        <span class="n">s_fold_id</span><span class="o">=</span><span class="n">line</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span>
+        <span class="n">rmsd_pair</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">23</span><span class="p">]),</span>
+        <span class="n">ca_pair</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">24</span><span class="p">]),</span>
+        <span class="n">rmsd_tm_pair</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">25</span><span class="p">])</span> <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;NULL&#39;</span><span class="p">,</span>
+        <span class="n">score_tm_pair</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">26</span><span class="p">])</span> <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">26</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;NULL&#39;</span><span class="p">,</span>
+        <span class="n">ca_tm_pair</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">27</span><span class="p">])</span> <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">27</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;NULL&#39;</span><span class="p">,</span>
+        <span class="n">rmsd_tm</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">28</span><span class="p">]),</span>
+        <span class="n">score_tm</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">29</span><span class="p">]),</span>
+        <span class="n">ca_tm</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">30</span><span class="p">]),</span>
+        <span class="n">q_tm_start</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">31</span><span class="p">]),</span>
+        <span class="n">q_tm_end</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">32</span><span class="p">]),</span>
+        <span class="n">s_tm_start</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">33</span><span class="p">]),</span>
+        <span class="n">s_tm_end</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">34</span><span class="p">]),</span>
+        <span class="n">q_cluster</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">35</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">35</span><span class="p">]),</span>
+        <span class="n">s_cluster</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">35</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">36</span><span class="p">])</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Result"><a class="viewcode-back" href="../../database.html#database.data.Result">[docs]</a><span class="k">class</span> <span class="nc">Result</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Class handling the data obtained from fuzzle&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ahits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Hit</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="o">=</span> <span class="n">ahits</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;Query from Fuzzle with {len(self.hits)} hits&quot;</span> \
+               <span class="n">f</span><span class="s2">&quot; belonging to {len(self.list_folds)} fold(s)&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">hits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="n">hits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">hits</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;It returns all the hits IDs&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">hit</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">avg_len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; It returns the Aminoacid average of the returned hits&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">hit</span><span class="o">.</span><span class="n">cols</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">std_len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; It returns the Aminoacid standard deviation in the hits list&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="n">hit</span><span class="o">.</span><span class="n">cols</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unique_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; It returns a list of unique domains&quot;&quot;&quot;</span>
+        <span class="n">unique_domains</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">sbjct</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The query contains {len(unique_domains)} different domains&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">unique_domains</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unique_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; It returns a list of unique domains&quot;&quot;&quot;</span>
+        <span class="n">unique_clusters</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">q_cluster</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">s_cluster</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The query contains {len(unique_clusters)} different clusters&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">unique_clusters</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">list_folds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; It returns the list of unique folds in the hits list&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">q_fold_id</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">s_fold_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">list_sufams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; It returns the list of unique folds in the hits list&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">q_sufam_id</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">s_sufam_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">list_fams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; It returns the list of unique folds in the hits list&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">q_scop_id</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">s_scop_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="fetch_subspace"><a class="viewcode-back" href="../../database.html#database.data.fetch_subspace">[docs]</a><span class="k">def</span> <span class="nf">fetch_subspace</span><span class="p">(</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+                   <span class="n">ca_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ca_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.25</span><span class="p">,</span>
+                   <span class="n">scop_q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diff_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Returns the entries in Fuzzle that satisfy the conditions:</span>
+
+<span class="sd">    :param prob: Lower cutoff for the hit probability</span>
+<span class="sd">    :param rmsd: Upper cutoff for rmsd_tm_pair</span>
+<span class="sd">    :param ca_min: Lower cutoff for the number of AA (ca_tm_pair)</span>
+<span class="sd">    :param ca_max: Upper cutoff for the number of AA (ca_tm_pair)</span>
+<span class="sd">    :param score_tm_pair: Lower cutoff for the tm_score</span>
+<span class="sd">    :param ratio: Proportion between cols/ca_tm_pair</span>
+<span class="sd">    :param scop_q: A SCOP class. It will retrieve hits that contains domains from this class</span>
+<span class="sd">    :return: A Result object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
+    <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cond1</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cond2</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># handle SCOP class</span>
+    <span class="k">if</span> <span class="n">scop_q</span><span class="p">:</span>
+        <span class="c1"># SCOPe Level</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">scop_q</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># folds</span>
+            <span class="n">scop</span> <span class="o">=</span> <span class="s2">&quot;q_fold_id&quot;</span>
+        <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># superfamilies</span>
+            <span class="n">scop</span> <span class="o">=</span> <span class="s2">&quot;q_sufam_id&quot;</span>
+        <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># families</span>
+            <span class="n">scop</span> <span class="o">=</span> <span class="s2">&quot;q_scop_id&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The specified SCOP level does not exist&quot;</span><span class="p">)</span>
+
+        <span class="n">cond1</span> <span class="o">=</span> <span class="n">scop</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">scop_q</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>  <span class="c1"># This prints: q_fold_id=&#39;c.23&#39;. Not sure how to improve it.</span>
+        <span class="n">cond2</span> <span class="o">=</span> <span class="n">scop</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">scop_q</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2"> &quot;</span> \
+         <span class="n">f</span><span class="s2">&quot;and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2"> &quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;and </span><span class="si">{cond}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;and </span><span class="si">{cond1}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;or </span><span class="si">{cond2}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+
+    <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tmphits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tmphits</span><span class="p">:</span>
+        <span class="n">ahits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_hit</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Result</span><span class="p">(</span><span class="n">ahits</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_domain_from_PDB</span><span class="p">(</span><span class="n">pdb</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns all domains included in a SCOP version that come from a PDB.</span>
+
+<span class="sd">    :param pdb: A 4-letter pdb code</span>
+<span class="sd">    :return: A list of domains that this PDB contains</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pdb</span> <span class="o">=</span> <span class="n">pdb</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;SELECT sdomain FROM scop_pdbref_scop WHERE pdbref like &#39;</span><span class="si">{pdb}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">domains</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">domains</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domains</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">domains</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;(&#39;&quot;</span> <span class="o">+</span> <span class="n">domains</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&#39;)&quot;</span><span class="p">)</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;SELECT ref FROM astral_astral95 WHERE id in </span><span class="si">{domains}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">hits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="n">domains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Domain(s) </span><span class="si">{domains}</span><span class="s2"> are present in the Fuzzle database&quot;</span>
+                    <span class="n">f</span><span class="s2">&quot; as representatives for pdb {pdb.capitalize()}&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">protlego.builder.builder</span> <span class="k">import</span> <span class="n">NotCorrectPDBError</span>
+        <span class="k">raise</span> <span class="n">NotCorrectPDBError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;PDB code {pdb.capitalize()} does not yet appear in the SCOP database&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">domains</span>
+
+
+<div class="viewcode-block" id="fetch_byPDBs"><a class="viewcode-back" href="../../database.html#database.data.fetch_byPDBs">[docs]</a><span class="k">def</span> <span class="nf">fetch_byPDBs</span><span class="p">(</span><span class="n">pdb1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pdb2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+                 <span class="n">ca_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ca_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.25</span><span class="p">,</span>
+                 <span class="n">diff_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Includes all hits among the domains that belong to a pair of PDBs</span>
+
+<span class="sd">    :param pdb1: The first PDB to check</span>
+<span class="sd">    :param pdb2: The second PDB to check</span>
+<span class="sd">    :param prob: the minimum allowed HHsearch probability</span>
+<span class="sd">    :param rmsd: The maximum allowed RMSD (rmsd_tm_pair: &quot;RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</span>
+<span class="sd">    :param ca_min: The minimum allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param ca_max: The maximun allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param score_tm_pair: The minimum allowed TM-score (for the TMalign alignment)</span>
+<span class="sd">    :param ratio: the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</span>
+<span class="sd">    :param diff_folds: Whether to exclude hits from the same fold (True) or not (False)</span>
+<span class="sd">    :return: A result class obtaining the hits that fulfill these criteria</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">domains1</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_domain_from_PDB</span><span class="p">(</span><span class="n">pdb1</span><span class="p">))</span>
+    <span class="n">domains2</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_domain_from_PDB</span><span class="p">(</span><span class="n">pdb2</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domains1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">domains1</span> <span class="o">==</span> <span class="n">domains1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domains2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">domains2</span> <span class="o">==</span> <span class="n">domains2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">domains</span> <span class="o">=</span> <span class="n">domains1</span> <span class="o">+</span> <span class="n">domains2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">domains</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
+    <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and query in </span><span class="si">{domains}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and sbjct in </span><span class="si">{domains}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+    <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tmphits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tmphits</span><span class="p">:</span>
+        <span class="n">ahits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_hit</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Result</span><span class="p">(</span><span class="n">ahits</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fetch_byPDB"><a class="viewcode-back" href="../../database.html#database.data.fetch_byPDB">[docs]</a><span class="k">def</span> <span class="nf">fetch_byPDB</span><span class="p">(</span><span class="n">pdb</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+                <span class="n">ca_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ca_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.25</span><span class="p">,</span>
+                <span class="n">diff_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns the entries in Fuzzle that contain the representative domains that correspond to that PDB</span>
+
+<span class="sd">    :param prob: Lower cutoff for the hit probability</span>
+<span class="sd">    :param rmsd: Upper cutoff for rmsd_tm_pair</span>
+<span class="sd">    :param ca_min: Lower cutoff for the number of AA (ca_tm_pair)</span>
+<span class="sd">    :param ca_max: Upper cutoff for the number of AA (ca_tm_pair)</span>
+<span class="sd">    :param score_tm_pair: Lower cutoff for the tm_score</span>
+<span class="sd">    :param ratio: Proportion between cols/ca_tm_pair</span>
+<span class="sd">    :param scop_q: A SCOP class. It will retrieve hits that contains domains from this class</span>
+<span class="sd">    :param query: A SCOP protein domain. It will retrieve hits that contain this query</span>
+<span class="sd">    :return: A Result object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">domains</span> <span class="o">=</span> <span class="n">_domain_from_PDB</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">domains</span><span class="p">:</span>
+        <span class="n">hits</span><span class="p">[</span><span class="n">query</span><span class="p">]</span> <span class="o">=</span> <span class="n">fetch_subspace</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="n">prob</span><span class="p">,</span> <span class="n">rmsd</span><span class="o">=</span><span class="n">rmsd</span><span class="p">,</span>
+                                     <span class="n">ca_min</span><span class="o">=</span><span class="n">ca_min</span><span class="p">,</span> <span class="n">ca_max</span><span class="o">=</span><span class="n">ca_max</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="o">=</span><span class="n">score_tm_pair</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span>
+                                     <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">diff_folds</span><span class="o">=</span><span class="n">diff_folds</span><span class="p">)</span>
+
+    <span class="n">ahits</span> <span class="o">=</span> <span class="n">hits</span><span class="p">[</span><span class="n">domains</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">query</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">domains</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">ahits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hits</span><span class="p">[</span><span class="n">query</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">ahits</span></div>
+
+
+<div class="viewcode-block" id="fetch_by_domains"><a class="viewcode-back" href="../../database.html#database.data.fetch_by_domains">[docs]</a><span class="k">def</span> <span class="nf">fetch_by_domains</span><span class="p">(</span><span class="n">domain1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+                     <span class="n">ca_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ca_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.25</span><span class="p">,</span>
+                     <span class="n">diff_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Fetch all the hits between two parent domains</span>
+
+<span class="sd">    :param domain1: The 7 letter code for one of the parents</span>
+<span class="sd">    :param domain2: The 7 letter code for one of the parents</span>
+<span class="sd">    :param prob: the minimum allowed HHsearch probability</span>
+<span class="sd">    :param rmsd: The maximum allowed RMSD (rmsd_tm_pair: &quot;RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</span>
+<span class="sd">    :param ca_min: The minimum allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param ca_max: The maximun allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param score_tm_pair: The minimum allowed TM-score (for the TMalign alignment)</span>
+<span class="sd">    :param ratio: the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</span>
+<span class="sd">    :param diff_folds: Whether to exclude hits from the same fold (True) or not (False)</span>
+<span class="sd">    :return: A result class obtaining the hits that fulfill these criteria</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
+    <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and (rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2"> or rmsd_tm_pair is NULL)&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and ((query=&#39;</span><span class="si">{domain1}</span><span class="s2">&#39; and sbjct=&#39;</span><span class="si">{domain2}</span><span class="s2">&#39;)&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; or (sbjct = &#39;</span><span class="si">{domain1}</span><span class="s2">&#39; and query=&#39;</span><span class="si">{domain2}</span><span class="s2">&#39;))&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and query != sbjct&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+    <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tmphits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tmphits</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">parse_hit</span><span class="p">(</span><span class="n">tmphits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tmphits</span><span class="p">:</span>
+            <span class="n">ahits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_hit</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">Result</span><span class="p">(</span><span class="n">ahits</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hit</span></div>
+
+
+<div class="viewcode-block" id="fetch_by_domain"><a class="viewcode-back" href="../../database.html#database.data.fetch_by_domain">[docs]</a><span class="k">def</span> <span class="nf">fetch_by_domain</span><span class="p">(</span><span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+                    <span class="n">ca_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ca_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.25</span><span class="p">,</span>
+                    <span class="n">diff_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Fetch all the hits that contain a specific domain</span>
+
+<span class="sd">    :param domain: The 7 letter code for one of the parents</span>
+<span class="sd">    :param prob: the minimum allowed HHsearch probability</span>
+<span class="sd">    :param rmsd: The maximum allowed RMSD (rmsd_tm_pair: &quot;RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</span>
+<span class="sd">    :param ca_min: The minimum allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param ca_max: The maximun allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param score_tm_pair: The minimum allowed TM-score (for the TMalign alignment)</span>
+<span class="sd">    :param ratio: the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</span>
+<span class="sd">    :param diff_folds: Whether to exclude hits from the same fold (True) or not (False)</span>
+<span class="sd">    :return: A result class obtaining the hits that fulfill these criteria</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
+    <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and (rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2"> or rmsd_tm_pair is NULL)&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and (sbjct = &#39;</span><span class="si">{domain}</span><span class="s2">&#39; or query=&#39;</span><span class="si">{domain}</span><span class="s2">&#39;)&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+    <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tmphits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tmphits</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">parse_hit</span><span class="p">(</span><span class="n">tmphits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tmphits</span><span class="p">:</span>
+            <span class="n">ahits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_hit</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">Result</span><span class="p">(</span><span class="n">ahits</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hit</span></div>
+
+
+<div class="viewcode-block" id="validate_scopid"><a class="viewcode-back" href="../../database.html#database.data.validate_scopid">[docs]</a><span class="k">def</span> <span class="nf">validate_scopid</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A SCOP domain is  A 7-character sid that consists of &quot;d&quot;</span>
+<span class="sd">    followed by the 4-character PDB ID of the file of origin,</span>
+<span class="sd">    the PDB chain ID (&#39;_&#39; if none, &#39;.&#39; if multiple as is the</span>
+<span class="sd">    case in genetic domains), and a single character</span>
+<span class="sd">    (usually an integer) if needed to specify the domain uniquely</span>
+<span class="sd">    (&#39;_&#39; if not). Sids are currently all lower case,</span>
+<span class="sd">    even when the chain letter is upper case.</span>
+<span class="sd">    Examples:  include d4akea1, d1reqa2, and d1cph.1.</span>
+
+<span class="sd">        :param query: The seven letter domain for the query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">query</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span></div>
+
+
+<div class="viewcode-block" id="fetch_id"><a class="viewcode-back" href="../../database.html#database.data.fetch_id">[docs]</a><span class="k">def</span> <span class="nf">fetch_id</span><span class="p">(</span><span class="n">fuzzle_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Hit</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the hit in fuzzle with that ID</span>
+<span class="sd">    :param fuzzle_id: The Fuzzle HIT id to retrieve from hh207clusters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from hh207clusters where id = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">fuzzle_id</span><span class="p">,))</span>
+
+    <span class="n">tmphits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">hit</span> <span class="o">=</span> <span class="n">parse_hit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tmphits</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">hit</span></div>
+
+
+<div class="viewcode-block" id="fetch_group"><a class="viewcode-back" href="../../database.html#database.data.fetch_group">[docs]</a><span class="k">def</span> <span class="nf">fetch_group</span><span class="p">(</span><span class="n">group1</span><span class="p">,</span> <span class="n">group2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">rmsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+                <span class="n">ca_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ca_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">score_tm_pair</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.25</span><span class="p">,</span>
+                <span class="n">diff_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Fetching all hits between two specific groups (folds, superfamilies and families)</span>
+<span class="sd">    or inside one specific group (group1)</span>
+
+<span class="sd">    :param group1: The first group from where to search. E.g &#39;c.2&#39;</span>
+<span class="sd">    :param group2 (optional): The second group from where to search. E.g &#39;c.2e&#39;</span>
+<span class="sd">    :param prob: the minimum allowed HHsearch probability</span>
+<span class="sd">    :param rmsd: The maximum allowed RMSD (rmsd_tm_pair: &quot;RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</span>
+<span class="sd">    :param ca_min: The minimum allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param ca_max: The maximun allowed fragment length (for the TMalign alignment)</span>
+<span class="sd">    :param score_tm_pair: The minimum allowed TM-score (for the TMalign alignment)</span>
+<span class="sd">    :param ratio: the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</span>
+<span class="sd">    :return: A Result class with the hits that fulfill these criteria</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
+    <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">level1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">group2</span><span class="p">:</span>
+        <span class="n">level2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">level1</span> <span class="o">!=</span> <span class="n">level2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The two groups must belong to the same SCOP level&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">level1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># folds</span>
+        <span class="n">scop</span> <span class="o">=</span> <span class="s2">&quot;q_fold_id&quot;</span>
+    <span class="k">elif</span> <span class="n">level1</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># superfamilies</span>
+        <span class="n">scop</span> <span class="o">=</span> <span class="s2">&quot;q_sufam_id&quot;</span>
+    <span class="k">elif</span> <span class="n">level1</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># families</span>
+        <span class="n">scop</span> <span class="o">=</span> <span class="s2">&quot;q_scop_id&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The specified SCOP level does not exist&quot;</span><span class="p">)</span>
+
+    <span class="n">cond1</span> <span class="o">=</span> <span class="n">scop</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">group1</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+    <span class="n">cond_1</span> <span class="o">=</span> <span class="n">scop</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">group1</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+
+    <span class="k">if</span> <span class="n">group2</span><span class="p">:</span>
+        <span class="n">cond2</span> <span class="o">=</span> <span class="n">scop</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">group2</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+        <span class="n">cond_2</span> <span class="o">=</span> <span class="n">scop</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">group2</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
+         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and ((</span><span class="si">{cond1}</span><span class="s2"> and </span><span class="si">{cond2}</span><span class="s2">) &quot;</span> <span class="k">if</span> <span class="n">group2</span> <span class="k">else</span> <span class="n">f</span><span class="s2">&quot; and (</span><span class="si">{cond1}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; or (</span><span class="si">{cond_1}</span><span class="s2"> and </span><span class="si">{cond_2}</span><span class="s2">)) &quot;</span> <span class="k">if</span> <span class="n">group2</span> <span class="k">else</span> <span class="n">f</span><span class="s2">&quot; or </span><span class="si">{cond_1}</span><span class="s2">)&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+    <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tmphits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tmphits</span><span class="p">:</span>
+        <span class="n">ahits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_hit</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Result</span><span class="p">(</span><span class="n">ahits</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="filter_hits_domain"><a class="viewcode-back" href="../../database.html#database.data.filter_hits_domain">[docs]</a><span class="k">def</span> <span class="nf">filter_hits_domain</span><span class="p">(</span><span class="n">ahits</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Search all hits from a Result class where a certain domain appears</span>
+
+<span class="sd">    :param ahits: An object Result</span>
+<span class="sd">    :param domain: a SCOPe domain identifier</span>
+<span class="sd">    :return: np.array. The starts and ends for the domains in all the hits it appears.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">centersq</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="o">.</span><span class="n">q_start</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">q_end</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ahits</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">query</span> <span class="o">==</span> <span class="n">domain</span><span class="p">]</span>
+    <span class="n">centerss</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="o">.</span><span class="n">s_start</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">s_end</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ahits</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sbjct</span> <span class="o">==</span> <span class="n">domain</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">centersq</span> <span class="o">+</span> <span class="n">centerss</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Noelia Ferruz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

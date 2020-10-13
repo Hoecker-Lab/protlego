@@ -21,10 +21,9 @@ def calc_sasa(chimera: Chimera = None, filename: str= None,
     :param probe_radius The radius of the probe, in nm.
     :param the number of points representing the sufrace of each atom. Higher values lead to more accuracy.
     :mode In mode == ‘atom’, the extracted areas are resolved per-atom.
-        In mode == ‘residue’, this is consolidated down to the per-residue SASA by summing over the atoms in each residue.
+    In mode == ‘residue’, this is consolidated down to the per-residue SASA by summing over the atoms in each residue.
     :param type: Type of calculation to perform. To select from polar, apolar, or total.
-    :return:
-        areas: np.array
+    :return: areas: np.array
     """
     sasa_types = ["polar","apolar","total"]
     if sasa_type not in sasa_types:
@@ -59,8 +58,7 @@ def calc_dssp(chimera:Chimera=None,filename: str=None,simplified:bool=True):
     :param chimera: A Chimera object.
     :param pdb: path to a pdb file
     :param simplified: Use the simplified 3-category assignment scheme. Otherwise the original 8-category scheme is used.
-    :return:
-        assignments np.ndarray. The secondary structure assignment for each residue
+    :return: assignments np.ndarray. The secondary structure assignment for each residue
     """
     if chimera and filename:
         raise ValueError("Only a Chimera object or the path to a pdb file must be specified")
@@ -81,8 +79,7 @@ def calc_dist_matrix(chimera:Chimera=None,filename:str=None,selection:str='resid
     :param type: between contacts (contact map when distances are below 8 armstrongs) or distances
     :param selection: How to compute the distance. 'residue' (the closest two
     atoms between two residues) or 'alpha' distance of the alpha carbons.
-    :return:
-        matrix. np.array. An n by n distance matrix.
+    :return: matrix. np.array. An n by n distance matrix.
     """
     if chimera and filename:
         raise ValueError("Only a Chimera object or the path to a pdb file must be specified")
