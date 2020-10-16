@@ -1,11 +1,9 @@
 import subprocess
 from subprocess import CalledProcessError
-import logging
-logger = logging.getLogger('protlego')
 from typing import Tuple
 import numpy as np
-TMALIGNPATH = '/agh/sw/pkg/tmalign/20170708/TMalign'
 
+from protlego.definitions import logger, TM_BIN
 
 def get_tmalign_output(mobile: str, target:str, matrix_filename:str) -> np.ndarray:
     """Reads the output matrix of TM align
@@ -14,9 +12,9 @@ def get_tmalign_output(mobile: str, target:str, matrix_filename:str) -> np.ndarr
     :param target: path to the subject pdb file
     """
     try:
-        subprocess.check_output([TMALIGNPATH, mobile, target, '-m', matrix_filename, '-o', "TM.sup"])
-    except CalledProcessError:
-        logger.error("TMalign cannot align the molecules")
+        subprocess.check_output([TM_BIN, mobile, target, '-m', matrix_filename, '-o', "TM.sup"])
+    except Exception as e:
+        logger.error(f"TMalign cannot align the molecules. Error follows {e}")
     matrot = [[None] * 4] * 3
     with open(matrix_filename, "r") as inputfile:
         for i, line in enumerate(inputfile.readlines()[2:5]):

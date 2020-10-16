@@ -309,7 +309,6 @@ def fetch_byPDBs(pdb1: str, pdb2: str, prob: int = 70, rmsd: float = 3.0,
     if len(domains1) == 1: domains1 == domains1[0]
     if len(domains2) == 1: domains2 == domains2[0]
     domains = domains1 + domains2
-    print(domains)
     diff = 'q_fold_id != s_fold_id'
     if diff_folds is False:
         diff = None

@@ -104,7 +104,7 @@ def minimize_potential_energy(chimera, ff: str,
     # Get pre-minimization energy (scoring)
     state = simulation.context.getState(getEnergy=True, getForces=True)
     pre_energy = state.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
-    print("Energy before minimization", pre_energy)
+    logger.info("Energy before minimization", pre_energy)
 
     # Standard values for the integrator and tolerance constraint
     if not cuda:
@@ -132,7 +132,7 @@ def minimize_potential_energy(chimera, ff: str,
         post_state = gpu_min.context.getState(getEnergy=True, getForces=True)
 
     post_energy = post_state.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
-    print("Energy after minimization", post_energy)
+    logger.info("Energy after minimization", post_energy)
 
     PDBFile.writeFile(modeller.topology, post_position, open(f"{output}/structure_minimized.pdb", 'w'), keepIds=True)
     min_mol = Chimera(filename=f"{output}/structure_minimized.pdb")

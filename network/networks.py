@@ -10,6 +10,8 @@ from protlego.builder.builder import Builder
 import numpy as np
 from typing import Tuple
 
+import logging
+logger = logging.getLogger('protlego')
 
 class Network:
     """
@@ -160,7 +162,7 @@ class Network:
             return
         self.comp, hist = label_components(self.graph)
         self.numFrags = max(self.comp.a) + 1
-        print("There are ", self.numFrags, " fragments")
+        logger.info("There are ", self.numFrags, " fragments")
         return self.comp
 
     def vertex_of_fragment(self, frag: int) -> list:

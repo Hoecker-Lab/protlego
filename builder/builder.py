@@ -14,14 +14,7 @@ from moleculekit.projections.metricrmsd import MetricRmsd
 from moleculekit.projections.metricsecondarystructure import MetricSecondaryStructure
 from scipy.spatial.distance import cdist
 import matplotlib.pyplot as plt
-
-import logging
-
-logging.getLogger('moleculekit').setLevel(logging.ERROR)
-logger = logging.getLogger('protlego')
-
-#TODO: Put real path after setup
-TMALIGNPATH = '/agh/sw/pkg/tmalign/20170708/TMalign'
+from protlego.definitions import TM_BIN, logger
 
 aa_keys = special2standard.keys()
 standard_aas = three2one.keys()
@@ -283,8 +276,8 @@ class Builder():
         try:
             # We align subject onto the query
             tm_matrix = get_tmalign_output('/tmp/copys.pdb', '/tmp/copyq.pdb', "matrix")
-        except:
-            raise ChildProcessError("TMalign cannot align the PDBs. Exiting")
+        except Exception as e:
+            raise ChildProcessError(f"TMalign cannot align the PDBs. Error follows: {e}")
         vectran, matrot = tm2vmd(tm_matrix)
 
         # remove copy files

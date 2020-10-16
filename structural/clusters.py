@@ -26,7 +26,6 @@ class Cluster(NamedTuple):
 
 # Paths and variables
 sel = "protein and chain A and not backbone and noh and resname ILE VAL LEU"
-# mol_path='/agh/projects/PotF/data/potf/ligand/structures/potfwt-spd/3pk1/phenix/Refine_49/wt_potf_spd_refine_TLS_NCSfull_hydrogens_b20_049.pdb'
 _ATOMIC_RADII = {'C': 1.88}
 water_radius = 1.4
 sphere_radius_carbon = _ATOMIC_RADII['C'] + water_radius
