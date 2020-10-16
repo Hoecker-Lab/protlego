@@ -165,7 +165,6 @@ class Chimera(Molecule):
         self.reps.add(sel='protein', style='NewCartoon', color=8)
         if mapping[data].atomIndexes.values.any():
             for bond in mapping[data].atomIndexes.values:
-                print(bond[0],bond[1])
                 resid1 = self.get("resid", sel=f"same residue as index {bond[0]}")[0]
                 resid2 = self.get("resid", sel=f"same residue as index {bond[1]}")[0]
                 if [resid1, resid2] not in salts:
