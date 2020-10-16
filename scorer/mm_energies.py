@@ -1,13 +1,11 @@
 from typing import Tuple
-from simtk.openmm import app
+from simtk.openmm.app import *
+from parmed import load_file
+from simtk.openmm.app.modeller import Modeller
 import simtk.openmm as mm
 from simtk import unit
-import parmed
 import os
 import shutil
-import htmd.builder.amber as amber
-import htmd.builder.charmm as charmm
-from glob import glob
 
 from moleculekit.tools.preparation import proteinPrepare
 from moleculekit.tools.autosegment import autoSegment
@@ -18,7 +16,6 @@ from moleculekit.molecule import Molecule
 import logging
 
 logger = logging.getLogger('protlego')
-logging.getLogger('htmd').setLevel(logging.ERROR)
 
 temperature = 300 * unit.kelvin
 friction = 1.0 / unit.picoseconds
@@ -48,53 +45,6 @@ def prepare_protein(chimera: Chimera) -> Molecule:
     return mol
 
 
-def _prepareMMsim(smol, ff: str, output: str = "/tmp/build"):
-    if ff == "amber":
-        mol = amber.build(smol, ionize=False, outdir=output)
-        structure_prm = app.AmberPrmtopFile(f'{output}/structure.prmtop')
-        inpcrd = app.AmberInpcrdFile(f'{output}/structure.crd')
-        system = structure_prm.createSystem()
-    elif ff == "charmm":
-        mol = charmm.build(smol, ionize=False, outdir=output, psfgen='/sw/sci/app/namd/NAMD_2.9-x86_64-CUDA/psfgen')
-        structure_prm = parmed.charmm.CharmmPsfFile(f'{output}/structure.psf')
-        prmfiles = glob(os.path.join(output, 'topologies', '*.rtf'))
-        os.rename(f"{output}/parameters", f"{output}/structure.prm")
-        prmfiles.append(f"{output}/structure.prm")
-        inpcrd = app.PDBFile(f'{output}/structure.pdb')
-        params = parmed.charmm.CharmmParameterSet(*prmfiles)
-        system = structure_prm.createSystem(params)
-    else:
-        raise ValueError("The specified forcefield is wrong. Please select amber or charmm")
-    platform = mm.Platform.getPlatformByName('CPU')
-    cpu_integrator = mm.VariableLangevinIntegrator(temperature, friction, error_tolerance)
-    simulation = app.Simulation(structure_prm.topology, system, cpu_integrator, platform)
-    simulation.context.setPositions(inpcrd.positions)
-    state = simulation.context.getState(getEnergy=True, getForces=True)
-
-    return state, system, cpu_integrator, simulation, structure_prm, inpcrd, mol
-
-
-def score_pot_energy(chimera: Chimera, ff: str, output: str = "/tmp/build", keep_output_files: bool = False) \
-        -> Tuple[Chimera, unit.quantity.Quantity]:
-    """
-    Score the potential energy of a chimera with the amber or charmm forcefields
-    :param chimera: A chimera object to compute the pot. E on.
-    :param ff: Forcefield to use. Amber or charmm. The latest version with be used.
-    :param output: A folder where to keep the files. If not provided they will be stored in
-    the /tmp folder and later removed.
-    :param keep_output_files: Whether to keep the produced folders. Default is remove.
-
-    :return: The chimera object that whose pot.E was computed and the potential energy value.
-    """
-    mol = prepare_protein(chimera)
-    state, _, _, _, _, _, mol = _prepareMMsim(mol, ff, output)
-    energy = state.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
-    if keep_output_files is False:
-        shutil.rmtree(output)
-    print(f"Potential Energy: {energy}")
-    return mol, energy
-
-
 def _mol_chimera_wrapper(molecule: Molecule, chimera: Chimera) -> Chimera:
     molecule.write("/tmp/molecule.pdb")
     new_chimera = Chimera(filename="/tmp/molecule.pdb")
@@ -115,20 +65,24 @@ def minimize_potential_energy(chimera, ff: str,
 
     :return: The chimera object that was minimized and the potential energy value.
     """
-    smol = prepare_protein(chimera)
-    state, system, integrator, simulation, structure_prm, inpcrd, mol = _prepareMMsim(smol, ff, output)
-    pre_energy = state.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
-    print("Energy before minimization", pre_energy)
-    mol = _mol_chimera_wrapper(mol, chimera)
-    pre_min_coords = simulation.context.getState(getPositions=True)
-    # Standard values for the integrator and tolerance constraint
-    if not cuda:
-        # Default value
-        tolerance = 10 * unit.kilojoule / unit.mole
-    else:
-        # High tolerance so the CPU only pre-minimizes
-        tolerance = 1e6
 
+    if not os.path.exists(output):
+        os.mkdir(output)
+
+    smol = prepare_protein(chimera)
+    smol.write(f"{output}/protein.pdb")
+    pdb = PDBFile(f"{output}/protein.pdb")
+    parm = load_file(f"{output}/protein.pdb")
+    modeller = Modeller(pdb.topology, pdb.positions)
+
+    if ff == 'amber':
+        forcefield = ForceField('amber14-all.xml', 'amber14/tip3pfb.xml')
+    if ff == 'charmm':
+        forcefield = ForceField('charmm36.xml', 'charmm36/tip3p-pme-b.xml')
+
+    modeller.addSolvent(forcefield, padding=1.0 * unit.nanometer)
+    system = forcefield.createSystem(modeller.topology, nonbondedMethod=PME,
+                                     nonbondedCutoff=1 * unit.nanometer, constraints=HBonds)
     if restraint_backbone:
         # Applies an external force on backbone atoms
         # This allows the backbone to stay rigid, while severe clashes can still be resolved
@@ -136,11 +90,29 @@ def minimize_potential_energy(chimera, ff: str,
         force.addGlobalParameter("k", 5.0 * unit.kilocalories_per_mole / unit.angstroms ** 2)
         force.addPerParticleParameter("x0")
         force.addPerParticleParameter("y0")
-        force.addPerParticleParameter("z0")
-        for i, atom_crd in enumerate(inpcrd.positions):
-            if mol.name[i] in ('CA', 'C', 'N'):
-                force.addParticle(i, atom_crd.value_in_unit(unit.nanometers))
+        atoms = [atom for atom in modeller.topology.atoms()]
+        for idx, atom_crd in enumerate(modeller.positions):
+            if idx >= len(parm.atoms): continue
+            if parm.atoms[idx] in ('CA', 'C', 'N'):
+                force.addParticle(idx, atom_crd.value_in_unit(unit.nanometers))
         system.addForce(force)
+
+    integrator = mm.LangevinIntegrator(temperature, friction, error_tolerance)
+    simulation = Simulation(modeller.topology, system, integrator)
+    simulation.context.setPositions(modeller.positions)
+
+    # Get pre-minimization energy (scoring)
+    state = simulation.context.getState(getEnergy=True, getForces=True)
+    pre_energy = state.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
+    print("Energy before minimization", pre_energy)
+
+    # Standard values for the integrator and tolerance constraint
+    if not cuda:
+        # Default value
+        tolerance = 10 * unit.kilojoule / unit.mole
+    else:
+        # High tolerance so the CPU only pre-minimizes
+        tolerance = 1e6
 
     # Setup CPU minimization
     integrator.setConstraintTolerance(distance_tolerance)
@@ -153,7 +125,7 @@ def minimize_potential_energy(chimera, ff: str,
         properties = {'CudaPrecision': 'mixed'}
         gpu_integrator = mm.VariableLangevinIntegrator(temperature, friction, error_tolerance)
         gpu_integrator.setConstraintTolerance(distance_tolerance)
-        gpu_min = app.Simulation(structure_prm.topology, system, gpu_integrator, platform, properties)
+        gpu_min = Simulation(modeller.topology, system, gpu_integrator, platform, properties)
         gpu_min.context.setPositions(min_coords.getPositions())
         gpu_min.minimizeEnergy()
         post_position = gpu_min.context.getState(getPositions=True).getPositions()
@@ -162,12 +134,10 @@ def minimize_potential_energy(chimera, ff: str,
     post_energy = post_state.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
     print("Energy after minimization", post_energy)
 
-    app.PDBFile.writeFile(structure_prm.topology, post_position, open(f"{output}/structure_minimized.pdb", 'w'),
-                          keepIds=True)
+    PDBFile.writeFile(modeller.topology, post_position, open(f"{output}/structure_minimized.pdb", 'w'), keepIds=True)
     min_mol = Chimera(filename=f"{output}/structure_minimized.pdb")
-    mol.coords = min_mol.coords
-    mol.write(f"{output}/structure_minimized.pdb")
+
     if keep_output_files is False:
         shutil.rmtree(output)
 
-    return post_energy, mol
+    return post_energy, min_mol

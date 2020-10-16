@@ -1,0 +1,97 @@
+MIT License
+Copyright (c) 2018 YOUR NAME
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Third-party license terms:
+VMD selection
+-------------
+
+This software includes code developed by the Theoretical and Computational
+Biophysics Group in the Beckman Institute for Advanced Science and
+Technology at the University of Illinois at Urbana-Champaign.
+
+Stride
+------
+
+All rights reserved, whether the whole or part of the program is concerned. Permission to use, copy, and modify this software and its documentation is granted for academic use, provided that:
+
+i. this copyright notice appears in all copies of the	software and related documentation;
+
+ii. the reference given below must be cited in any publication of scientific results based in part or completely	on the use of the program;
+
+    Frishman,D	& Argos,P. (1995) Knowledge-based secondary structure assignment. Proteins: structure,	function and genetics, 10.1002/prot.340230412
+
+iii. bugs will be reported to the authors.
+
+The use of the software in commercial activities is not allowed without a prior written commercial license agreement.
+
+STRIDE is provided "as-is" and without warranty of any kind, express, implied or otherwise, including without limitation any warranty of merchantability or fitness for a particular purpose. In no event will the authors be liable for any special, incidental, indirect or consequential damages of any kind, or any damages whatsoever resulting from loss of data or profits, whether or not advised of the possibility of damage, and on any theory of liability, arising out of or in connection with the use or performance of this software.
+
+Moleculekit
+-----------
+HTMD Software Academic License Agreement v1.1
+
+The HTMD software ("Software") has been developed by the contributing
+researchers from Acellera and made available through Acellera for your
+internal, non-profit research use.
+
+Acellera allows researchers at your institution to run, display, copy and
+modify Software on the following conditions:
+
+1. The Software remains at your institution and is not published, distributed,
+or otherwise transferred or made available to other than institution employees
+and students involved in research under your supervision.
+
+2. You agree to make results generated using Software available to other
+academic researchers for non-profit research purposes. If you wish to obtain
+Software for any commercial purposes, including fee-based service projects, you
+will need to execute a separate licensing agreement with Acellera and pay a
+fee. In that case please contact: info@acellera.com.
+
+3. You retain in Software and any modifications to Software, the copyright,
+trademark, or other notices pertaining to Software as provided by Acellera.
+
+4. You provide Acellera with feedback on the use of the Software in your
+research, and that Acellera are permitted to use any information you provide in
+making changes to the Software. All bug reports and technical questions shall
+be sent to the email address: info@acellera.com.
+
+5. You acknowledge that Acellera and its licensees may develop modifications to
+Software that may be substantially similar to your modifications of Software,
+and that Acellera and its licensees shall not be constrained in any way by you
+in Acellera's or its licensees' use or management of such modifications. You
+acknowledge the right of  Acellera to prepare and publish modifications to
+Software that may be substantially similar or functionally equivalent to your
+modifications and improvements, and if you obtain patent protection for any
+modification or improvement to Software you agree not to allege or enjoin
+infringement of your patent by Acellera or by any of Acellera's licensees
+obtaining modifications or improvements to Software from Acellera .
+
+6. You agree to acknowledge the contribution Software make to your research,
+and cite appropriate references about the Software in your publications.
+
+7. Any risk associated with using the Software at your institution is with you
+and your institution. Software is experimental in nature and is made available
+as a research courtesy "AS IS," without obligation by Acellera to provide
+accompanying services or support.
+
+8. You consent to allow usage information of this software to be sent
+to Acellera.
+
+9. ACELLERA EXPRESSLY DISCLAIMS ANY AND ALL WARRANTIES REGARDING THE SOFTWARE,
+WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES PERTAINING
+TO NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
