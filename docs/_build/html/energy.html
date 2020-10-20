@@ -229,22 +229,6 @@
 :return:</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="scorer.mm_energies.score_pot_energy">
-<code class="sig-prename descclassname">scorer.mm_energies.</code><code class="sig-name descname">score_pot_energy</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera</em>, <em class="sig-param">ff: str</em>, <em class="sig-param">output: str = '/tmp/build'</em>, <em class="sig-param">keep_output_files: bool = False</em><span class="sig-paren">)</span> &#x2192; Tuple[protlego.builder.chimera.Chimera, simtk.unit.quantity.Quantity]<a class="reference internal" href="_modules/scorer/mm_energies.html#score_pot_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scorer.mm_energies.score_pot_energy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Score the potential energy of a chimera with the amber or charmm forcefields
-:param chimera: A chimera object to compute the pot. E on.
-:param ff: Forcefield to use. Amber or charmm. The latest version with be used.
-:param output: A folder where to keep the files. If not provided they will be stored in
-the /tmp folder and later removed.
-:param keep_output_files: Whether to keep the produced folders. Default is remove.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The chimera object that whose pot.E was computed and the potential energy value.</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 

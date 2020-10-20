@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.analysestrc">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -173,13 +173,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for structural.salt_bridges</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">moleculekit.molecule</span> <span class="k">import</span> <span class="n">Molecule</span>
-<span class="kn">from</span> <span class="nn">moleculekit.projections.metricdistance</span> <span class="k">import</span> <span class="n">MetricDistance</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
-<span class="kn">from</span> <span class="nn">moleculekit.vmdviewer</span> <span class="k">import</span> <span class="n">viewer</span>
+<span></span><span class="kn">from</span> <span class="nn">moleculekit.molecule</span> <span class="kn">import</span> <span class="n">Molecule</span>
+<span class="kn">from</span> <span class="nn">moleculekit.projections.metricdistance</span> <span class="kn">import</span> <span class="n">MetricDistance</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">moleculekit.vmdviewer</span> <span class="kn">import</span> <span class="n">viewer</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">getopt</span>
-<span class="kn">from</span> <span class="nn">protlego.structural.clusters</span> <span class="k">import</span> <span class="n">filter_mol</span><span class="p">,</span> <span class="n">postprocess_session</span>
+<span class="kn">from</span> <span class="nn">protlego.structural.clusters</span> <span class="kn">import</span> <span class="n">filter_mol</span><span class="p">,</span> <span class="n">postprocess_session</span>
 
 
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -199,12 +199,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">outputname</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;-salt-bridges.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
     <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sel</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span> <span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;NewCartoon&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;resid</span><span class="se">\t</span><span class="s2">resid</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;resid</span><span class="se">\t</span><span class="s2">resid</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">bond</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">[</span><span class="n">data</span><span class="p">]</span><span class="o">.</span><span class="n">atomIndexes</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-        <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;chain A and same residue as index </span><span class="si">{bond[0]}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;Licorice&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
-        <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;chain A and same residue as index </span><span class="si">{bond[1]}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;Licorice&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{bond[0]}</span><span class="se">\t</span><span class="s2">&quot;</span>
-                <span class="n">f</span><span class="s2">&quot;</span><span class="si">{bond[1]}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;chain A and same residue as index </span><span class="si">{</span><span class="n">bond</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;Licorice&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+        <span class="n">mol</span><span class="o">.</span><span class="n">reps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;chain A and same residue as index </span><span class="si">{</span><span class="n">bond</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;Licorice&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bond</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bond</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">vmdobject</span> <span class="o">=</span> <span class="n">viewer</span><span class="p">(</span><span class="n">dispdev</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
     <span class="n">vmdobject</span><span class="o">.</span><span class="n">loadMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
@@ -249,7 +249,7 @@
 
     <span class="c1">#3. Write txt and vmd session out</span>
     <span class="n">write_salt_bridges</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">mol</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">)</span>
-    <span class="n">inputfile_processed</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{inputfile[:-4]}</span><span class="s2">-chainA.pdb&quot;</span>
+    <span class="n">inputfile_processed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">inputfile</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">-chainA.pdb&quot;</span>
     <span class="n">postprocess_session</span><span class="p">(</span><span class="n">inputfile_processed</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving VMD session&quot;</span><span class="p">)</span>
 

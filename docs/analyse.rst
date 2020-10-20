@@ -19,6 +19,6 @@ Salt-bridges
 Further structural analysis
 ============================
 
-.. automodule:: structural.analysestrc
+.. automodule:: structural.analysis
    :members:
 

@@ -16,11 +16,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
-    "from protlego import *"
+    "import sys\n",
+    "sys.path.append(\"/agh/projects/noelia/github/\")\n",
+    "from protlego.all import *"
    ]
   },
   {
@@ -32,7 +34,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -48,7 +50,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 7,
    "metadata": {
     "scrolled": true
    },
@@ -57,27 +59,27 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "2020-10-12 15:26:15,249 - protlego - INFO - Attempting to download domain d2dfda1 from the SCOP server\n",
-      "2020-10-12 15:26:16,766 - protlego - INFO - File downloaded as /tmp/tmpffw47_x7.pdb\n",
-      "2020-10-12 15:26:16,767 - protlego - INFO - Attempting to download domain d1wa5a_ from the SCOP server\n",
-      "2020-10-12 15:26:18,415 - protlego - INFO - File downloaded as /tmp/tmpjk_0aw95.pdb\n",
-      "2020-10-12 15:26:18,417 - protlego - INFO - Loading /tmp/tmpffw47_x7.pdb as a chimera object\n",
-      "2020-10-12 15:26:18,517 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=\"all\" option when reading the file.\n",
-      "2020-10-12 15:26:18,520 - protlego - INFO - Loading /tmp/tmpjk_0aw95.pdb as a chimera object\n",
-      "2020-10-12 15:26:18,581 - protlego - INFO - Attempting to download hhs file for d2dfda1 from the FUZZLE server\n",
-      "2020-10-12 15:26:18,716 - protlego - INFO - File downloaded as /tmp/tmpde_xzouh.hhs\n",
-      "2020-10-12 15:26:19,766 - protlego - INFO - Performing alignment 1 with TMalign\n",
-      "2020-10-12 15:26:22,892 - protlego - INFO - The RMSD between the fragments is 0.6881080269813538 over 6 alpha carbons\n",
-      "2020-10-12 15:26:22,899 - protlego - INFO - Performing alignment 2 with TMalign\n",
-      "2020-10-12 15:26:22,965 - protlego - INFO - The RMSD between the fragments is 2.3234670162200928 over 6 alpha carbons\n",
-      "2020-10-12 15:26:22,972 - protlego - INFO - Performing alignment 3 with TMalign\n",
-      "2020-10-12 15:26:23,043 - protlego - INFO - The RMSD between the fragments is 1.1804629564285278 over 9 alpha carbons\n",
-      "2020-10-12 15:26:23,050 - protlego - INFO - Performing alignment 4 with TMalign\n",
-      "2020-10-12 15:26:23,147 - protlego - INFO - The RMSD between the fragments is 10.348335266113281 over 34 alpha carbons\n",
-      "2020-10-12 15:26:23,157 - protlego - INFO - Performing alignment 5 with TMalign\n",
-      "2020-10-12 15:26:23,232 - protlego - INFO - The RMSD between the fragments is 4.646137714385986 over 17 alpha carbons\n",
-      "2020-10-12 15:26:23,241 - protlego - INFO - Performing alignment 6 with TMalign\n",
-      "2020-10-12 15:26:23,321 - protlego - INFO - The RMSD between the fragments is 3.52919340133667 over 29 alpha carbons\n"
+      "2020-10-20 21:31:52,576 - protlego - INFO - Attempting to download domain d2dfda1 from the SCOP server\n",
+      "2020-10-20 21:31:53,795 - protlego - INFO - File downloaded as /tmp/tmpeurzi_g3.pdb\n",
+      "2020-10-20 21:31:53,795 - protlego - INFO - Attempting to download domain d1wa5a_ from the SCOP server\n",
+      "2020-10-20 21:31:54,972 - protlego - INFO - File downloaded as /tmp/tmpi7g2hjbp.pdb\n",
+      "2020-10-20 21:31:54,974 - protlego - INFO - Loading /tmp/tmpeurzi_g3.pdb as a chimera object\n",
+      "2020-10-20 21:31:55,096 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=\"all\" option when reading the file.\n",
+      "2020-10-20 21:31:55,099 - protlego - INFO - Loading /tmp/tmpi7g2hjbp.pdb as a chimera object\n",
+      "2020-10-20 21:31:55,160 - protlego - INFO - Attempting to download hhs file for d2dfda1 from the FUZZLE server\n",
+      "2020-10-20 21:31:55,294 - protlego - INFO - File downloaded as /tmp/tmpgo0876zj.hhs\n",
+      "2020-10-20 21:31:56,234 - protlego - INFO - Performing alignment 1 with TMalign\n",
+      "2020-10-20 21:31:59,195 - protlego - INFO - The RMSD between the fragments is 0.6881080269813538 over 6 alpha carbons\n",
+      "2020-10-20 21:31:59,203 - protlego - INFO - Performing alignment 2 with TMalign\n",
+      "2020-10-20 21:31:59,285 - protlego - INFO - The RMSD between the fragments is 2.3234670162200928 over 6 alpha carbons\n",
+      "2020-10-20 21:31:59,295 - protlego - INFO - Performing alignment 3 with TMalign\n",
+      "2020-10-20 21:31:59,362 - protlego - INFO - The RMSD between the fragments is 1.1804629564285278 over 9 alpha carbons\n",
+      "2020-10-20 21:31:59,370 - protlego - INFO - Performing alignment 4 with TMalign\n",
+      "2020-10-20 21:31:59,447 - protlego - INFO - The RMSD between the fragments is 10.348335266113281 over 34 alpha carbons\n",
+      "2020-10-20 21:31:59,457 - protlego - INFO - Performing alignment 5 with TMalign\n",
+      "2020-10-20 21:31:59,531 - protlego - INFO - The RMSD between the fragments is 4.646137714385986 over 17 alpha carbons\n",
+      "2020-10-20 21:31:59,540 - protlego - INFO - Performing alignment 6 with TMalign\n",
+      "2020-10-20 21:31:59,617 - protlego - INFO - The RMSD between the fragments is 3.52919340133667 over 29 alpha carbons\n"
      ]
     }
    ],
@@ -99,69 +101,54 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We can evaluate the potential energy of a chimera with the Charmm and Amber forcefieldds. As an option we can keep intermediate file in a folder or not. The function score_pot_energy takes a Chimera object as input and applies the selected forcefield:"
+    "We can evaluate the potential energy of a chimera with the Charmm and Amber forcefieldds. Let's first take a chimera as an example."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 8,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2020-10-12 15:26:30,717 - propka - INFO - No pdbfile provided\n",
-      "/agh/projects/noelia/miniconda3/envs/my-rdkit-env/lib/python3.6/site-packages/numpy/core/fromnumeric.py:57: FutureWarning: Series.nonzero() is deprecated and will be removed in a future version.Use Series.to_numpy().nonzero() instead\n",
-      "  return getattr(obj, method)(*args, **kwds)\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Potential Energy: 34646.30864467745 kcal/mol\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
-    "chimera=Builder.mutate_nonstandards(chimeras['comb1_72'])\n",
-    "_,_=score_pot_energy(chimeras['comb1_72'], 'amber')"
+    "chimera=Builder.mutate_nonstandards(chimeras['comb1_72'])"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The built chimeras sometimes present internal clashes. For this reason, they tend to present very high potential energy scores. To compute a more realistic measure, we can minimize the structure using the minimize_potential_energy function. There's the possibility to run the minimization with GPU acceleration, and one can also choose to restraint the backbone or not."
+    "The built chimeras sometimes present internal clashes. For this reason, they tend to present very high potential energy scores. To compute a more realistic measure, we can minimize the structure using the minimize_potential_energy function. There's the possibility to run the minimization with GPU acceleration (provided there is a CUDA installation), and one can also choose to restraint the backbone or not."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 9,
    "metadata": {
-    "scrolled": true
+    "scrolled": false
    },
    "outputs": [
     {
-     "name": "stdout",
+     "name": "stderr",
      "output_type": "stream",
      "text": [
-      "Energy before minimization 34646.308644677454 kcal/mol\n",
-      "Energy after minimization -3350.4187825470835 kcal/mol\n"
+      "2020-10-20 21:32:03,197 - propka - INFO - No pdbfile provided\n",
+      "/agh/projects/noelia/miniconda3/envs/my-rdkit-env/lib/python3.6/site-packages/numpy/core/fromnumeric.py:57: FutureWarning: Series.nonzero() is deprecated and will be removed in a future version.Use Series.to_numpy().nonzero() instead\n",
+      "  return getattr(obj, method)(*args, **kwds)\n",
+      "2020-10-20 21:32:14,428 - protlego - INFO - Energy before minimization -22060.479508084623 kcal/mol\n",
+      "2020-10-20 21:32:52,534 - protlego - INFO - Energy after minimization -122225.71913889165 kcal/mol\n"
      ]
     },
     {
      "data": {
       "text/plain": [
-       "(Quantity(value=-3350.4187825470835, unit=kilocalorie/mole),\n",
-       " <protlego.builder.chimera.Chimera object at 0x7fe8356d5e48>\n",
+       "(Quantity(value=-122225.71913889165, unit=kilocalorie/mole),\n",
+       " <protlego.builder.chimera.Chimera object at 0x7fbd6f85dc18>\n",
        " Protein with:\n",
-       " Number of residues: 165\n",
-       " Number of atoms: 2622)"
+       " Number of residues: 8656\n",
+       " Number of atoms: 28076)"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -172,10 +159,93 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 10,
    "metadata": {},
-   "outputs": [],
-   "source": []
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2020-10-20 21:33:04,752 - protlego - INFO - Energy before minimization -20780.603791067413 kcal/mol\n",
+      "2020-10-20 21:33:31,612 - protlego - INFO - Energy after minimization -122055.938399098 kcal/mol\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "(Quantity(value=-122055.938399098, unit=kilocalorie/mole),\n",
+       " <protlego.builder.chimera.Chimera object at 0x7fbd6a3d5a90>\n",
+       " Protein with:\n",
+       " Number of residues: 8656\n",
+       " Number of atoms: 28076)"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "minimize_potential_energy(chimera, 'amber')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2020-10-20 21:34:52,334 - protlego - INFO - Energy before minimization -22081.949545635354 kcal/mol\n",
+      "2020-10-20 21:35:15,114 - protlego - INFO - Energy after minimization -91719.16871389539 kcal/mol\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "(Quantity(value=-91719.16871389539, unit=kilocalorie/mole),\n",
+       " <protlego.builder.chimera.Chimera object at 0x7fbd66deb780>\n",
+       " Protein with:\n",
+       " Number of residues: 7478\n",
+       " Number of atoms: 24542)"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "minimize_potential_energy(chimera, 'charmm')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As we have seen, the function minimize_potential_energy() outputs two variables, one with the potential energy, and another the resulting minimized chimera:\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2020-10-20 21:37:12,611 - protlego - INFO - Energy before minimization -21855.85011924912 kcal/mol\n",
+      "2020-10-20 21:37:36,874 - protlego - INFO - Energy after minimization -91703.95976417477 kcal/mol\n"
+     ]
+    }
+   ],
+   "source": [
+    "energy, min_chimera  = minimize_potential_energy(chimera, 'charmm', cuda=True, restraint_backbone=False)"
+   ]
   }
  ],
  "metadata": {

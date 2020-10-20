@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.analysestrc">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -173,13 +173,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for database.data</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">protlego.definitions</span> <span class="k">import</span> <span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span>
+<span></span><span class="kn">from</span> <span class="nn">protlego.definitions</span> <span class="kn">import</span> <span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">NamedTuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span>
 
-<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{ROOT_DIR}</span><span class="s1">/fuzzle2.07.db&#39;</span><span class="p">)</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/fuzzle2.07.db&#39;</span><span class="p">)</span>
 <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Hit"><a class="viewcode-back" href="../../database.html#database.data.Hit">[docs]</a><span class="k">class</span> <span class="nc">Hit</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
@@ -269,8 +269,8 @@
     <span class="n">s_cluster</span><span class="p">:</span> <span class="nb">str</span>
     <span class="sd">&quot;&quot;&quot; Subject cluster where this fragment belongs to &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;Hit between </span><span class="si">{self.query}</span><span class="s2"> and </span><span class="si">{self.sbjct}</span><span class="s2"> with probability </span><span class="si">{self.prob}</span><span class="s2"> %</span><span class="se">\n</span><span class="s2">&quot;</span></div>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hit between </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sbjct</span><span class="si">}</span><span class="s2"> with probability </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prob</span><span class="si">}</span><span class="s2"> %</span><span class="se">\n</span><span class="s2">&quot;</span></div>
 
 
 <div class="viewcode-block" id="parse_hit"><a class="viewcode-back" href="../../database.html#database.data.parse_hit">[docs]</a><span class="k">def</span> <span class="nf">parse_hit</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Hit</span><span class="p">:</span>
@@ -323,14 +323,14 @@
 <div class="viewcode-block" id="Result"><a class="viewcode-back" href="../../database.html#database.data.Result">[docs]</a><span class="k">class</span> <span class="nc">Result</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Class handling the data obtained from fuzzle&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ahits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Hit</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ahits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Hit</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="o">=</span> <span class="n">ahits</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;Query from Fuzzle with {len(self.hits)} hits&quot;</span> \
-               <span class="n">f</span><span class="s2">&quot; belonging to {len(self.list_folds)} fold(s)&quot;</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Query from Fuzzle with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">)</span><span class="si">}</span><span class="s2"> hits&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot; belonging to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_folds</span><span class="p">)</span><span class="si">}</span><span class="s2"> fold(s)&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
@@ -356,14 +356,14 @@
     <span class="k">def</span> <span class="nf">unique_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; It returns a list of unique domains&quot;&quot;&quot;</span>
         <span class="n">unique_domains</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">sbjct</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The query contains {len(unique_domains)} different domains&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The query contains </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_domains</span><span class="p">)</span><span class="si">}</span><span class="s2"> different domains&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">unique_domains</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">unique_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; It returns a list of unique domains&quot;&quot;&quot;</span>
         <span class="n">unique_clusters</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([(</span><span class="n">hit</span><span class="o">.</span><span class="n">q_cluster</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">s_cluster</span><span class="p">)</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The query contains {len(unique_clusters)} different clusters&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The query contains </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_clusters</span><span class="p">)</span><span class="si">}</span><span class="s2"> different clusters&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">unique_clusters</span>
 
     <span class="nd">@property</span>
@@ -420,15 +420,15 @@
         <span class="n">cond1</span> <span class="o">=</span> <span class="n">scop</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">scop_q</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>  <span class="c1"># This prints: q_fold_id=&#39;c.23&#39;. Not sure how to improve it.</span>
         <span class="n">cond2</span> <span class="o">=</span> <span class="n">scop</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">scop_q</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
 
-    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2"> &quot;</span> \
-         <span class="n">f</span><span class="s2">&quot;and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2"> &quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;and </span><span class="si">{cond}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;and </span><span class="si">{cond1}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot;or </span><span class="si">{cond2}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{</span><span class="n">prob</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{</span><span class="n">rmsd</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{</span><span class="n">ca_min</span><span class="si">}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ca_max</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{</span><span class="n">score_tm_pair</span><span class="si">}</span><span class="s2"> &quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot;and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ratio</span><span class="si">}</span><span class="s2"> &quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;and </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;and </span><span class="si">{</span><span class="n">cond</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;and </span><span class="si">{</span><span class="n">cond1</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;or </span><span class="si">{</span><span class="n">cond2</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">cond2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
     <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
 
     <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
@@ -445,20 +445,20 @@
 <span class="sd">    :return: A list of domains that this PDB contains</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pdb</span> <span class="o">=</span> <span class="n">pdb</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;SELECT sdomain FROM scop_pdbref_scop WHERE pdbref like &#39;</span><span class="si">{pdb}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT sdomain FROM scop_pdbref_scop WHERE pdbref like &#39;</span><span class="si">{</span><span class="n">pdb</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
     <span class="n">hits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
     <span class="n">domains</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">]))</span>
     <span class="k">if</span> <span class="n">domains</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domains</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">domains</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;(&#39;&quot;</span> <span class="o">+</span> <span class="n">domains</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&#39;)&quot;</span><span class="p">)</span>
-        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;SELECT ref FROM astral_astral95 WHERE id in </span><span class="si">{domains}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT ref FROM astral_astral95 WHERE id in </span><span class="si">{</span><span class="n">domains</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">hits</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
         <span class="n">domains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">])</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Domain(s) </span><span class="si">{domains}</span><span class="s2"> are present in the Fuzzle database&quot;</span>
-                    <span class="n">f</span><span class="s2">&quot; as representatives for pdb {pdb.capitalize()}&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Domain(s) </span><span class="si">{</span><span class="n">domains</span><span class="si">}</span><span class="s2"> are present in the Fuzzle database&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; as representatives for pdb </span><span class="si">{</span><span class="n">pdb</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">protlego.builder.builder</span> <span class="k">import</span> <span class="n">NotCorrectPDBError</span>
-        <span class="k">raise</span> <span class="n">NotCorrectPDBError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;PDB code {pdb.capitalize()} does not yet appear in the SCOP database&quot;</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">protlego.builder.builder</span> <span class="kn">import</span> <span class="n">NotCorrectPDBError</span>
+        <span class="k">raise</span> <span class="n">NotCorrectPDBError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PDB code </span><span class="si">{</span><span class="n">pdb</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> does not yet appear in the SCOP database&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">domains</span>
 
@@ -484,18 +484,17 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domains1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">domains1</span> <span class="o">==</span> <span class="n">domains1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domains2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">domains2</span> <span class="o">==</span> <span class="n">domains2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">domains</span> <span class="o">=</span> <span class="n">domains1</span> <span class="o">+</span> <span class="n">domains2</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">domains</span><span class="p">)</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
     <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and query in </span><span class="si">{domains}</span><span class="s2">&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and sbjct in </span><span class="si">{domains}</span><span class="s2">&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{</span><span class="n">prob</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{</span><span class="n">rmsd</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{</span><span class="n">ca_min</span><span class="si">}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ca_max</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{</span><span class="n">score_tm_pair</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ratio</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; and query in </span><span class="si">{</span><span class="n">domains</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; and sbjct in </span><span class="si">{</span><span class="n">domains</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; and </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
 
     <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
     <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
@@ -555,15 +554,15 @@
     <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
     <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and (rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2"> or rmsd_tm_pair is NULL)&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and ((query=&#39;</span><span class="si">{domain1}</span><span class="s2">&#39; and sbjct=&#39;</span><span class="si">{domain2}</span><span class="s2">&#39;)&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; or (sbjct = &#39;</span><span class="si">{domain1}</span><span class="s2">&#39; and query=&#39;</span><span class="si">{domain2}</span><span class="s2">&#39;))&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and query != sbjct&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{</span><span class="n">prob</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and (rmsd_tm_pair &lt; </span><span class="si">{</span><span class="n">rmsd</span><span class="si">}</span><span class="s2"> or rmsd_tm_pair is NULL)&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{</span><span class="n">ca_min</span><span class="si">}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ca_max</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{</span><span class="n">score_tm_pair</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ratio</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and ((query=&#39;</span><span class="si">{</span><span class="n">domain1</span><span class="si">}</span><span class="s2">&#39; and sbjct=&#39;</span><span class="si">{</span><span class="n">domain2</span><span class="si">}</span><span class="s2">&#39;)&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; or (sbjct = &#39;</span><span class="si">{</span><span class="n">domain1</span><span class="si">}</span><span class="s2">&#39; and query=&#39;</span><span class="si">{</span><span class="n">domain2</span><span class="si">}</span><span class="s2">&#39;))&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and query != sbjct&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; and </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
 
     <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
     <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
@@ -595,13 +594,13 @@
     <span class="n">diff</span> <span class="o">=</span> <span class="s1">&#39;q_fold_id != s_fold_id&#39;</span>
     <span class="k">if</span> <span class="n">diff_folds</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">diff</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and (rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2"> or rmsd_tm_pair is NULL)&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and (sbjct = &#39;</span><span class="si">{domain}</span><span class="s2">&#39; or query=&#39;</span><span class="si">{domain}</span><span class="s2">&#39;)&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{</span><span class="n">prob</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and (rmsd_tm_pair &lt; </span><span class="si">{</span><span class="n">rmsd</span><span class="si">}</span><span class="s2"> or rmsd_tm_pair is NULL)&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{</span><span class="n">ca_min</span><span class="si">}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ca_max</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{</span><span class="n">score_tm_pair</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ratio</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and (sbjct = &#39;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">&#39; or query=&#39;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; and </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
 
     <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
     <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>
@@ -687,14 +686,14 @@
         <span class="n">cond2</span> <span class="o">=</span> <span class="n">scop</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">group2</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
         <span class="n">cond_2</span> <span class="o">=</span> <span class="n">scop</span> <span class="o">+</span> <span class="s2">&quot;=&#39;&quot;</span> <span class="o">+</span> <span class="n">group2</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
 
-    <span class="n">ex</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{prob}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{rmsd}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{ca_min}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{ca_max}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{score_tm_pair}</span><span class="s2">&quot;</span> \
-         <span class="n">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{ratio}</span><span class="s2">&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and ((</span><span class="si">{cond1}</span><span class="s2"> and </span><span class="si">{cond2}</span><span class="s2">) &quot;</span> <span class="k">if</span> <span class="n">group2</span> <span class="k">else</span> <span class="n">f</span><span class="s2">&quot; and (</span><span class="si">{cond1}</span><span class="s2">&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; or (</span><span class="si">{cond_1}</span><span class="s2"> and </span><span class="si">{cond_2}</span><span class="s2">)) &quot;</span> <span class="k">if</span> <span class="n">group2</span> <span class="k">else</span> <span class="n">f</span><span class="s2">&quot; or </span><span class="si">{cond_1}</span><span class="s2">)&quot;</span>
-    <span class="n">ex</span> <span class="o">+=</span> <span class="n">f</span><span class="s2">&quot; and </span><span class="si">{diff}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;select * from hh207clusters where prob &gt; </span><span class="si">{</span><span class="n">prob</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and rmsd_tm_pair &lt; </span><span class="si">{</span><span class="n">rmsd</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and ca_tm_pair &gt; </span><span class="si">{</span><span class="n">ca_min</span><span class="si">}</span><span class="s2"> and ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ca_max</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and score_tm_pair &gt; </span><span class="si">{</span><span class="n">score_tm_pair</span><span class="si">}</span><span class="s2">&quot;</span> \
+         <span class="sa">f</span><span class="s2">&quot; and cast(cols as float)/ca_tm_pair &lt; </span><span class="si">{</span><span class="n">ratio</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; and ((</span><span class="si">{</span><span class="n">cond1</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">cond2</span><span class="si">}</span><span class="s2">) &quot;</span> <span class="k">if</span> <span class="n">group2</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot; and (</span><span class="si">{</span><span class="n">cond1</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; or (</span><span class="si">{</span><span class="n">cond_1</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">cond_2</span><span class="si">}</span><span class="s2">)) &quot;</span> <span class="k">if</span> <span class="n">group2</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot; or </span><span class="si">{</span><span class="n">cond_1</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="n">ex</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; and </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="k">if</span> <span class="n">diff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
 
     <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
     <span class="n">ahits</span> <span class="o">=</span> <span class="p">[]</span>

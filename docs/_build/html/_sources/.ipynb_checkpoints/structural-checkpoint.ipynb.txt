@@ -27,7 +27,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from protlego import *"
+    "from protlego.all import *"
    ]
   },
   {

@@ -90,14 +90,14 @@
               <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#hh-networks">HH-networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#salt-bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -108,7 +108,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="network.html">1. Drawing relationships between two superfamilies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
@@ -202,9 +202,20 @@
 </style>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>To run protlego, open a terminal and type:</p>
-<p>module load sci/protlego</p>
-<p>From there you can run your analysis calling jupyter-notebook.</p>
+<p>Protlego can be installed via github, pip, or conda.
+To install Protlego via pip, type:</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">pip</span> <span class="nx">install</span> <span class="nx">protlego</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The pip installation does not include grapht-tool, which is not contained in Pypi. Graph-tool must be installed separately.</p>
+<dl>
+<dt>To install Protlego via conda, type:</dt><dd><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">anaconda</span> <span class="nx">protlego</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 </div>
 
 

@@ -1,3 +1,4 @@
 *.pyc
 docs/.ipynb_checkpoints/*
 docs/*/*/.ipynb_checkpoints/*
+*/*/*.pyc

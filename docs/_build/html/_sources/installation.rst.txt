@@ -1,8 +1,15 @@
 Installation
 ============
 
-To run protlego, open a terminal and type:
+Protlego can be installed via github, pip, or conda.
+To install Protlego via pip, type:
+ .. code-block:: javascript
 
-module load sci/protlego
+    pip install protlego
 
-From there you can run your analysis calling jupyter-notebook.
+The pip installation does not include grapht-tool, which is not contained in Pypi. Graph-tool must be installed separately.
+
+To install Protlego via conda, type:
+ .. code-block:: javascript
+
+    conda install -c anaconda protlego
