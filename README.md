@@ -19,7 +19,7 @@ CONDA installation
 
 To install protlego via conda, type the following:
 
-`conda install -c anaconda protlego`
+`conda install -c nferruz protlego`
 
 You will need to adjust the boost installation after installing. Type:
 
