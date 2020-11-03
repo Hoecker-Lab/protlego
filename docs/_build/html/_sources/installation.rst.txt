@@ -2,14 +2,51 @@ Installation
 ============
 
 Protlego can be installed via github, pip, or conda.
+
+PIP nstallation
+===============
+
 To install Protlego via pip, type:
  .. code-block:: javascript
 
     pip install protlego
 
-The pip installation does not include grapht-tool, which is not contained in Pypi. Graph-tool must be installed separately.
+Graph-tool is not included in Pypi, you will need to install it separately. To do so, please refer to the graph-tool documentation: https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions
+
+
+
+CONDA installation
+==================
 
 To install Protlego via conda, type:
+
  .. code-block:: javascript
 
-    conda install -c anaconda protlego
+    conda install -c nferruz protlego
+
+You will need to adjust the boost installation after installing. Type:
+
+ .. code-block:: javascript
+
+	conda install -c anaconda boost=1.69
+
+Also make sure your cairo package comes from channel conda-forge. If it is not, you can type:
+
+ .. code-block:: javascript
+
+        conda install -c conda-forge cairo
+
+Once the environment installed, you can start designing chimeras with protlego!
+
+Setup
+============
+
+You will need a Fuzzle database. Download the latest version from here:
+https://132.180.65.101/static/js/hh207clusters.csv
+
+Then go to your protlego folder, and run the script:
+ .. code-block:: javascript
+
+       python database/database_setup.py
+
+Make sure you have changed the path to your hh207clusters.csv accordingly.
