@@ -18,7 +18,27 @@ Graph-tool is not included in Pypi, you will need to install it separately. To d
 CONDA installation
 ==================
 
-To install Protlego via conda, type:
+To install Protlego via conda, you will first have to install conda. If you are familiar with conda you might already have an environment, otherwise create one as follows:
+
+ .. code-block:: javascript
+
+    conda create -n myenv
+
+And then activate it:
+
+ .. code-block:: javascript
+
+    conda activate myenv
+
+Later, you might need to add some channels:
+
+ .. code-block:: javascript
+
+    conda config --append channels bioconda
+    conda config --append channels conda-forge
+    conda config --append channels acellera
+
+And then you are good to install protlego:
 
  .. code-block:: javascript
 

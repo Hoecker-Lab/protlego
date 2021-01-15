@@ -219,7 +219,27 @@
 </div>
 <div class="section" id="conda-installation">
 <h1>CONDA installation<a class="headerlink" href="#conda-installation" title="Permalink to this headline">¶</a></h1>
-<p>To install Protlego via conda, type:</p>
+<p>To install Protlego via conda, you will first have to install conda. If you are familiar with conda you might already have an environment, otherwise create one as follows:</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">create</span> <span class="o">-</span><span class="nx">n</span> <span class="nx">myenv</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>And then activate it:</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">activate</span> <span class="nx">myenv</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Later, you might need to add some channels:</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">append</span> <span class="nx">channels</span> <span class="nx">bioconda</span>
+<span class="nx">conda</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">append</span> <span class="nx">channels</span> <span class="nx">conda</span><span class="o">-</span><span class="nx">forge</span>
+<span class="nx">conda</span> <span class="nx">config</span> <span class="o">--</span><span class="nx">append</span> <span class="nx">channels</span> <span class="nx">acellera</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>And then you are good to install protlego:</p>
 <blockquote>
 <div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">nferruz</span> <span class="nx">protlego</span>
 </pre></div>
