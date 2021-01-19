@@ -62,7 +62,7 @@ Setup
 ============
 
 You will need a Fuzzle database. Download the latest version from here:
-https://132.180.65.101/static/js/hh207clusters.csv
+https://fuzzle.uni-bayreuth.de:8443/static/js/hh207clusters.csv
 
 Then go to your protlego folder, and run the script:
  .. code-block:: javascript
