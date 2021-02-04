@@ -44,17 +44,6 @@ And then you are good to install protlego:
 
     conda install -c nferruz protlego
 
-You will need to adjust the boost installation after installing. Type:
-
- .. code-block:: javascript
-
-	conda install -c anaconda boost=1.69
-
-Also make sure your cairo package comes from channel conda-forge. If it is not, you can type:
-
- .. code-block:: javascript
-
-        conda install -c conda-forge cairo
 
 Once the environment installed, you can start designing chimeras with protlego!
 
