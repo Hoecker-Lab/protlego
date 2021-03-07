@@ -3,8 +3,8 @@ Installation
 
 Protlego can be installed via github, pip, or conda.
 
-PIP nstallation
-===============
+PIP installation
+================
 
 To install Protlego via pip, type:
  .. code-block:: javascript
@@ -57,7 +57,8 @@ https://fuzzle.uni-bayreuth.de:8443/static/fuzzle2.07.db
 Then place it in your protle place it in your protlego folder. If you don't know where
 your protlego folder got installed, import protlego
 in a python terminal and see its path:
-.. code-block:: javascript
+
+ .. code-block:: bash
 
  	$ python
 	>>> import protlego
