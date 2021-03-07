@@ -18,7 +18,7 @@ Graph-tool is not included in Pypi, you will need to install it separately. To d
 CONDA installation
 ==================
 
-To install Protlego via conda, you will first have to install conda. If you are familiar with conda you might already have an environment, otherwise create one as follows:
+We only support Linux at the moment. To install Protlego via conda, you will first have to install conda. If you are familiar with conda you might already have an environment, otherwise create one as follows:
 
  .. code-block:: javascript
 
@@ -44,29 +44,29 @@ And then you are good to install protlego:
 
     conda install -c nferruz protlego
 
-You will need to adjust the boost installation after installing. Type:
-
- .. code-block:: javascript
-
-	conda install -c anaconda boost=1.69
-
-Also make sure your cairo package comes from channel conda-forge. If it is not, you can type:
-
- .. code-block:: javascript
-
-        conda install -c conda-forge cairo
 
 Once the environment installed, you can start designing chimeras with protlego!
 
 Setup
 ============
 
-You will need a Fuzzle database. Download the latest version from here:
-https://fuzzle.uni-bayreuth.de:8443/static/js/hh207clusters.csv
+You will need a Fuzzle database. You can download the latest version here: 
+https://fuzzle.uni-bayreuth.de:8443/static/fuzzle2.07.db
 
-Then go to your protlego folder, and run the script:
- .. code-block:: javascript
 
-       python database/database_setup.py
+Then place it in your protle place it in your protlego folder. If you don't know where
+your protlego folder got installed, import protlego
+in a python terminal and see its path:
+.. code-block:: javascript
 
-Make sure you have changed the path to your hh207clusters.csv accordingly.
+ 	$ python
+	>>> import protlego
+	>>> protlego.__file__
+
+
+Troubleshooting
+===============
+Post issues in our GitHub repository:
+https://github.com/Hoecker-Lab/protlego/issues/
+
+

@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="#pip-nstallation">PIP nstallation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#conda-installation">CONDA installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Tutorials</span></p>
@@ -184,13 +185,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -219,7 +220,7 @@
 </div>
 <div class="section" id="conda-installation">
 <h1>CONDA installation<a class="headerlink" href="#conda-installation" title="Permalink to this headline">¶</a></h1>
-<p>To install Protlego via conda, you will first have to install conda. If you are familiar with conda you might already have an environment, otherwise create one as follows:</p>
+<p>We only support Linux at the moment. To install Protlego via conda, you will first have to install conda. If you are familiar with conda you might already have an environment, otherwise create one as follows:</p>
 <blockquote>
 <div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">create</span> <span class="o">-</span><span class="nx">n</span> <span class="nx">myenv</span>
 </pre></div>
@@ -245,31 +246,26 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>You will need to adjust the boost installation after installing. Type:</p>
-<blockquote>
-<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">anaconda</span> <span class="nx">boost</span><span class="o">=</span><span class="mf">1.69</span>
-</pre></div>
-</div>
-</div></blockquote>
-<p>Also make sure your cairo package comes from channel conda-forge. If it is not, you can type:</p>
-<blockquote>
-<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">conda</span><span class="o">-</span><span class="nx">forge</span> <span class="nx">cairo</span>
-</pre></div>
-</div>
-</div></blockquote>
 <p>Once the environment installed, you can start designing chimeras with protlego!</p>
 </div>
 <div class="section" id="setup">
 <h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
-<p>You will need a Fuzzle database. Download the latest version from here:
-<a class="reference external" href="https://fuzzle.uni-bayreuth.de:8443/static/js/hh207clusters.csv">https://fuzzle.uni-bayreuth.de:8443/static/js/hh207clusters.csv</a></p>
-<dl>
-<dt>Then go to your protlego folder, and run the script:</dt><dd><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">python</span> <span class="nx">database</span><span class="o">/</span><span class="nx">database_setup</span><span class="p">.</span><span class="nx">py</span>
-</pre></div>
+<p>You will need a Fuzzle database. You can download the latest version here:
+<a class="reference external" href="https://fuzzle.uni-bayreuth.de:8443/static/fuzzle2.07.db">https://fuzzle.uni-bayreuth.de:8443/static/fuzzle2.07.db</a></p>
+<p>Then place it in your protle place it in your protlego folder. If you don’t know where
+your protlego folder got installed, import protlego
+in a python terminal and see its path:
+.. code-block:: javascript</p>
+<blockquote>
+<div><p>$ python
+&gt;&gt;&gt; import protlego
+&gt;&gt;&gt; protlego.__file__</p>
+</div></blockquote>
 </div>
-</dd>
-</dl>
-<p>Make sure you have changed the path to your hh207clusters.csv accordingly.</p>
+<div class="section" id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<p>Post issues in our GitHub repository:
+<a class="reference external" href="https://github.com/Hoecker-Lab/protlego/issues/">https://github.com/Hoecker-Lab/protlego/issues/</a></p>
 </div>
 
 

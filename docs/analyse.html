@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -102,6 +102,10 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#pip-nstallation">PIP nstallation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#conda-installation">CONDA installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Tutorials</span></p>
@@ -181,13 +185,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -202,59 +206,59 @@
 </style>
 <div class="section" id="module-structural.clusters">
 <span id="clusters"></span><h1>Clusters<a class="headerlink" href="#module-structural.clusters" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="structural.clusters.Atom">
-<em class="property">class </em><code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">Atom</code><span class="sig-paren">(</span><em class="sig-param">index: int</em>, <em class="sig-param">mol: moleculekit.molecule.Molecule</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.Atom" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">Atom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">moleculekit.molecule.Molecule</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Atom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.Atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to handle ILV atoms
 index: the vmd atom index
 mol: an htmd.htmd.molecule object</p>
-<dl class="method">
+<dl class="py method">
 <dt id="structural.clusters.Atom.get_neighbors">
-<code class="sig-name descname">get_neighbors</code><span class="sig-paren">(</span><em class="sig-param">mol: moleculekit.molecule.Molecule</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/structural/clusters.html#Atom.get_neighbors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.Atom.get_neighbors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_neighbors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">moleculekit.molecule.Molecule</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.core.multiarray.array</span><a class="reference internal" href="_modules/structural/clusters.html#Atom.get_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.Atom.get_neighbors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides all indices of atoms within 6.56 A of this atom.
 6.56 is the upper bound of a possible neighbor 1.88 (C) + 1.4 + 1.4 + 1.88 (C).</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="structural.clusters.Cluster">
-<em class="property">class </em><code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">Cluster</code><span class="sig-paren">(</span><em class="sig-param">area</em>, <em class="sig-param">residues</em>, <em class="sig-param">contacts</em>, <em class="sig-param">ratio_contacts_residue</em>, <em class="sig-param">ratio_area_residue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.Cluster" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">Cluster</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contacts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_contacts_residue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_area_residue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.Cluster" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
 <dt id="structural.clusters.Cluster.area">
-<em class="property">property </em><code class="sig-name descname">area</code><a class="headerlink" href="#structural.clusters.Cluster.area" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">area</span></code><a class="headerlink" href="#structural.clusters.Cluster.area" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="structural.clusters.Cluster.contacts">
-<em class="property">property </em><code class="sig-name descname">contacts</code><a class="headerlink" href="#structural.clusters.Cluster.contacts" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">contacts</span></code><a class="headerlink" href="#structural.clusters.Cluster.contacts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 2</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="structural.clusters.Cluster.ratio_area_residue">
-<em class="property">property </em><code class="sig-name descname">ratio_area_residue</code><a class="headerlink" href="#structural.clusters.Cluster.ratio_area_residue" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">ratio_area_residue</span></code><a class="headerlink" href="#structural.clusters.Cluster.ratio_area_residue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 4</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="structural.clusters.Cluster.ratio_contacts_residue">
-<em class="property">property </em><code class="sig-name descname">ratio_contacts_residue</code><a class="headerlink" href="#structural.clusters.Cluster.ratio_contacts_residue" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">ratio_contacts_residue</span></code><a class="headerlink" href="#structural.clusters.Cluster.ratio_contacts_residue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 3</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="structural.clusters.Cluster.residues">
-<em class="property">property </em><code class="sig-name descname">residues</code><a class="headerlink" href="#structural.clusters.Cluster.residues" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">residues</span></code><a class="headerlink" href="#structural.clusters.Cluster.residues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.add_clusters">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">add_clusters</code><span class="sig-paren">(</span><em class="sig-param">mol</em>, <em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">components: graph_tool.PropertyArray</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#add_clusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.add_clusters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">add_clusters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.PropertyArray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#add_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.add_clusters" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -270,9 +274,9 @@ A list with Cluster objects</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.create_graph">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">create_graph</code><span class="sig-paren">(</span><em class="sig-param">resid_matrix: numpy.array</em>, <em class="sig-param">resid_list: numpy.array</em>, <em class="sig-param">cutoff_area: float = 10.0</em><span class="sig-paren">)</span> &#x2192; graph_tool.Graph<a class="reference internal" href="_modules/structural/clusters.html#create_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.create_graph" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">create_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resid_matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resid_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff_area</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">graph_tool.Graph</span><a class="reference internal" href="_modules/structural/clusters.html#create_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.create_graph" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -286,9 +290,9 @@ A list with Cluster objects</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.fill_matrices">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">fill_matrices</code><span class="sig-paren">(</span><em class="sig-param">atom: structural.clusters.Atom</em>, <em class="sig-param">mol: moleculekit.molecule.Molecule</em>, <em class="sig-param">atom_matrix: numpy.array</em>, <em class="sig-param">resid_matrix: numpy.array</em>, <em class="sig-param">indices: numpy.array</em>, <em class="sig-param">resids: numpy.array</em><span class="sig-paren">)</span> &#x2192; Tuple[numpy.array, numpy.array]<a class="reference internal" href="_modules/structural/clusters.html#fill_matrices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.fill_matrices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">fill_matrices</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#structural.clusters.Atom" title="structural.clusters.Atom"><span class="pre">structural.clusters.Atom</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">moleculekit.molecule.Molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom_matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resid_matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.core.multiarray.array</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.core.multiarray.array</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="_modules/structural/clusters.html#fill_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.fill_matrices" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -306,17 +310,17 @@ A list with Cluster objects</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.filter_mol">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">filter_mol</code><span class="sig-paren">(</span><em class="sig-param">inputmolfile: str</em><span class="sig-paren">)</span> &#x2192; moleculekit.molecule.Molecule<a class="reference internal" href="_modules/structural/clusters.html#filter_mol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.filter_mol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">filter_mol</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">moleculekit.molecule.Molecule</span><a class="reference internal" href="_modules/structural/clusters.html#filter_mol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.filter_mol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads, filters the object to chain A and writes filtered pdb out.
 :param inputmolfile: path to the pdb file
 :return: the Molecule object</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.generate_sphere_points">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">generate_sphere_points</code><span class="sig-paren">(</span><em class="sig-param">coords: numpy.array</em>, <em class="sig-param">n: int = 610</em>, <em class="sig-param">radius: float = 1.88</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/structural/clusters.html#generate_sphere_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.generate_sphere_points" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">generate_sphere_points</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">610</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.88</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.core.multiarray.array</span><a class="reference internal" href="_modules/structural/clusters.html#generate_sphere_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.generate_sphere_points" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -331,18 +335,18 @@ A list with Cluster objects</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.postprocess_session">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">postprocess_session</code><span class="sig-paren">(</span><em class="sig-param">inputmolfile: str</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/clusters.html#postprocess_session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.postprocess_session" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">postprocess_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/structural/clusters.html#postprocess_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.postprocess_session" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modifies the VMD session to not include tmp files
 :param outputname: The vmd session (output file)
 :param inputmolfile: Path to the pdb file already processed (filtered and or protonated)
 :return: None. Modifies the file inline</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.retrieve_indices">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">retrieve_indices</code><span class="sig-paren">(</span><em class="sig-param">matrix: numpy.array</em>, <em class="sig-param">coords: numpy.array</em>, <em class="sig-param">neighborpositions: numpy.array</em>, <em class="sig-param">radius: float = 1.88</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/structural/clusters.html#retrieve_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.retrieve_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">retrieve_indices</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborpositions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.88</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.core.multiarray.array</span><a class="reference internal" href="_modules/structural/clusters.html#retrieve_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.retrieve_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes if each of the n sphere points are penetrating neighboring spheres
 :param matrix: n x m Distance matrix where n is the number of sphere points and m the number of neighbors
 :param coords: the coordinates of the atom
@@ -351,9 +355,9 @@ A list with Cluster objects</p>
 :return: The atoms that are in closest with each n sphere points.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.retrieve_neighbor_positions">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">retrieve_neighbor_positions</code><span class="sig-paren">(</span><em class="sig-param">atom: structural.clusters.Atom</em>, <em class="sig-param">mol: moleculekit.molecule.Molecule</em><span class="sig-paren">)</span> &#x2192; Tuple[numpy.array, Dict[int, int]]<a class="reference internal" href="_modules/structural/clusters.html#retrieve_neighbor_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.retrieve_neighbor_positions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">retrieve_neighbor_positions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#structural.clusters.Atom" title="structural.clusters.Atom"><span class="pre">structural.clusters.Atom</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">moleculekit.molecule.Molecule</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.core.multiarray.array</span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="_modules/structural/clusters.html#retrieve_neighbor_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.retrieve_neighbor_positions" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -367,9 +371,9 @@ A list with Cluster objects</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.write_clusters">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">write_clusters</code><span class="sig-paren">(</span><em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">components: graph_tool.PropertyArray</em>, <em class="sig-param">inputmolfile: str</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/clusters.html#write_clusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.write_clusters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">write_clusters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.PropertyArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/structural/clusters.html#write_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.write_clusters" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function prints the clusters to the terminal and outputs them
 into a VMD session
 :param g: A Graph object
@@ -378,9 +382,9 @@ into a VMD session
 :return:</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.clusters.write_largest_cluster">
-<code class="sig-prename descclassname">structural.clusters.</code><code class="sig-name descname">write_largest_cluster</code><span class="sig-paren">(</span><em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">inputmolfile: str</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/clusters.html#write_largest_cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.write_largest_cluster" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.clusters.</span></code><code class="sig-name descname"><span class="pre">write_largest_cluster</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/structural/clusters.html#write_largest_cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.write_largest_cluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function prints the clusters to the terminal and outputs them
 into a VMD session
 :param g: A Graph object
@@ -392,9 +396,9 @@ into a VMD session
 </div>
 <div class="section" id="module-structural.hh_networks">
 <span id="hh-networks"></span><h1>HH-networks<a class="headerlink" href="#module-structural.hh_networks" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="structural.hh_networks.add_networks">
-<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">add_networks</code><span class="sig-paren">(</span><em class="sig-param">mol</em>, <em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">components: graph_tool.PropertyArray</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/hh_networks.html#add_networks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.add_networks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.hh_networks.</span></code><code class="sig-name descname"><span class="pre">add_networks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.PropertyArray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/hh_networks.html#add_networks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.hh_networks.add_networks" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -409,9 +413,9 @@ into a VMD session
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.hh_networks.make_graph_hh">
-<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">make_graph_hh</code><span class="sig-paren">(</span><em class="sig-param">hbonds: numpy.array</em>, <em class="sig-param">trajectory: mdtraj.core.trajectory.Trajectory</em><span class="sig-paren">)</span> &#x2192; graph_tool.Graph<a class="reference internal" href="_modules/structural/hh_networks.html#make_graph_hh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.make_graph_hh" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.hh_networks.</span></code><code class="sig-name descname"><span class="pre">make_graph_hh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hbonds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.core.multiarray.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">mdtraj.core.trajectory.Trajectory</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">graph_tool.Graph</span><a class="reference internal" href="_modules/structural/hh_networks.html#make_graph_hh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.hh_networks.make_graph_hh" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -425,18 +429,18 @@ into a VMD session
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.hh_networks.protonate_mol">
-<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">protonate_mol</code><span class="sig-paren">(</span><em class="sig-param">inputmolfile: str</em><span class="sig-paren">)</span> &#x2192; moleculekit.molecule.Molecule<a class="reference internal" href="_modules/structural/hh_networks.html#protonate_mol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.protonate_mol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.hh_networks.</span></code><code class="sig-name descname"><span class="pre">protonate_mol</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">moleculekit.molecule.Molecule</span><a class="reference internal" href="_modules/structural/hh_networks.html#protonate_mol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.hh_networks.protonate_mol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads, filters the object to chain A and protonates the selection.
 It then writes the filtered protonated pdb out.
 :param inputmolfile: path to the pdb file
 :return: a Molecule object with the correct protonation state</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.hh_networks.write_networks">
-<code class="sig-prename descclassname">structural.hh_networks.</code><code class="sig-name descname">write_networks</code><span class="sig-paren">(</span><em class="sig-param">g: graph_tool.Graph</em>, <em class="sig-param">components: graph_tool.PropertyArray</em>, <em class="sig-param">inputmolfile: str</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/hh_networks.html#write_networks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.hh_networks.write_networks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.hh_networks.</span></code><code class="sig-name descname"><span class="pre">write_networks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">graph_tool.PropertyArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/structural/hh_networks.html#write_networks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.hh_networks.write_networks" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -455,9 +459,9 @@ It then writes the filtered protonated pdb out.
 </div>
 <div class="section" id="module-structural.salt_bridges">
 <span id="salt-bridges"></span><h1>Salt-bridges<a class="headerlink" href="#module-structural.salt_bridges" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="structural.salt_bridges.write_salt_bridges">
-<code class="sig-prename descclassname">structural.salt_bridges.</code><code class="sig-name descname">write_salt_bridges</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.ndarray</em>, <em class="sig-param">mapping: pandas.core.frame.DataFrame</em>, <em class="sig-param">mol: moleculekit.molecule.Molecule</em>, <em class="sig-param">outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/salt_bridges.html#write_salt_bridges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.salt_bridges.write_salt_bridges" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.salt_bridges.</span></code><code class="sig-name descname"><span class="pre">write_salt_bridges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">moleculekit.molecule.Molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/structural/salt_bridges.html#write_salt_bridges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.salt_bridges.write_salt_bridges" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function outputs the salt bridges into a VMD session
 :param data: A MetricDistance object
 :param mapping: A DataFrame object including the index - residue mapping
@@ -469,9 +473,9 @@ It then writes the filtered protonated pdb out.
 </div>
 <div class="section" id="module-structural.analysis">
 <span id="further-structural-analysis"></span><h1>Further structural analysis<a class="headerlink" href="#module-structural.analysis" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="structural.analysis.calc_contact_order">
-<code class="sig-prename descclassname">structural.analysis.</code><code class="sig-name descname">calc_contact_order</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">diss_cutoff: int = 8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_contact_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysis.calc_contact_order" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.analysis.</span></code><code class="sig-name descname"><span class="pre">calc_contact_order</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">protlego.builder.chimera.Chimera</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diss_cutoff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_contact_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_contact_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>The contact order of a protein is a measure of the locality of the inter-amino acid contacts in the
 native folded state. It is computed as the average seqeuence distance between residues that form contacts
 below a threshold in the folded protein divided by the total length of the protein”
@@ -481,9 +485,9 @@ below a threshold in the folded protein divided by the total length of the prote
 :return: the contact order (%)</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.analysis.calc_dist_matrix">
-<code class="sig-prename descclassname">structural.analysis.</code><code class="sig-name descname">calc_dist_matrix</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">selection: str = 'residue'</em>, <em class="sig-param">type='contacts'</em>, <em class="sig-param">plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_dist_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysis.calc_dist_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.analysis.</span></code><code class="sig-name descname"><span class="pre">calc_dist_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">protlego.builder.chimera.Chimera</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'residue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'contacts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_dist_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_dist_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a matrix of C-alpha distances for a given pdb
 :param chimera: A Chimera object with n residues.
 :param filename: path to a pdb file
@@ -493,9 +497,9 @@ below a threshold in the folded protein divided by the total length of the prote
 :return: matrix. np.array. An n by n distance matrix.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.analysis.calc_dssp">
-<code class="sig-prename descclassname">structural.analysis.</code><code class="sig-name descname">calc_dssp</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">simplified: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_dssp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysis.calc_dssp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.analysis.</span></code><code class="sig-name descname"><span class="pre">calc_dssp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">protlego.builder.chimera.Chimera</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_dssp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_dssp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute Dictionary of protein secondary structure (DSSP) secondary structure assignments.
 This funcion uses the MDtraj compute_dssp implementation as a basis.
 :param chimera: A Chimera object.
@@ -504,9 +508,9 @@ This funcion uses the MDtraj compute_dssp implementation as a basis.
 :return: assignments np.ndarray. The secondary structure assignment for each residue</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.analysis.calc_sasa">
-<code class="sig-prename descclassname">structural.analysis.</code><code class="sig-name descname">calc_sasa</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em>, <em class="sig-param">probe_radius: float = 0.14</em>, <em class="sig-param">n_sphere_points: int = 960</em>, <em class="sig-param">sasa_type='total'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_sasa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysis.calc_sasa" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.analysis.</span></code><code class="sig-name descname"><span class="pre">calc_sasa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">protlego.builder.chimera.Chimera</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_radius</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sphere_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">960</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sasa_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'total'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_sasa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_sasa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the Solvent Accessible Surface Area of the protein.
 This funcion uses the MDtraj shrake_rupley implementation as a basis.
 :param chimera: A Chimera object.
@@ -517,9 +521,9 @@ This funcion uses the MDtraj shrake_rupley implementation as a basis.
 :return: areas: np.array containing the area of the chimera in Angstrom^2</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="structural.analysis.hhbond_plot">
-<code class="sig-prename descclassname">structural.analysis.</code><code class="sig-name descname">hhbond_plot</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera = None</em>, <em class="sig-param">filename: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#hhbond_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.analysis.hhbond_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">structural.analysis.</span></code><code class="sig-name descname"><span class="pre">hhbond_plot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">protlego.builder.chimera.Chimera</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#hhbond_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.hhbond_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a hhbond plot of a chimera object or a file. One of the two inputs
 must be provided.
 :param chimera: the chimera from where to compute the hydrogen bond plot

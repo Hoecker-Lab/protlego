@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -97,11 +97,15 @@
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#pip-nstallation">PIP nstallation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#conda-installation">CONDA installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Tutorials</span></p>
@@ -181,13 +185,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -202,9 +206,9 @@
 </style>
 <div class="section" id="module-scorer.mm_energies">
 <span id="energy-scoring"></span><h1>Energy scoring<a class="headerlink" href="#module-scorer.mm_energies" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="scorer.mm_energies.minimize_potential_energy">
-<code class="sig-prename descclassname">scorer.mm_energies.</code><code class="sig-name descname">minimize_potential_energy</code><span class="sig-paren">(</span><em class="sig-param">chimera</em>, <em class="sig-param">ff: str</em>, <em class="sig-param">output: str = '/tmp/build'</em>, <em class="sig-param">keep_output_files=False</em>, <em class="sig-param">cuda=False</em>, <em class="sig-param">restraint_backbone: bool = True</em><span class="sig-paren">)</span> &#x2192; Tuple[simtk.unit.quantity.Quantity, protlego.builder.chimera.Chimera]<a class="reference internal" href="_modules/scorer/mm_energies.html#minimize_potential_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scorer.mm_energies.minimize_potential_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">scorer.mm_energies.</span></code><code class="sig-name descname"><span class="pre">minimize_potential_energy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'/tmp/build'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_output_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restraint_backbone</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">simtk.unit.quantity.Quantity</span><span class="p"><span class="pre">,</span> </span><span class="pre">protlego.builder.chimera.Chimera</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="_modules/scorer/mm_energies.html#minimize_potential_energy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scorer.mm_energies.minimize_potential_energy" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -221,9 +225,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="scorer.mm_energies.prepare_protein">
-<code class="sig-prename descclassname">scorer.mm_energies.</code><code class="sig-name descname">prepare_protein</code><span class="sig-paren">(</span><em class="sig-param">chimera: protlego.builder.chimera.Chimera</em><span class="sig-paren">)</span> &#x2192; moleculekit.molecule.Molecule<a class="reference internal" href="_modules/scorer/mm_energies.html#prepare_protein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scorer.mm_energies.prepare_protein" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">scorer.mm_energies.</span></code><code class="sig-name descname"><span class="pre">prepare_protein</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">protlego.builder.chimera.Chimera</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">moleculekit.molecule.Molecule</span><a class="reference internal" href="_modules/scorer/mm_energies.html#prepare_protein"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scorer.mm_energies.prepare_protein" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a water box around the chimera
 :param chimera:
 :return:</p>
