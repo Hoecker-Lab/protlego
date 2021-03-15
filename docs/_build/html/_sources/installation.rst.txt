@@ -65,6 +65,19 @@ in a python terminal and see its path:
 	>>> protlego.__file__
 
 
+Installing from environment file
+=================================
+If you have issues installing Protlego, please post an issue in our GitHub repository and we will assist you.
+Alternatively, you can create a conda environment directly from the requirements. 
+
+Download the environment file from our repository: https://github.com/Hoecker-Lab/protlego
+And then:
+
+ .. code-block:: javascript
+
+    conda env create -f environment.yml
+
+
 Troubleshooting
 ===============
 Post issues in our GitHub repository:

@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="#pip-installation">PIP installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#conda-installation">CONDA installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installing-from-environment-file">Installing from environment file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
 </ul>
@@ -259,6 +260,18 @@ in a python terminal and see its path:</p>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python
 &gt;&gt;&gt; import protlego
 &gt;&gt;&gt; protlego.__file__
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="installing-from-environment-file">
+<h1>Installing from environment file<a class="headerlink" href="#installing-from-environment-file" title="Permalink to this headline">¶</a></h1>
+<p>If you have issues installing Protlego, please post an issue in our GitHub repository and we will assist you.
+Alternatively, you can create a conda environment directly from the requirements.</p>
+<p>Download the environment file from our repository: <a class="reference external" href="https://github.com/Hoecker-Lab/protlego">https://github.com/Hoecker-Lab/protlego</a>
+And then:</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">conda</span> <span class="nx">env</span> <span class="nx">create</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">yml</span>
 </pre></div>
 </div>
 </div></blockquote>
