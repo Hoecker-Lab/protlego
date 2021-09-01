@@ -17,7 +17,7 @@ def protonate_mol(inputmolfile: str) -> Molecule:
     Loads, filters the object to chain A and protonates the selection.
     It then writes the filtered protonated pdb out.
     :param inputmolfile: path to the pdb file
-    :return: a Molecule object with the correct protonation state
+    :return: the Molecule object
     """
     mol1 = Molecule(inputmolfile)
     mol1.filter("protein and chain A")
@@ -26,44 +26,61 @@ def protonate_mol(inputmolfile: str) -> Molecule:
     return mol
 
 
-def make_graph_hh(hbonds: np.array, trajectory: md.Trajectory) -> Graph:
+def make_graph_hh(hbonds: np.array, trajectory: md.Trajectory, resi_to_chain: dict) -> Graph:
     """
-
+    This function creates a graph with the hbond networks. Each component in the network will be a
+    separate network in the final analysis.
     :param hbonds: a np.array indicating indexes of atoms that have an h-bond
     :param trajectory: an mdtraj trajectory. It can also be a pdb file processed with mdtraj as trajectory
     :return: A graph-tool graph object
     """
+    
     g = Graph(directed=False)
     g.vp.resid = g.new_vertex_property("int")
-    g.vp.atom = g.new_vertex_property("int")
+    g.vp.chain = g.new_vertex_property("string")
+    g.vp.atom = g.new_vertex_property("vector<int>")
+
     for i in hbonds:
+    
         resid_d = trajectory.topology.atom(i[0]).residue.resSeq
         resid_a = trajectory.topology.atom(i[2]).residue.resSeq
+
+        chain_d = resi_to_chain[resid_d]
+        chain_a = resi_to_chain[resid_a]
+        
         donors = find_vertex(g, g.vp.resid, resid_d)
         acceptors = find_vertex(g, g.vp.resid, resid_a)
-        if donors:
+
+        if donors and g.vp.chain[donors[0]] == chain_d:
             v1 = donors[0]
+            g.vp.atom[v1].append(i[0])
         else:
             v1 = g.add_vertex()
-        if acceptors:
+            g.vp.resid[v1] = resid_d
+            g.vp.chain[v1] = chain_d
+            g.vp.atom[v1] = []
+            g.vp.atom[v1].append(i[0])
+        
+        if acceptors and g.vp.chain[acceptors[0]] == str(chain_a):
             v2 = acceptors[0]
+            g.vp.atom[v2].append(i[2])
         else:
             v2 = g.add_vertex()
-        g.vp.resid[v1] = resid_d
-        g.vp.resid[v2] = resid_a
-        g.vp.atom[v1] = i[0]
-        g.vp.atom[v2] = i[2]
-        g.add_edge(v1, v2)
-    return g
+            g.vp.resid[v2] = resid_a
+            g.vp.chain[v2] = chain_a
+            g.vp.atom[v2] = []
+            g.vp.atom[v2].append(i[2])
 
+        g.add_edge(v1, v2) 
+    return g
 
 def write_networks(g: Graph, components: PropertyArray, inputmolfile: str, outputname: str) -> None:
     """
-    :param g:  A graph-tool graph object
-    :param components: the components of the graph
-    :param inputmolfile: the pdb of the input protein
-    :param outputname: a path wehre to write the output
-    :return: Writes a file named outputname + "hh-networks.txt"
+    This function outputs the HH networks into a VMD session
+    :param g: A Graph object
+    :param outputname: The pdb filename.
+    :param outputname: The file name to output the VMD session to.
+    :return:
     """
     f = open(outputname[:-4] + "hh-networks.txt", "w")
     mol = Molecule(inputmolfile)
@@ -97,26 +114,23 @@ def write_networks(g: Graph, components: PropertyArray, inputmolfile: str, outpu
 
 
 def add_networks(mol, g: Graph, components: PropertyArray):
-    """
-
-    :param mol: the Chimera where to add the representations to.
-    :param g: a graph-tool graph object with the networks property
-    :param components: the components from the graph
-    :return: INcludes the representations in the Chimera object.
-    """
     bonds = []
     mol.reps.add(sel='protein', style='NewCartoon', color=8)
+    
     for network_index in range(max(components) + 1):
         network = [i for i, x in enumerate(components) if x == network_index]  # these are the vertices
         resid_network = [g.vp.resid[i] for i in network]  # these are the resids
+        chain_network = [g.vp.chain[i] for i in network]
+        atoms_network = [[i for i in g.vp.atom[j]] for j in network]
+        atoms_network = [atom for sublist in atoms_network for atom in sublist]
         bonds.append(resid_network)
         vfilt = g.new_vertex_property('bool')
         for i in network: vfilt[i] = True
         sub = GraphView(g, vfilt)
 
-        mol.reps.add('chain A and noh and resid %s' % ' '.join(map(str, resid_network)),
+        mol.reps.add('noh and resid %s' % ' '.join(map(str, resid_network)),
                      style="Licorice", color=network_index)
-        mol.reps.add('chain A and noh and resid %s' % ' '.join(map(str, resid_network)),
+        mol.reps.add('noh and resid %s' % ' '.join(map(str, resid_network)),
                      style="HBonds", color=network_index)
     return bonds
 

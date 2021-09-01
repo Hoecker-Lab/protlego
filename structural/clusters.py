@@ -19,6 +19,7 @@ from typing import NamedTuple
 class Cluster(NamedTuple):
     area: np.array
     residues: list
+    chains: list
     contacts: int
     ratio_contacts_residue: float
     ratio_area_residue: float
@@ -53,7 +54,7 @@ class Atom:
         Provides all indices of atoms within 6.56 A of this atom.
         6.56 is the upper bound of a possible neighbor 1.88 (C) + 1.4 + 1.4 + 1.88 (C).
         """
-        neighbor_indices = mol.get("index", sel=f"protein and chain A\
+        neighbor_indices = mol.get("index", sel=f"protein\
         and noh and not resid '{self.resid}' and within 6.56 of index '{self.index}'")
         return neighbor_indices
 
@@ -83,9 +84,12 @@ def generate_sphere_points(coords: np.array, n: int = 610, radius: float = 1.88)
 
 def retrieve_neighbor_positions(atom: Atom, mol: Molecule) -> Tuple[np.array, Dict[int, int]]:
     """
+
     :param atom: an Atom object
     :param mol: a htmd.htmd.molecule object
-    :return: A tuple object with the positions of the neighboring atoms. A dictionary indexing column positions to resid positions
+    :return:
+    Positions of the neighboring atoms
+    A dictionary indexing column positions to resid positions
     """
     positions = mol.coords[atom.neighbor_indices][:, :, 0]
     position_index_to_resid = {index: mol.resid[neighbor_indice] for index, neighbor_indice in
@@ -95,7 +99,6 @@ def retrieve_neighbor_positions(atom: Atom, mol: Molecule) -> Tuple[np.array, Di
 
 def retrieve_indices(matrix: np.array, coords: np.array, neighborpositions: np.array, radius: float = 1.88) -> np.array:
     """
-
     Computes if each of the n sphere points are penetrating neighboring spheres
     :param matrix: n x m Distance matrix where n is the number of sphere points and m the number of neighbors
     :param coords: the coordinates of the atom
@@ -122,8 +125,8 @@ def retrieve_indices(matrix: np.array, coords: np.array, neighborpositions: np.a
     return idx2
 
 
-def fill_matrices(atom: Atom, mol: Molecule, atom_matrix: np.array,
-                  resid_matrix: np.array, indices: np.array, resids: np.array) -> Tuple[np.array, np.array]:
+def fill_matrices(atom: Atom, mol: Molecule,
+                  resid_matrix: np.array, indices: np.array, atom_to_residposition) -> Tuple[np.array, np.array]:
     """
     :param atom: An Atom class
     :param mol: an htmd.htmd.molecule object
@@ -137,32 +140,37 @@ def fill_matrices(atom: Atom, mol: Molecule, atom_matrix: np.array,
     # Compute distances between all sphere points and the neighbors.
     # THe shape will be 610 (rows) x nr. of neighbors (columns).
     distances = cdist(atom.point_coords, neighbor_positions)
+
     column_indices = retrieve_indices(distances, atom.coords, neighbor_positions)
     colpos_occurrences = Counter(column_indices)
+
     for colpos, occurrences in colpos_occurrences.items():
         if atom.neighbor_indices[colpos] in indices:
             area = sphere_area_const * occurrences
-            atom_matrix[atom.index, atom.neighbor_indices[colpos]] = area
-            index_i = np.where(resids == atom.resid)[0][0]
-            index_j = np.where(resids == position_index_to_resid[colpos])[0][0]
+            index_i = atom_to_residposition[atom.index]
+            index_j = atom_to_residposition[atom.neighbor_indices[colpos]]
             resid_matrix[index_i, index_j] += area
-    return atom_matrix, resid_matrix
+    return resid_matrix
 
 
-def create_graph(resid_matrix: np.array, resid_list: np.array, cutoff_area: float = 10.0) -> Graph:
+def create_graph(resid_matrix: np.array, resid_list: np.array, chain_list: np.array, cutoff_area: float = 10.0) -> Graph:
     """
 
     :param resid_matrix: the ILVresid x ILVresid area matrix
     :param resid_list: the index x index area matrix
     :return: A Graph object where each component is a ILV cluster
     """
+
     g = Graph()
     g.vp.resid = g.new_vertex_property("int")
+    g.vp.chain = g.new_vertex_property("string")
     g.ep.area = g.new_edge_property("float")
+
     # 1. Create all vertices
     for v in range(len(resid_matrix)):
         v1 = g.add_vertex()
         g.vp.resid[v1] = resid_list[v]
+        g.vp.chain[v1] = chain_list[v]
 
     # 2. Create edges and fill its values with areas
     for row_index, row in enumerate(resid_matrix):
@@ -233,6 +241,7 @@ def add_clusters(mol, g: Graph, components: PropertyArray):
     """
     clusters = []
     mol.reps.add(sel='protein', style='NewCartoon', color=8)
+
     for cluster_index in range(max(components) + 1):
         cluster = [i for i, x in enumerate(components) if x == cluster_index]
         if len(cluster) < 2: continue
@@ -240,20 +249,25 @@ def add_clusters(mol, g: Graph, components: PropertyArray):
         for i in cluster: vfilt[i] = True
         sub = GraphView(g, vfilt)
         area = np.sum([g.ep.area[edge] for edge in sub.edges()])
+
         logger.info(f"Cluster index {cluster_index}:"
                     f"Residues {len(cluster)}. Total area {area} A^2. "
                     f"Number of contacts: {sub.num_edges()}. "
                     f"Contacts / Residue: {sub.num_edges() / len(cluster) }. "
                     f"Area / Residue {area / sub.num_edges()}")  # sum reverse and inverse
+
         resid_cluster = [g.vp.resid[i] for i in cluster]
+        chain_cluster = [g.vp.chain[i] for i in cluster]
+
         clusters.append(Cluster(
             area=area,
             residues=resid_cluster,
+	    chains=chain_cluster,
             contacts=sub.num_edges(),
             ratio_contacts_residue=sub.num_edges() / len(cluster),
             ratio_area_residue=area / sub.num_edges()
         ))
-        mol.reps.add('chain A and noh and not backbone and resid %s' % ' '.join(map(str, resid_cluster)),
+        mol.reps.add('noh and not backbone and resid %s' % ' '.join(map(str, resid_cluster)),
                      style="VDW", color=cluster_index)
     return clusters
 
@@ -285,7 +299,7 @@ def postprocess_session(inputmolfile: str, outputname: str) -> None:
     Modifies the VMD session to not include tmp files
     :param outputname: The vmd session (output file)
     :param inputmolfile: Path to the pdb file already processed (filtered and or protonated)
-    :return: None. Modifies the file inline
+    :return:
     """
     f = open(outputname, "r")
     lines = f.readlines()

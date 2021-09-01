@@ -53,7 +53,6 @@ def get_FUZZLE_hhs(domain):
     logger.info(f"File downloaded as {filepath}")	
 
     return filepath
-
 class Chimera(Molecule):
 
     def add_crossover(self, crossover: int):
@@ -76,40 +75,52 @@ class Chimera(Molecule):
         Returns the distance between the alpha carbons of two residues"
         :param resid1:index of residue 1 in the PDB structure
         :param resid2:index of residue 2 in the PDB structure
-
-        :return: np.array. 
+        :return:
         """
         coord1 = self.get("coords", sel=f'resid {resid1} and name CA')
         coord2 = self.get("coords", sel=f'resid {resid2} and name CA')
         return cdist(coord1, coord2)
 
-    def compute_hydrophobic_clusters(self, chain: str = 'A', sel: str = "protein and not backbone and noh and resname ILE VAL LEU", cutoff_area: float = 10):
+    def compute_hydrophobic_clusters(self, sel: str = "protein and not backbone and noh and resname ILE VAL LEU",
+                                     cutoff_area: float = 10):
         """
-        :param chain: Chain in the PDB to compute the hydrophobic clusters. Examples: "A", "A B C". Default: "A"
-        :param sel: VMD selection on which to compute the clusters. Default is every sidechain heavy atom ILE, VAL and LEU residues. "protein and not backbone and noh and resname ILE VAL LEU"
-
-        :return: A representation for each cluster
+        :param
+            sel: VMD selection on which to compute the clusters.
+            Default is every sidechain heavy atom ILE, VAL and LEU
+            residues. "protein and not backbone and noh and resname ILE VAL LEU"
+            cutoff_area: Minimum area between residues to be considered in contact.
+	:return: A representation for each cluster
         """
         clusters = None
 
         # Removing previous visualizations
         [self.reps.remove(index) for index, rep in reversed(list(enumerate(self.reps.replist)))]
 
-        resids = np.unique(self.get("resid", sel=f"{sel} and chain {chain}"))
-        dims = len(resids)
-        indices = self.get("index", sel=f"{sel} and chain {chain}")
-        dims_indices = len(self.get("index", sel=f"protein and chain {chain}"))
+        resids = self.get("resid", sel=f"{sel}") # ILV cluster residues
+        chains = self.get("chain", sel=f"{sel}")  # chains of ILV cluster residues 
+        dims = len(resids) # length of iLV clusters
+        indices = self.get("index", sel=f"{sel}") # the indices of the atoms in the ILV clusters
+
+        # get a dictionary of atom index and resid position in resids list
+        atom_to_residposition = {}
+        for index in indices:
+                resid = self.get("resid", sel=f"index {index}")[0]
+                chain = self.get("chain", sel=f"index {index}")[0]
+                index_residue = [j for j, residue in enumerate(resids) if (residue == resid and chains[j] == chain) ][0]
+                atom_to_residposition[index] = index_residue
+
 
         logger.info("Initializing final output")
         contacts = np.zeros((dims, dims))
-        atoms_to_atoms = np.zeros((dims_indices, dims_indices))
+        
         logger.info("Computing clusters")
         for index in indices:
             a = Atom(index, self)
             if not a.neighbor_indices.any():
                 continue
-            _, contacts = fill_matrices(a, self, atoms_to_atoms, contacts, indices, resids)
-        graph = create_graph(contacts, resids, cutoff_area=cutoff_area)
+            contacts = fill_matrices(a, self, contacts, indices, atom_to_residposition)
+
+        graph = create_graph(contacts, resids, chains, cutoff_area=cutoff_area)
         comp, _ = label_components(graph)
         if comp.a.any():
             clusters = add_clusters(self, graph, comp)
@@ -126,7 +137,6 @@ class Chimera(Molecule):
         between them
         :param sidechain_only: The whole residue or sidechain only. Note: Computing networks
         including backbone leads to very large clusters harder to visualize.
-
         :return: A representation for each network
         """
         # Remove previous structural representations
@@ -134,12 +144,22 @@ class Chimera(Molecule):
         [self.reps.remove(index) for index, rep in reversed(list(enumerate(self.reps.replist)))]
         # [self.reps.remove(index) for index, rep in reversed(list(enumerate(self.reps.replist))) if
         #  rep.style == 'VDW']
+        
         newmol = proteinPrepare(self)
+        newmol.set("resname","HIS", "resname HID")
+        newmol.set("resname", "HIS", "resname HIE")
+        newmol.set("resname", "HIS", "resname HIP")
+
         newmol.write(f"/tmp/structure.pdb")
+        
+        resi_to_chain = dict(zip(self.resid,self.chain))
+
+        bonds = ''
         t = md.load(f"/tmp/structure.pdb")
         os.remove(f"/tmp/structure.pdb")
+        
         hbonds = md.baker_hubbard(t, sidechain_only=sidechain_only)
-        graph = make_graph_hh(hbonds, t)
+        graph = make_graph_hh(hbonds, t, resi_to_chain)
         comp, _ = label_components(graph)
         if comp.a.any():
             bonds = add_networks(self, graph, comp)
@@ -152,26 +172,37 @@ class Chimera(Molecule):
 
         salts = []
         [self.reps.remove(index) for index, rep in reversed(list(enumerate(self.reps.replist)))]
+
         metr = MetricDistance('sidechain and acidic and element O',
                               'sidechain and basic and element N', metric="contacts", threshold=3.2,
                               pbc=False)
         try:
             data = metr.project(self)
+            mapping = metr.getMapping(self)
+            
+            if len(np.shape(data)) > 1: data = data[0].copy()  # handling NMR structures
+            
+            self.reps.add(sel='protein', style='NewCartoon', color=8)
+            
+            if mapping[data].atomIndexes.values.any():
+                for salt in mapping[data].atomIndexes.values:
+                    resid1 = self.get("resid", sel=f"same residue as index {salt[0]}")[0]
+                    chain1 = self.get("chain", sel=f"same residue as index {salt[0]}")[0]
+                    resid2 = self.get("resid", sel=f"same residue as index {salt[1]}")[0]
+                    chain2 = self.get("chain", sel=f"same residue as index {salt[1]}")[0]
+                
+                    if [resid1, resid2] not in salts:
+                        salts.append({"residues": [int(resid1), int(resid2)], "chain": [chain1, chain2]})
+                        self.reps.add(f"protein and resid {resid1}", style="Licorice", color="1")
+                        self.reps.add(f"protein and resid {resid2}", style="Licorice", color="0")
         except:
             logger.error("Molecule has no basic or acidic residues")
             raise
-        if len(np.shape(data)) > 1: data = data[0].copy()  # handling NMR structures
-        mapping = metr.getMapping(self)
-        self.reps.add(sel='protein', style='NewCartoon', color=8)
-        if mapping[data].atomIndexes.values.any():
-            for bond in mapping[data].atomIndexes.values:
-                resid1 = self.get("resid", sel=f"same residue as index {bond[0]}")[0]
-                resid2 = self.get("resid", sel=f"same residue as index {bond[1]}")[0]
-                if [resid1, resid2] not in salts:
-                    salts.append([resid1, resid2])
-                self.reps.add(f"protein and resid {resid1}", style="Licorice", color="1")
-                self.reps.add(f"protein and resid {resid2}", style="Licorice", color="0")
+         
+        graph = make_graph_salts(salts)
+        comp, _ = label_components(graph)
+        if comp.a.size != 0:
+             salts = add_networks_salts(graph, comp)
         else:
-            logger.warning("No salt bridges found in this protein")
-
+            logger.warning('No salt bridges present in the structure')        
         return salts
