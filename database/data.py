@@ -1,11 +1,8 @@
-from protlego.definitions import ROOT_DIR, logger
+from protlego.definitions import ROOT_DIR, logger, conn, cur
 from typing import List
 import numpy as np
 import sqlite3
 from typing import NamedTuple
-
-conn = sqlite3.connect(f'{ROOT_DIR}/fuzzle2.07.db')
-cur = conn.cursor()
 
 class Hit(NamedTuple):
     """

@@ -162,7 +162,8 @@ class Network:
             return
         self.comp, hist = label_components(self.graph)
         self.numFrags = max(self.comp.a) + 1
-        logger.info("There are ", self.numFrags, " fragments")
+        print(self.numFrags)
+        logger.info(f"There are {self.numFrags} fragments")
         return self.comp
 
     def vertex_of_fragment(self, frag: int) -> list:

@@ -293,7 +293,7 @@ class Builder():
         copys.moveBy(vectran)
 
         # Compute RMSD for the fragments
-        rmsd = MetricRmsd(copyq, 'protein and name CA')
+        rmsd = MetricRmsd(copyq, 'protein and name CA', pbc=False)
         data = rmsd.project(copys)
         logger.info(f"The RMSD between the fragments is {data} over {len(spairs)} alpha carbons")
 

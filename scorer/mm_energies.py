@@ -1,9 +1,9 @@
 from typing import Tuple
-from simtk.openmm.app import *
+from openmm.app import *
 from parmed import load_file
-from simtk.openmm.app.modeller import Modeller
-import simtk.openmm as mm
-from simtk import unit
+from openmm.app.modeller import Modeller
+import openmm as mm
+from openmm import unit
 import os
 import shutil
 
@@ -14,7 +14,8 @@ from protlego.builder.builder import Builder, NotCorrectPDBError
 from moleculekit.molecule import Molecule
 
 import logging
-
+import propka
+logging.getLogger(propka.__name__).setLevel(logging.WARNING)
 logger = logging.getLogger('protlego')
 
 temperature = 300 * unit.kelvin
@@ -54,7 +55,7 @@ def _mol_chimera_wrapper(molecule: Molecule, chimera: Chimera) -> Chimera:
 
 
 def minimize_potential_energy(chimera, ff: str,
-                              output: str = "/tmp/build", keep_output_files=False, cuda=False,
+                              output: str = "/tmp/build", keep_output_files=True, cuda=False,
                               restraint_backbone: bool = True) -> Tuple[unit.quantity.Quantity, Chimera]:
     """
     :param chimera: A chimera object where to perform the minimization
@@ -90,8 +91,8 @@ def minimize_potential_energy(chimera, ff: str,
         force.addGlobalParameter("k", 5.0 * unit.kilocalories_per_mole / unit.angstroms ** 2)
         force.addPerParticleParameter("x0")
         force.addPerParticleParameter("y0")
-        atoms = [atom for atom in modeller.topology.atoms()]
-        for idx, atom_crd in enumerate(modeller.positions):
+        force.addPerParticleParameter("z0")
+        for idx, atom_crd in enumerate(parm.positions):
             if idx >= len(parm.atoms): continue
             if parm.atoms[idx] in ('CA', 'C', 'N'):
                 force.addParticle(idx, atom_crd.value_in_unit(unit.nanometers))
@@ -106,17 +107,9 @@ def minimize_potential_energy(chimera, ff: str,
     pre_energy = state.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
     logger.info(f"Energy before minimization {pre_energy}")
 
-    # Standard values for the integrator and tolerance constraint
-    if not cuda:
-        # Default value
-        tolerance = 10 * unit.kilojoule / unit.mole
-    else:
-        # High tolerance so the CPU only pre-minimizes
-        tolerance = 1e6
-
     # Setup CPU minimization
     integrator.setConstraintTolerance(distance_tolerance)
-    simulation.minimizeEnergy(tolerance=tolerance)
+    simulation.minimizeEnergy()
     post_position = simulation.context.getState(getPositions=True).getPositions()
     post_state = simulation.context.getState(getEnergy=True, getForces=True)
     if cuda:
