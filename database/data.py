@@ -206,7 +206,7 @@ class Result:
 
 def fetch_subspace(prob: int = 70, rmsd: float = 3.0,
                    ca_min: int = 10, ca_max: int = 200, score_tm_pair: float = 0.3, ratio: float = 1.25,
-                   scop_q: str = None, diff_folds: bool = True) -> Result:
+                   diff_folds: bool = True) -> Result:
     """ Returns the entries in Fuzzle that satisfy the conditions:
 
     :param prob: Lower cutoff for the hit probability
@@ -215,32 +215,12 @@ def fetch_subspace(prob: int = 70, rmsd: float = 3.0,
     :param ca_max: Upper cutoff for the number of AA (ca_tm_pair)
     :param score_tm_pair: Lower cutoff for the tm_score
     :param ratio: Proportion between cols/ca_tm_pair
-    :param scop_q: A SCOP class. It will retrieve hits that contains domains from this class
     :return: A Result object
     """
 
     diff = 'q_fold_id != s_fold_id'
     if diff_folds is False:
         diff = None
-    cond = None
-    cond1 = None
-    cond2 = None
-
-    # handle SCOP class
-    if scop_q:
-        # SCOPe Level
-        level = len(scop_q.split('.'))
-        if level == 2:  # folds
-            scop = "q_fold_id"
-        elif level == 3:  # superfamilies
-            scop = "q_sufam_id"
-        elif level == 4:  # families
-            scop = "q_scop_id"
-        else:
-            raise ValueError("The specified SCOP level does not exist")
-
-        cond1 = scop + "='" + scop_q + "'"  # This prints: q_fold_id='c.23'. Not sure how to improve it.
-        cond2 = scop.replace('q', 's') + "='" + scop_q + "'"
 
     ex = f"select * from hh207clusters where prob > {prob}" \
          f" and rmsd_tm_pair < {rmsd}" \
