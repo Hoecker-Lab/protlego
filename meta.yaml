@@ -1,0 +1,50 @@
+{% set name = "protlego" %}
+{% set version = "1.0.11" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  path: .
+
+build:
+  noarch: python
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - python
+  run:
+    - boost
+    - boost-cpp
+    - csb
+    - matplotlib
+    - mdtraj
+    - moleculekit
+    - numpy 
+    - openmm
+    - pandas
+    - python
+    - scipy
+    - graph-tool
+    - jupyter 
+    - htmd-pdb2pqr
+    - parmed
+test:
+  imports:
+    - protlego
+
+about:
+  home: https://github.com/Hoecker-Lab/protlego
+  license: UNKNOWN
+  license_family: OTHER
+  license_file: 
+  summary: A python package for the automated construction of chimeras and analysis
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - noeliaferruz
