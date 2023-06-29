@@ -1,6 +1,7 @@
 from typing import Tuple
 from openmm.app import *
 from parmed import load_file
+from openmm.app.modeller import Modeller
 import openmm as mm
 from openmm import unit
 import os
@@ -73,7 +74,7 @@ def minimize_potential_energy(chimera, ff: str,
     smol.write(f"{output}/protein.pdb")
     pdb = PDBFile(f"{output}/protein.pdb")
     parm = load_file(f"{output}/protein.pdb")
-    modeller = modeller.Modeller(pdb.topology, pdb.positions)
+    modeller = Modeller(pdb.topology, pdb.positions)
 
     if ff == 'amber':
         forcefield = ForceField('amber14-all.xml', 'amber14/tip3pfb.xml')
