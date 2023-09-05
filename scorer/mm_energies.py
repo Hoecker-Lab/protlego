@@ -1,20 +1,22 @@
 from typing import Tuple
 from openmm.app import *
 from parmed import load_file
-from openmm.app.modeller import Modeller
 import openmm as mm
 from openmm import unit
 import os
 import shutil
 
-from moleculekit.tools.preparation import proteinPrepare
+from moleculekit import *
 from moleculekit.tools.autosegment import autoSegment
 from protlego.builder.chimera import Chimera
 from protlego.builder.builder import Builder, NotCorrectPDBError
 from moleculekit.molecule import Molecule
+from moleculekit.tools.preparation import systemPrepare
+# from moleculekit.vmdparser import guessbonds
 
 import logging
 import propka
+
 logging.getLogger(propka.__name__).setLevel(logging.WARNING)
 logger = logging.getLogger('protlego')
 
@@ -32,11 +34,17 @@ def prepare_protein(chimera: Chimera) -> Molecule:
     """
     non_standards = Builder.find_nonstandards(chimera)
     if non_standards:
-        raise NotCorrectPDBError(f"PDB presents the non_standards residues {non_standards}."
-                                 f" Call remove_residue() or Builder.mutate_nonstandards()"
-                                 f" if you wish to minimize.")
+        try:
+            mole = Builder.mutate_nonstandards(chimera)
+            mol = systemPrepare(mole, _molkit_ff=False)
+        except:
+            raise NotCorrectPDBError(f"PDB presents the non_standards residues {non_standards}."
+                                     f" Call remove_residue() or Builder.mutate_nonstandards()"
+                                     f" if you wish to minimize.")
 
-    mol = proteinPrepare(chimera)
+    else:
+        mol = systemPrepare(chimera, _molkit_ff=False)
+
     if 'AR0' in mol.resname:
         mol.set("resname", "ARG", "resname AR0")
     mol = autoSegment(mol)
@@ -77,13 +85,15 @@ def minimize_potential_energy(chimera, ff: str,
     modeller = Modeller(pdb.topology, pdb.positions)
 
     if ff == 'amber':
-        forcefield = ForceField('amber14-all.xml', 'amber14/tip3pfb.xml')
+        forcefield = ForceField('amber14-all.xml','amber14/tip3pfb.xml')
     if ff == 'charmm':
         forcefield = ForceField('charmm36.xml', 'charmm36/tip3p-pme-b.xml')
 
+    modeller.addHydrogens(forcefield)
     modeller.addSolvent(forcefield, padding=1.0 * unit.nanometer)
-    system = forcefield.createSystem(modeller.topology, nonbondedMethod=PME,
-                                     nonbondedCutoff=1 * unit.nanometer, constraints=HBonds)
+    #modeller.addExtraParticles(forcefield, ignoreExternalBonds=True)
+    system = forcefield.createSystem(modeller.topology, nonbondedMethod=NoCutoff,
+                                     nonbondedCutoff=1 * unit.nanometer, constraints=HBonds, ignoreExternalBonds=True)
     if restraint_backbone:
         # Applies an external force on backbone atoms
         # This allows the backbone to stay rigid, while severe clashes can still be resolved
@@ -133,4 +143,4 @@ def minimize_potential_energy(chimera, ff: str,
     if keep_output_files is False:
         shutil.rmtree(output)
 
-    return post_energy, min_mol
+    return pre_energy, post_energy, min_mol
