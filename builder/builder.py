@@ -11,11 +11,10 @@ from csb.bio.io.hhpred import HHOutputParser
 from csb.bio.hmm import HHpredHitAlignment
 from moleculekit.molecule import Molecule
 from moleculekit.projections.metricrmsd import MetricRmsd
-from moleculekit.projections.metricsecondarystructure import *
+from moleculekit.projections.metricsecondarystructure import MetricSecondaryStructure
 from scipy.spatial.distance import cdist
 import matplotlib.pyplot as plt
 from protlego.definitions import TM_BIN, logger
-import itertools
 
 aa_keys = special2standard.keys()
 standard_aas = three2one.keys()
@@ -23,16 +22,12 @@ standard_aas = three2one.keys()
 class NotDiverseChimeraError(Exception):
     pass
 
+
 class BackboneClashError(Exception):
     pass
 
-class BbClashError(Exception):
-    pass
 
 class NotCorrectPDBError(Exception):
-    pass
-
-class ConnectionGapError(Exception):
     pass
 
 class Builder():
@@ -110,11 +105,10 @@ class Builder():
         :return: list of non-standard residues
         """
         non_standards = [aa for aa in np.unique(pdb.resname) if (aa in aa_keys or aa not in standard_aas)]
-        #ns_resid =  [for id in pdb.resid]
         if non_standards:
             for i in non_standards:
                 if i != 'UNK':
-                    logger.info(f"Found the following non-standard residue: {i}. "
+                    logger.info(f"Found the following non-standar residue: {i}. "
                                 f"Preserving in the original PDB")
                 else:
                     logger.warning("Protein presents unknown residue UNK."
@@ -125,14 +119,13 @@ class Builder():
     @staticmethod
     def mutate_nonstandards(pdb: Molecule) -> Molecule:
         """
+
         :param pdb: The pdb to mutate the residues to
         :return: The pdb with the mutated residues -if there are any-
         """
         non_standards = Builder.find_nonstandards(pdb)
         if non_standards:
             [pdb.mutateResidue(f"resname {i}", f"{special2standard[i]}") for i in non_standards]
-        #else :
-        #    remove_residue(pdb, resid)
 
         return pdb
 
@@ -362,7 +355,7 @@ class Builder():
             chim1.set("chain", "A", "all")
         return chim1, last_id
 
-    def build_recomb(self, partial_alignment: bool = False, cutoff_distance: float = 1) -> Dict[str, Chimera]:
+    def build_chimeras(self, partial_alignment: bool = False, cutoff_distance: float = 1) -> Dict[str, Chimera]:
         """ Build all possible chimeras between the two proteins that fulfill
         these two criteria:
         1) That the distance between the fusion points is below the cutoff distance
@@ -376,7 +369,6 @@ class Builder():
         chimeras = {}
         outcomes = ['Query N-terminal', 'Subject N-terminal', 'Not enough mutations Query N-terminal',
                     'Not enough mutations Subject N-terminal', 'Backbone clash']
-        #outcomes = ['Query N-terminal', 'Subject N-terminal']
         self.chim_positions = dict(zip(outcomes, [[] for i in range(len(outcomes))]))
 
         q_indices = self.qPDB.get("index", sel="protein and name CA")
@@ -402,8 +394,6 @@ class Builder():
                 logger.error(f"Alignment {aln_index+1} was not produced. Skipping to next alignment.")
                 continue
             fusion_points = [index for index, distance in enumerate(chunk) if distance < cutoff_distance]
-
-            #print(fusion_points)
             # Build query-subject chimera
             for index in fusion_points:
                 qMOL = self.qaPDB[0].copy()
@@ -502,252 +492,111 @@ class Builder():
         ax.legend(loc=9, bbox_to_anchor=(0.5, 1.35), fontsize=18)
         plt.show()
 
-
-    def check_connection_gap(self, mol1, mol2, mol3):
-        """
-        """
-        c1to2 = [mol1, mol2]
-        c2to3 = [mol2, mol3]
-
-        lsts = [c1to2, c2to3]
-
-        for lst in lsts:
-            lastC = lst[0].get('coords', sel='protein and name C')[-1]
-            firstN = lst[1].get('coords', sel='protein and name N')[0]
-            dist = np.linalg.norm(lastC - firstN)
-            # print(dist)
-            if dist >= 1.34:
-                raise ConnectionGapError
-
-
-    def check_bb_clashes(self,chim_mol):
-        """
-        :param chim_mol:
-        :return:
-        """
-        matrix = cdist(chim_mol.coords[:, :, 0], chim_mol.coords[:, :, 0])
-        np.fill_diagonal(matrix, np.inf)
-        idx1, idx2 = np.where(matrix < 1.3)
-        if idx1.any() or idx2.any():
-            raise BackboneClashError
-
-    def catch_bb_clashes(self, chim_mol, mol_1, mol_2, mol_3):
-
-        mol_1.filter("protein and backbone")
-        mol_2.filter("protein and backbone")
-        mol_3.filter("protein and backbone")
-
-        matrix = cdist(mol_1.coords[:, :, 0], mol_2.coords[:, :, 0])
-        idx1, idx2 = np.where(matrix < 1.3)
-        if idx1.any() or idx2.any():
-            raise BbClashError
-
-        #matrix = cdist(mol_1.coords[:, :, 0], mol_3.coords[:, :, 0])
-        #idx1, idx2 = np.where(matrix < 1.3)
-        #if idx1.any() or idx2.any():
-        #    raise BbClashError
-
-        matrix = cdist(mol_2.coords[:, :, 0], mol_3.coords[:, :, 0])
-        idx1, idx2 = np.where(matrix < 1.3)
-        if idx1.any() or idx2.any():
-            raise BbClashError
-
-    def format_serials(self, mol):
-        for c, i in enumerate(mol.record):
-            mol.serial[c] = c+1
-        return mol
-
-    def format_molparts(self, qmol_1, qmol_2, qmol_3, smol_1, smol_2, smol_3):
-
-        qsq_chim = [qmol_1, smol_2, qmol_3]
-        sqs_chim = [smol_1, qmol_2, smol_3]
-        both_chim = [qsq_chim, sqs_chim]
-
-        for one_chim in both_chim:
-            last_resid = 0
-            ser = 1
-            for mol in one_chim:
-                for c, i in enumerate(mol.record):
-                    mol.resid[c] += (last_resid+1)
-                    mol.serial[c] = ser
-                    ser+=1
-                last_resid = mol.resid[-1]
-
-        return qmol_1, qmol_2, qmol_3, smol_1, smol_2, smol_3
-
-    def _construct_recombination(self, qmol, smol, index1, index2,
-                                 xo_query_1, xo_query_2,
-                                 xo_subject_1, xo_subject_2, combnum):
-
-        qmol_1 = qmol.copy()
-        qmol_2 = qmol.copy()
-        qmol_3 = qmol.copy()
-
-        smol_1 = smol.copy()
-        smol_2 = smol.copy()
-        smol_3 = smol.copy()
-
-        qstart = min(qmol.serial)
-        qend = max(qmol.serial)
-        sstart = min(smol.serial)
-        send = max(smol.serial)
-
-        ## Query fractioning
-        qmol_1.filter(f"protein and same residue as index '{qstart}' to '{xo_query_1}'");
-        ## Getting first residue after xo_query_1
-        next_xo_q_1 = qmol.get('serial', sel=f'protein and resid {qmol_1.resid[-1] + 1}')[0]
-
-        # qmol_2.filter(f"protein and same residue as index '{xo_query_1}' to '{xo_query_2}'");
-        qmol_2.filter(f"protein and same residue as index '{next_xo_q_1}' to '{xo_query_2}'");
-
-        ## Getting first residue after xo_query_2
-        next_xo_q_2 = qmol.get('serial', sel=f'protein and resid {qmol_2.resid[-1] + 1}')[0]
-
-        # qmol_3.filter(f"protein and same residue as index '{xo_query_2}' to '{qend}'");
-        qmol_3.filter(f"protein and same residue as index '{next_xo_q_2}' to '{qend}'");
-
-        ## Subject fractioning
-        smol_1.filter(f"protein and same residue as index '{sstart}' to '{xo_subject_1}'");
-        ## Getting first residue after xo_subject_1
-        next_xo_s_1 = smol.get('serial', sel=f'protein and resid {smol_1.resid[-1] + 1}')[0]
-
-        smol_2.filter(f"protein and same residue as index '{next_xo_s_1}' to '{xo_subject_2}'");
-        ## Getting first residue after xo_subject_2
-        next_xo_s_2 = smol.get('serial', sel=f'protein and resid {smol_2.resid[-1] + 1}')[0]
-
-        smol_3.filter(f"protein and same residue as index '{next_xo_s_2}' to '{send}'");
-
-        qmol_1.renumberResidues()
-        qmol_2.renumberResidues()
-        qmol_3.renumberResidues()
-
-        smol_1.renumberResidues()
-        smol_2.renumberResidues()
-        smol_3.renumberResidues()
-
-        qmol_1, qmol_2, qmol_3, smol_1, smol_2, smol_3 = self.format_molparts(qmol_1, qmol_2, qmol_3, smol_1, smol_2,
-                                                                              smol_3)
-
-        chim = Chimera()
-        chim.append(qmol_1)
-        chim.append(smol_2)
-        chim.append(qmol_3)
-
-        #try:
-        #    self.check_connection_gap(qmol_1, smol_2, qmol_3)
-        #except ConnectionGapError:
-        #    logger.warning(f"comb{combnum}_{index1}_{index2} present ConnectionGapError")
-        #    raise ConnectionGapError
-
-        chim.reps.add(sel=f"protein and same residue as index '{qmol_1.serial[0] - 1}' to '{qmol_1.serial[-1] - 1}'",
-                      style='NewCartoon', color=4);
-        chim.reps.add(sel=f"protein and same residue as index '{smol_2.serial[0] - 1}' to '{smol_2.serial[-1] - 1}'",
-                      style='NewCartoon', color=1);
-        chim.reps.add(sel=f"protein and same residue as index '{qmol_3.serial[0] - 1}' to '{qmol_3.serial[-1] - 1}'",
-                      style='NewCartoon', color=4);
-
-        try:
-            self.catch_bb_clashes(chim, qmol_1, smol_2, qmol_3)
-            #self.check_bb_clashes(chim)
-        except BbClashError:
-            #logger.warning(f"comb{combnum}_{index1}_{index2} present backbone clashes")
-            raise BbClashError
-
-        cut1 = int(smol_2.resid[0])
-        cut2 = int(smol_2.resid[-1])
-
-        return chim, [cut1, cut2]
-
-    def build_insert(self, partial_alignment: bool = False, cutoff_distance=1):
-        """
-        #TODO for now implemented only to be GLOBAL ALIGNMENT
-        #TODO NEEDS TESTING - still working with resids
-        #TODO perhaps is a good idea to follow this algorithm for the single crossover chimeras
-        :return:
-        """
-        if self.dst is None:
-            logger.error("You need to align the structures before building the chimeras")
-            return
-
-        recombinations = {}
-        outcomes = ['Query crossovers', 'Subject crossovers', 'Not enough mutations',
-                    'Not enough mutations Subject N-terminal', 'Backbone clash', 'Connection gap']
-        self.chim_positions = dict(zip(outcomes, [[] for i in range(len(outcomes))]))
-
-        if partial_alignment is False:
-            qpairs = self.global_qpairs
-            spairs = self.global_spairs
-            dst = self.global_dst
-        else:
-            qpairs = self.qpairs
-            spairs = self.spairs
-            dst = self.dst
-
-        combs = []
-        fusion_points = [index for index, distance in enumerate(dst[0]) if distance < cutoff_distance]
-
-        for pair in itertools.combinations(fusion_points, 2):
-            if pair[0] < pair[1] and pair[1] - pair[0] >= 20:
-                combs.append(pair)
-        q_indices = self.qPDB.get("index", sel="protein and name CA")
-
-        s_indices = self.sPDB.get("index", sel="protein and name CA")
-
-        qMOL = self.qaPDB[0].copy()
-        sMOL = self.saPDB[0].copy()
-        qMOL = self.format_serials(qMOL)
-        sMOL = self.format_serials(sMOL)
-
-        for crossovers in combs:
-
-            xo_query_1 = qpairs[0][crossovers[0]]
-
-            xo_query_2 = qpairs[0][crossovers[1]]
-
-            xo_subject_1 = spairs[0][crossovers[0]]
-
-            xo_subject_2 = spairs[0][crossovers[1]]
-
-            try:
-                recomb1, cut = self._construct_recombination(qMOL, sMOL, crossovers[0], crossovers[1],
-                                                             xo_query_1, xo_query_2,
-                                                             xo_subject_1, xo_subject_2, 1)
-                recombinations[f"comb1_{cut[0]}_{cut[1]}"] = recomb1
-
-                self.chim_positions['Query crossovers'].append((xo_query_1, xo_query_2))
-                self.chim_positions['Subject crossovers'].append((xo_subject_1, xo_subject_2))
-
-            except NotDiverseChimeraError:
-                self.chim_positions['Not enough mutations'].append((crossovers[0], crossovers[1]))
-            except BbClashError:
-                self.chim_positions['Backbone clash'].append((crossovers[0], crossovers[1]))
-            #except ConnectionGapError:
-            #    self.chim_positions['Connection gap'].append((crossovers[0], crossovers[1]))
-
-            try:
-                recomb2, cut = self._construct_recombination(sMOL, qMOL, crossovers[0], crossovers[1],
-                                                             xo_subject_1, xo_subject_2,
-                                                             xo_query_1, xo_query_2, 2)
-                recombinations[f"comb2_{cut[0]}_{cut[1]}"] = recomb2
-
-                self.chim_positions['Query crossovers'].append((xo_query_1, xo_query_2))
-                self.chim_positions['Subject crossovers'].append((xo_subject_1, xo_subject_2))
-
-            except NotDiverseChimeraError:
-                self.chim_positions['Not enough mutations'].append((crossovers[0], crossovers[1]))
-            except BbClashError:
-                self.chim_positions['Backbone clash'].append((crossovers[0], crossovers[1]))
-            #except ConnectionGapError:
-            #    self.chim_positions['Connection gap'].append((crossovers[0], crossovers[1]))
-
-        return recombinations
-
-    def write_output(self, path:str='.', recombs:dict=None, pdb:bool=True) :
-        for c, (k,v) in enumerate(locals().items()) :
-            if v == None :
-                print(f'ERROR! {k} was not assigned')
-
-        for c, (k,v) in enumerate(recombs.items()) :
-            if pdb == True :
-                v.write(os.path.join(path, f'{k}.pdb'))
+    # def build_recombinations(self,partial_alignment:bool = False, cutoff_distance=1):
+    #     """
+    #     #TODO for now implemented only to be GLOBAL ALIGNMENT
+    #     #TODO NEEDS TESTING - still working with resids
+    #     #TODO perhaps is a good idea to follow this algorithm for the single crossover chimeras
+    #     :return:
+    #     """
+    #     if self.dst is None:
+    #         logger.error("You need to align the structures before building the chimeras")
+    #         return
+    #
+    #     recombinations = {}
+    #
+    #     if partial_alignment is False:
+    #         qpairs = self.global_qpairs
+    #         spairs = self.global_spairs
+    #         dst = self.global_dst
+    #     else:
+    #         qpairs = self.qpairs
+    #         spairs = self.spairs
+    #         dst = self.dst
+    #
+    #     combs = []
+    #
+    #     fusion_points = [index for index, distance in enumerate(dst[0]) if distance < cutoff_distance]
+    #
+    #     for pair in itertools.combinations(fusion_points, 2):
+    #         if pair[0] < pair[1] and pair[1] - pair[0] > 10:
+    #             combs.append(pair)
+    #
+    #     qMOL = self.qaPDB[0].copy()
+    #     sMOL = self.saPDB[0].copy()
+    #     for crossovers in combs:
+    #         xo_query_1 = qpairs[0][crossovers[0]]
+    #         xo_query_2 = qpairs[0][crossovers[1]]
+    #         xo_subject_1 = spairs[0][crossovers[0]]
+    #         xo_subject_2 = spairs[0][crossovers[1]]
+    #         try:
+    #             recomb1,recomb2= self._construct_recombination(qMOL,sMOL,crossovers[0],crossovers[1],
+    #                                                             xo_query_1, xo_query_2,
+    #                                                             xo_subject_1, xo_subject_2)
+    #             recombinations[f"comb1_{crossovers[0]}_{crossovers[1]}"] = Chimera(recomb1)
+    #             recombinations[f"comb2_{crossovers[0]}_{crossovers[1]}"] = Chimera(recomb2)
+    #         except:
+    #             continue
+    #
+    #     return recombinations
+    #
+    # def _construct_recombination(self, qmol,smol,index1,index2,
+    #                              xo_query_1, xo_query_2,
+    #                              xo_subject_1, xo_subject_2):
+    #     qmol_1 = qmol.copy()
+    #     qmol_2 = qmol.copy()
+    #     qmol_3 = qmol.copy()
+    #
+    #     smol_1 = smol.copy()
+    #     smol_2 = smol.copy()
+    #     smol_3 = smol.copy()
+    #
+    #     qstart = min(qmol.resid)
+    #     qend = max(qmol.resid)
+    #
+    #     sstart = min(qmol.resid)
+    #     send = max(qmol.resid)
+    #
+    #     qmol_1.filter(f"protein and resid '{qstart}' to '{xo_query_1}'")
+    #     qmol_2.filter(f"protein and resid '{xo_query_1+1}' to '{xo_query_2}'")
+    #     qmol_3.filter(f"protein and resid '{xo_query_2+1}' to '{qend}'")
+    #
+    #     smol_1.filter(f"protein and resid '{sstart}' to '{xo_query_1}'")
+    #     smol_2.filter(f"protein and resid '{xo_subject_1+1}' to '{xo_subject_2}'")
+    #     smol_3.filter(f"protein and resid '{xo_subject_2+1}' to '{send}'")
+    #
+    #     # Combination query - subject
+    #     chim1 = Molecule()
+    #     chim1.append(qmol_1)
+    #     chim1.append(smol_2)
+    #     chim1.append(qmol_3)
+    #     try:
+    #         self.check_bb_clashes(chim1)
+    #     except BackboneClashError:
+    #         logger.warning(f"comb1_{index1}_{index2} present backbone clashes")
+    #
+    #
+    #     # combination subject - query
+    #     chim2 = Molecule()
+    #     chim2.append(smol_1)
+    #     chim2.append(qmol_2)
+    #     chim2.append(smol_3)
+    #     try:
+    #         self.check_bb_clashes(chim1)
+    #     except BackboneClashError:
+    #         logger.warning(f"comb2_{index1}_{index2} present backbone clashes")
+    #
+    #     return chim1, chim2
+    #
+    # def check_bb_clashes(self,chim_mol):
+    #     """
+    #
+    #     :param chim_mol:
+    #     :return:
+    #     """
+    #     matrix = cdist(chim_mol.coords[:, :, 0], chim_mol.coords[:, :, 0])
+    #     np.fill_diagonal(matrix, np.inf)
+    #     idx1, idx2 = np.where(matrix < 1.3)
+    #     if idx1.any() or idx2.any():
+    #         raise BackboneClashError
 
