@@ -3,7 +3,8 @@ from moleculekit.projections.metricdistance import MetricDistance
 from protlego.structural.clusters import *
 from protlego.structural.hh_networks import *
 import os
-from moleculekit.support import string_to_tempfile
+#from moleculekit.support import string_to_tempfile
+from moleculekit.util import string_to_tempfile
 import urllib.request
 
 def get_SCOP_domain(domain):
@@ -106,7 +107,7 @@ class Chimera(Molecule):
         for index in indices:
                 resid = self.get("resid", sel=f"index {index}")[0]
                 chain = self.get("chain", sel=f"index {index}")[0]
-                index_residue = [j for j, residue in enumerate(resids) if (residue == resid and chains[j] == chain) ][0]
+                index_residue = [j for j, residue in enumerate(resids) if (residue == resid and chains[j] == chain)][0]
                 atom_to_residposition[index] = index_residue
 
 
@@ -174,8 +175,7 @@ class Chimera(Molecule):
         [self.reps.remove(index) for index, rep in reversed(list(enumerate(self.reps.replist)))]
 
         metr = MetricDistance('sidechain and acidic and element O',
-                              'sidechain and basic and element N', metric="contacts", threshold=3.2,
-                              pbc=False)
+                              'sidechain and basic and element N', metric="contacts", threshold=3.2, periodic=None)
         try:
             data = metr.project(self)
             mapping = metr.getMapping(self)

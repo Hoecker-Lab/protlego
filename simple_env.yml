@@ -1,0 +1,19 @@
+name: prottry
+channels:
+  - conda-forge
+  - anaconda
+  - acellera
+  - bioconda
+dependencies:
+  - python=3.9
+  - jupyter
+  - csb
+  - matplotlib
+  - moleculekit
+  - numpy
+  - openmm
+  - pandas
+  - graph-tool
+  - mdtraj
+  - parmed
+  - pdb2pqr
