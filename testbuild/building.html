@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building chimeras &mdash; ProtLego 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="energy_min.html" />
+    <link rel="prev" title="Drawing networks" href="network.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ProtLego
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#pip-installation">PIP installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#conda-installation">CONDA installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#installing-from-environment-file">Installing from environment file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building chimeras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Chimera-Building-using-Protlego">Chimera-Building using Protlego</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ProtLego</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Building chimeras</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/building.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="Building-chimeras">
+<h1>Building chimeras<a class="headerlink" href="#Building-chimeras" title="Permalink to this heading"></a></h1>
+<p>We can build chimeras from two proteins that present a fragment in common. There are several ways to do this, but we will here build a chimera by aligning the domains (in the fragment they have in common) and finding a crossover point in this region that divides the two parents in two parts. The parts are then shuffled and recombined.</p>
+<p>First import the protlego module.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlego.all</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-11 14:02:40,024 - numexpr.utils - INFO - Note: NumExpr detected 12 cores but &#34;NUMEXPR_MAX_THREADS&#34; not set, so enforcing safe limit of 8.
+2023-09-11 14:02:40,025 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+beignet-opencl-icd: no supported GPU found, this is probably the wrong opencl-icd package for this hardware
+(If you have multiple ICDs installed and OpenCL works, you can ignore this message)
+beignet-opencl-icd: no supported GPU found, this is probably the wrong opencl-icd package for this hardware
+(If you have multiple ICDs installed and OpenCL works, you can ignore this message)
+</pre></div></div>
+</div>
+<p>Fetch for example by the HitID from the Fuzzle database, as explained more in detail in the “Fetching from the Fuzzle database” section. We are fetching a hit between the P-loop and the Rossmann folds in this case.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhit</span><span class="o">=</span> <span class="n">fetch_id</span><span class="p">(</span><span class="s1">&#39;4413706&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Chimera-Building-using-Protlego">
+<h2>Chimera-Building using Protlego<a class="headerlink" href="#Chimera-Building-using-Protlego" title="Permalink to this heading"></a></h2>
+<p>First create an instance of the Builder class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-11 14:02:57,272 - protlego - INFO - Attempting to download domain d2dfda1 from the SCOP server
+2023-09-11 14:02:58,480 - protlego - INFO - File downloaded as /tmp/user/1307247/tmp1a6cajcg.pdb
+2023-09-11 14:02:58,480 - protlego - INFO - Attempting to download domain d1wa5a_ from the SCOP server
+2023-09-11 14:02:59,689 - protlego - INFO - File downloaded as /tmp/user/1307247/tmp49yraku9.pdb
+2023-09-11 14:02:59,690 - protlego - INFO - Loading /tmp/user/1307247/tmp1a6cajcg.pdb as a chimera object
+2023-09-11 14:03:00,273 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=&#34;all&#34; option when reading the file.
+2023-09-11 14:03:00,276 - protlego - INFO - Loading /tmp/user/1307247/tmp49yraku9.pdb as a chimera object
+</pre></div></div>
+</div>
+<p>You can see the query and the subject of the hit stored in the variables qPDB and sPDB as chimera objects</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">qPDB</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;protlego.builder.chimera.Chimera object at 0x7f3480686df0&gt;
+Protein with:
+Number of residues: 145
+Number of atoms: 1054
+</pre></div></div>
+</div>
+<p>As described in the previous tutorial, myhit includes information about the two proteins that share a fragment, like the scop IDs, length, and TM-align scores, among others.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">q_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">s_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">score_tm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Hit between d2dfda1 and d1wa5a_ with probability 81.7 %
+
+c.2.1.5
+c.37.1.8
+101
+0.54938
+</pre></div></div>
+</div>
+<p>Align the sequences of query and subject with HHPred using get_alignment function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aln</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">get_alignment</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">query</span><span class="p">,</span><span class="n">myhit</span><span class="o">.</span><span class="n">no</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-11 14:03:04,865 - protlego - INFO - Attempting to download hhs file for d2dfda1 from the FUZZLE server
+2023-09-11 14:03:05,009 - protlego - INFO - File downloaded as /tmp/user/1307247/tmpfb_4rlw5.hhs
+</pre></div></div>
+</div>
+<p>Now we can have a look at the sequence alignment:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">subject</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+KVAVLGASGGIGQ-PLSLLLKNS------------PLVSRLTLYDIAHTPGVAADLSHIETKAAVKGYLGPEQLPDCLKGCDVVVIPAGVPRKPGMTRDDLFNTNATIVATLTAACAQHCPEAMICVIANPVN
+KLVLVG-DGGTGKTTFVKRHLTGEFEKKYVATLGVEVHPLVFHTNRGPIKFNVWDTAGQEKFGGLRDGY--------YIQAQCAIIMFDVTSRV----------TYKNVPNWHRDLVRVCENIPIVLCGNKVD
+</pre></div></div>
+</div>
+<p>The sequence alignment corresponds to the exact fragment that the two proteins have in common, so it does not include the full protein sequences. Now, we need to map these alignments to the protein structures, because ultimately we need to align the two protein structures in these fragment region.</p>
+<p>We can thus superimpose the structures with the superimpose_structures() function, and we choose to align the structures using partial alignment. This means that instead of only one, global alignment being produced, rather, several alignments comprising smaller regions of the fragment (10-20 residues) are undertaken in parallel. We do this to provide multiple regions where the two proteins are closer than 1 armstrong in distance, and thus obtain more fusion points for the chimeras.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qPDB</span><span class="p">,</span> <span class="n">sPDB</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superimpose_structures</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-11 14:03:09,676 - protlego - INFO - Performing alignment 1 with TMalign
+2023-09-11 14:03:09,776 - protlego - INFO - The RMSD between the fragments is 0.6881078481674194 over 6 alpha carbons
+2023-09-11 14:03:09,781 - protlego - INFO - Performing alignment 2 with TMalign
+2023-09-11 14:03:09,842 - protlego - INFO - The RMSD between the fragments is 2.323467254638672 over 6 alpha carbons
+2023-09-11 14:03:09,848 - protlego - INFO - Performing alignment 3 with TMalign
+2023-09-11 14:03:09,911 - protlego - INFO - The RMSD between the fragments is 1.180463194847107 over 9 alpha carbons
+2023-09-11 14:03:09,917 - protlego - INFO - Performing alignment 4 with TMalign
+2023-09-11 14:03:09,995 - protlego - INFO - The RMSD between the fragments is 10.348334312438965 over 34 alpha carbons
+2023-09-11 14:03:10,003 - protlego - INFO - Performing alignment 5 with TMalign
+2023-09-11 14:03:10,069 - protlego - INFO - The RMSD between the fragments is 4.646137714385986 over 17 alpha carbons
+2023-09-11 14:03:10,076 - protlego - INFO - Performing alignment 6 with TMalign
+2023-09-11 14:03:10,154 - protlego - INFO - The RMSD between the fragments is 3.5291926860809326 over 29 alpha carbons
+</pre></div></div>
+</div>
+<p>The two variables produced are two dictionaries, which contain several molecules, each pair in a geometry that optimizes each of the alignments. We can visualize these structures easily, by simply calling the view() method. A new VMD window will open showing the structure. For example, less visualize the first alignment by slicing the first key in the dictionary:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qPDB</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The superimpose_structures() command also produces two lists for query and subject. One of them is global_qpairs, which simply contains the indices of the protein that correspond to the srquence aligment. This list is used when we superimpose the structures using a global alignment (all atoms taken into account at once). The other is qpairs, which correspond to the same residues, but they are clustered in smaller regions that will be aligned iteratively if we choose to perform a partial
+alignment.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">qpairs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">global_qpairs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[14, 23, 30, 35, 42, 50], [59, 65, 69, 73, 81, 85], [94, 101, 109, 115, 123, 131, 139, 148, 156], [162, 169, 177, 184, 190, 201, 209, 216, 224, 236, 244, 252, 257, 267, 274, 281, 285, 292, 297, 302, 310, 318, 324, 334, 342, 351, 358, 364, 369, 374, 381, 390, 394, 406], [472, 480, 489, 493, 499, 507, 514, 521, 528, 536, 543, 548, 552, 559, 566, 577, 586], [673, 681, 686, 693, 701, 708, 713, 720, 728, 735, 740, 745, 751, 756, 765, 775, 781, 788, 797, 802, 810, 818, 824, 831, 839, 844, 852, 859, 866]]
+[[14, 23, 30, 35, 42, 50, 59, 65, 69, 73, 81, 85, 94, 101, 109, 115, 123, 131, 139, 148, 156, 162, 169, 177, 184, 190, 201, 209, 216, 224, 236, 244, 252, 257, 267, 274, 281, 285, 292, 297, 302, 310, 318, 324, 334, 342, 351, 358, 364, 369, 374, 381, 390, 394, 406, 472, 480, 489, 493, 499, 507, 514, 521, 528, 536, 543, 548, 552, 559, 566, 577, 586, 673, 681, 686, 693, 701, 708, 713, 720, 728, 735, 740, 745, 751, 756, 765, 775, 781, 788, 797, 802, 810, 818, 824, 831, 839, 844, 852, 859, 866]]
+</pre></div></div>
+</div>
+<p>Now we can build all the possible chimeras and store them in a dictionary.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chimeras</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">build_recomb</span><span class="p">(</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chimeras</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;comb1_72&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee7559a0&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1278,
+ &#39;comb1_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee657b20&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1279,
+ &#39;comb1_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33fe7fa4c0&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1274,
+ &#39;comb2_75&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33fdc7b6a0&gt;
+ Protein with:
+ Number of residues: 152
+ Number of atoms: 1166,
+ &#39;comb1_76&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33fdfe75e0&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1274,
+ &#39;comb2_76&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33fdf54370&gt;
+ Protein with:
+ Number of residues: 152
+ Number of atoms: 1167,
+ &#39;comb1_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33fe6f64c0&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1275,
+ &#39;comb1_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee6b7460&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1277,
+ &#39;comb1_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33fe6f6400&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1276,
+ &#39;comb2_80&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3480686370&gt;
+ Protein with:
+ Number of residues: 152
+ Number of atoms: 1165,
+ &#39;comb1_81&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee657f10&gt;
+ Protein with:
+ Number of residues: 163
+ Number of atoms: 1275,
+ &#39;comb2_81&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee0b2670&gt;
+ Protein with:
+ Number of residues: 152
+ Number of atoms: 1166,
+ &#39;comb2_103&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee0b2ee0&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1101,
+ &#39;comb2_104&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee760100&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1103,
+ &#39;comb2_105&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee0a83d0&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1104,
+ &#39;comb2_106&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee0a8c40&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1110,
+ &#39;comb2_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee0820d0&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1113,
+ &#39;comb2_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee08e160&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1122,
+ &#39;comb2_112&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee09dd00&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1128,
+ &#39;comb2_113&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee09d2e0&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1125,
+ &#39;comb2_118&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee09d550&gt;
+ Protein with:
+ Number of residues: 142
+ Number of atoms: 1128}
+</pre></div></div>
+</div>
+<p>From the Builder class you can plot all the possible chimeras, showing the distance on the y-axis and the fragment of the query relative to the domain in the subject. There are five possible scenarios. For every two fussion point that is under the cutoff distanc (1 Armstrong in this case) we can build chimeras starting from the N-terminus and C-terminus. When the two resulting chimeras at this point present backbone clashes, the plot shows a black dot at this position. If the N-terminus or
+C-terminus is chimera is buildable, we show that position with a cross in yellow, and red, respectively. In some fusion points, like position 145 in this example, it is possible to build both N-terminus and C-terminus chimeras.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">plot_curves</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/building_28_0.png" src="_images/building_28_0.png" />
+</div>
+</div>
+<p>To access the chimeras we can retrieve them from the key value in the dictionary. Combinations starting with 1 come from the query, and combinations starting with 2 come from the subject.</p>
+<p>To view or write the structures out you can store the chimera from the chimeras dictionary in a variable and use the view and the write function.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mychimera</span><span class="o">=</span><span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_72&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mychimera</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>When we represent the structures we can see the part that comes from each parent is shown in different colors. We can also save the structure as a pdb anytime:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mychimera</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;./mychimera.pdb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can, in fact, visualize all of them at once by looping over the structures:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">chimera</span> <span class="ow">in</span> <span class="n">chimeras</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">chimera</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Note that VMD guesses the bonds between atoms by computing distances. As these structures have not been minimized they do not have idealized bond distances and sometimes VMD cannot guess properly the NewCartoon representation. Choose Licorice Method to represent those cases.</p>
+<p>It is also possible to make chimeras using the second function called build_insert. All the steps to generate chimeras by fragment insertion are the same. Though, it is recommended to use global sequence alignment to generate chimeras using this function. This maximises the number of chimeras generated as an output. An example run of this function is shown below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+<span class="n">alnt</span><span class="o">=</span><span class="n">b</span><span class="o">.</span><span class="n">get_alignment</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">query</span><span class="p">,</span><span class="n">myhit</span><span class="o">.</span><span class="n">no</span><span class="p">)</span>
+<span class="n">qPDB</span><span class="p">,</span> <span class="n">sPDB</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">superimpose_structures</span><span class="p">(</span><span class="n">alnt</span><span class="p">,</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-11 14:09:25,314 - protlego - INFO - Attempting to download domain d2dfda1 from the SCOP server
+2023-09-11 14:09:26,486 - protlego - INFO - File downloaded as /tmp/user/1307247/tmp25riuevt.pdb
+2023-09-11 14:09:26,487 - protlego - INFO - Attempting to download domain d1wa5a_ from the SCOP server
+2023-09-11 14:09:27,655 - protlego - INFO - File downloaded as /tmp/user/1307247/tmp6jo79llt.pdb
+2023-09-11 14:09:27,656 - protlego - INFO - Loading /tmp/user/1307247/tmp25riuevt.pdb as a chimera object
+2023-09-11 14:09:27,688 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=&#34;all&#34; option when reading the file.
+2023-09-11 14:09:27,689 - protlego - INFO - Loading /tmp/user/1307247/tmp6jo79llt.pdb as a chimera object
+2023-09-11 14:09:27,722 - protlego - INFO - Attempting to download hhs file for d2dfda1 from the FUZZLE server
+2023-09-11 14:09:27,859 - protlego - INFO - File downloaded as /tmp/user/1307247/tmpzxat06ze.hhs
+2023-09-11 14:09:28,537 - protlego - INFO - Performing alignment 1 with TMalign
+2023-09-11 14:09:28,657 - protlego - INFO - The RMSD between the fragments is 12.112655639648438 over 101 alpha carbons
+</pre></div></div>
+</div>
+<p>In the above steps note that partial_alignment is set to False.</p>
+<p>Function below generates chimeras using the new function.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">in_chimeras</span><span class="o">=</span><span class="n">b</span><span class="o">.</span><span class="n">build_insert</span><span class="p">(</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">in_chimeras</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;comb1_4_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1f4b50&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1137,
+ &#39;comb1_4_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2e3a00&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1136,
+ &#39;comb1_4_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec24a640&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_4_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec26a580&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1135,
+ &#39;comb2_7_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec283e20&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1306,
+ &#39;comb1_4_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1f42b0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1135,
+ &#39;comb1_4_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec24adf0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1071,
+ &#39;comb1_4_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec24a6d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1071,
+ &#39;comb1_4_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2ee190&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1073,
+ &#39;comb1_4_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec196fd0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1080,
+ &#39;comb1_4_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec191640&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1083,
+ &#39;comb1_4_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1f83d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1092,
+ &#39;comb1_4_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1da610&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1098,
+ &#39;comb1_4_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2224f0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_4_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec191070&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1098,
+ &#39;comb1_4_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec196670&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1099,
+ &#39;comb1_5_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2f2250&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1136,
+ &#39;comb1_5_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec185640&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1135,
+ &#39;comb1_5_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec27b7c0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_5_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec182460&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_5_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec182b80&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_5_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec7a92b0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_5_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec185040&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_5_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2f2370&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1072,
+ &#39;comb1_5_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec222850&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1079,
+ &#39;comb1_5_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec19fd60&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1082,
+ &#39;comb1_5_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec26a640&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1091,
+ &#39;comb1_5_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec259040&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1097,
+ &#39;comb1_5_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec26a190&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1094,
+ &#39;comb1_5_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1b9dc0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1097,
+ &#39;comb1_5_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec19f760&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1098,
+ &#39;comb1_6_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ee38b220&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_6_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1f8e50&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_6_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec259430&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb1_6_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec27bee0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb2_9_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec27bfd0&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1309,
+ &#39;comb1_6_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1a9490&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb1_6_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec222640&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_6_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec196b50&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_6_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1a97f0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_6_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec196130&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1077,
+ &#39;comb1_6_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2834f0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1080,
+ &#39;comb1_6_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1f56d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1089,
+ &#39;comb1_6_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1b3700&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_6_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1b35b0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1092,
+ &#39;comb1_6_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec143a90&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_6_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec143790&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1096,
+ &#39;comb1_7_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec150880&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_7_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1439a0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb1_7_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1da0a0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1130,
+ &#39;comb1_7_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec24a370&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb2_10_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec143160&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1310,
+ &#39;comb1_7_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1a9c70&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb1_7_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec26aa30&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1067,
+ &#39;comb1_7_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2ee670&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1067,
+ &#39;comb1_7_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec185910&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1069,
+ &#39;comb1_7_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec143c70&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1076,
+ &#39;comb1_7_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec185400&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1079,
+ &#39;comb1_7_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec288a30&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1088,
+ &#39;comb1_7_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec148d60&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1094,
+ &#39;comb1_7_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec26a1c0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1091,
+ &#39;comb1_7_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1969a0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1094,
+ &#39;comb1_7_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec143040&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_8_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec26a820&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_8_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec148310&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_8_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1b39a0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb1_8_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1a99d0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb2_11_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1de130&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1309,
+ &#39;comb1_8_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec26ab50&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb1_8_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec2470d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_8_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec191250&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_8_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1b3070&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_8_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec162220&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1077,
+ &#39;comb1_8_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec101e80&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1080,
+ &#39;comb1_8_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec14b0a0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1089,
+ &#39;comb1_8_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec148460&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_8_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1433d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1092,
+ &#39;comb1_8_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1dea60&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_8_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec196af0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1096,
+ &#39;comb1_75_94&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec116520&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1011,
+ &#39;comb1_75_97&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec169ac0&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1017,
+ &#39;comb1_75_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec1f8850&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1014,
+ &#39;comb1_75_103&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec162a90&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1017,
+ &#39;comb1_75_105&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f33ec11d6a0&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1018}
+</pre></div></div>
+</div>
+<p>Similar to the first function, two combinations of chimeras are generated at the end of this run, i.e., comb1 and comb2. The names also contain the index of the insertion site in the chimera.</p>
+<p>It is now also possible to download the entire dictionary of chimeras generated. The command to download them is shown below. User has to provide the path to save these chimeras in and the name of the dictionary where the chimeras have been stored.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">write_output</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">in_chimeras</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="network.html" class="btn btn-neutral float-left" title="Drawing networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="energy_min.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Noelia Ferruz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

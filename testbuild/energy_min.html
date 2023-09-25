@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy minimization &mdash; ProtLego 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Structural analysis of chimeras" href="structural.html" />
+    <link rel="prev" title="Building chimeras" href="building.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ProtLego
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#pip-installation">PIP installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#conda-installation">CONDA installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#installing-from-environment-file">Installing from environment file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ProtLego</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Energy minimization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/energy_min.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="Energy-minimization">
+<h1>Energy minimization<a class="headerlink" href="#Energy-minimization" title="Permalink to this heading"></a></h1>
+<p>It is also possible to minimize the energy of the chimeras generated using protlego. Protlego has in-built choices between “charmm” and “amber” forcefield to minimize the prtoein models. The code below shows how this function can be utilised.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlego.all</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-22 13:28:00,846 - numexpr.utils - INFO - Note: NumExpr detected 12 cores but &#34;NUMEXPR_MAX_THREADS&#34; not set, so enforcing safe limit of 8.
+2023-09-22 13:28:00,847 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+beignet-opencl-icd: no supported GPU found, this is probably the wrong opencl-icd package for this hardware
+(If you have multiple ICDs installed and OpenCL works, you can ignore this message)
+beignet-opencl-icd: no supported GPU found, this is probably the wrong opencl-icd package for this hardware
+(If you have multiple ICDs installed and OpenCL works, you can ignore this message)
+</pre></div></div>
+</div>
+<p>This example shows chimeras generated using the new function with partial_alignment set to False.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhit</span><span class="o">=</span> <span class="n">fetch_id</span><span class="p">(</span><span class="s1">&#39;4413706&#39;</span><span class="p">)</span>
+<span class="n">a</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+<span class="n">aln</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">get_alignment</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">query</span><span class="p">,</span><span class="n">myhit</span><span class="o">.</span><span class="n">no</span><span class="p">)</span>
+<span class="n">qPDB</span><span class="p">,</span> <span class="n">sPDB</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superimpose_structures</span><span class="p">(</span><span class="n">aln</span><span class="p">,</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">chimeras</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">build_insert</span><span class="p">(</span><span class="n">partial_alignment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-22 13:28:04,440 - protlego - INFO - Attempting to download domain d2dfda1 from the SCOP server
+2023-09-22 13:28:05,610 - protlego - INFO - File downloaded as /tmp/user/1307247/tmpjn1q116v.pdb
+2023-09-22 13:28:05,611 - protlego - INFO - Attempting to download domain d1wa5a_ from the SCOP server
+2023-09-22 13:28:08,673 - protlego - INFO - File downloaded as /tmp/user/1307247/tmpe9wm14s8.pdb
+2023-09-22 13:28:08,674 - protlego - INFO - Loading /tmp/user/1307247/tmpjn1q116v.pdb as a chimera object
+2023-09-22 13:28:09,437 - moleculekit.molecule - WARNING - Alternative atom locations detected. Only altloc A was kept. If you prefer to keep all use the keepaltloc=&#34;all&#34; option when reading the file.
+2023-09-22 13:28:09,441 - protlego - INFO - Loading /tmp/user/1307247/tmpe9wm14s8.pdb as a chimera object
+2023-09-22 13:28:09,479 - protlego - INFO - Attempting to download hhs file for d2dfda1 from the FUZZLE server
+2023-09-22 13:28:09,614 - protlego - INFO - File downloaded as /tmp/user/1307247/tmp9j5061kg.hhs
+2023-09-22 13:28:10,279 - protlego - INFO - Performing alignment 1 with TMalign
+2023-09-22 13:28:10,896 - protlego - INFO - The RMSD between the fragments is 12.112655639648438 over 101 alpha carbons
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chimeras</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;comb1_4_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3a044528b0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1137,
+ &#39;comb1_4_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991502c10&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1136,
+ &#39;comb1_4_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39915021f0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_4_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991502130&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1135,
+ &#39;comb2_7_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399123ce50&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1306,
+ &#39;comb1_4_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399123d0d0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1135,
+ &#39;comb1_4_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39914f5610&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1071,
+ &#39;comb1_4_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399123dd60&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1071,
+ &#39;comb1_4_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991255310&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1073,
+ &#39;comb1_4_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39915100a0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1080,
+ &#39;comb1_4_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991255160&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1083,
+ &#39;comb1_4_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399124b7c0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1092,
+ &#39;comb1_4_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911ec100&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1098,
+ &#39;comb1_4_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911e4f40&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_4_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39912350d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1098,
+ &#39;comb1_4_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911e4400&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1099,
+ &#39;comb1_5_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990182e80&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1136,
+ &#39;comb1_5_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990182c70&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1135,
+ &#39;comb1_5_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991258d60&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_5_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991257670&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_5_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991257280&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_5_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39912400d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_5_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991241160&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_5_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911e7370&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1072,
+ &#39;comb1_5_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911b8e20&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1079,
+ &#39;comb1_5_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911eeeb0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1082,
+ &#39;comb1_5_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991257eb0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1091,
+ &#39;comb1_5_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911bec10&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1097,
+ &#39;comb1_5_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911ebe20&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1094,
+ &#39;comb1_5_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399120a0d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1097,
+ &#39;comb1_5_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991257bb0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1098,
+ &#39;comb1_6_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991212dc0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_6_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911e7880&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_6_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39914f50a0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb1_6_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990158eb0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb2_9_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911b8610&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1309,
+ &#39;comb1_6_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39901581f0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb1_6_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991508fa0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_6_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911c8100&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_6_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39915104f0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_6_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399123e100&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1077,
+ &#39;comb1_6_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39901585b0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1080,
+ &#39;comb1_6_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39912408e0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1089,
+ &#39;comb1_6_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991201d60&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_6_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911c87c0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1092,
+ &#39;comb1_6_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911be700&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_6_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911c89a0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1096,
+ &#39;comb1_7_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39914f55e0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_7_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399123e460&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb1_7_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990158610&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1130,
+ &#39;comb1_7_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991201af0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb2_10_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991201580&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1310,
+ &#39;comb1_7_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39901586a0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb1_7_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911ae280&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1067,
+ &#39;comb1_7_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991508190&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1067,
+ &#39;comb1_7_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399124bc70&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1069,
+ &#39;comb1_7_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39912582e0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1076,
+ &#39;comb1_7_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911ecc70&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1079,
+ &#39;comb1_7_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911c8fd0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1088,
+ &#39;comb1_7_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399017fa90&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1094,
+ &#39;comb1_7_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399120af70&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1091,
+ &#39;comb1_7_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991212cd0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1094,
+ &#39;comb1_7_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39901583a0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_8_73&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3991206ee0&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1134,
+ &#39;comb1_8_74&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911cc220&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1133,
+ &#39;comb1_8_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911c4e50&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1131,
+ &#39;comb1_8_78&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399017f160&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb2_11_77&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399017fe80&gt;
+ Protein with:
+ Number of residues: 166
+ Number of atoms: 1309,
+ &#39;comb1_8_79&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399017fd00&gt;
+ Protein with:
+ Number of residues: 149
+ Number of atoms: 1132,
+ &#39;comb1_8_91&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990150d00&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_8_92&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399017f370&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1068,
+ &#39;comb1_8_93&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990158550&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1070,
+ &#39;comb1_8_95&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399014a910&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1077,
+ &#39;comb1_8_96&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399014a520&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1080,
+ &#39;comb1_8_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399014ac10&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1089,
+ &#39;comb1_8_101&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990151dc0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_8_102&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f399014a1c0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1092,
+ &#39;comb1_8_107&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39901513d0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1095,
+ &#39;comb1_8_109&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39901587f0&gt;
+ Protein with:
+ Number of residues: 139
+ Number of atoms: 1096,
+ &#39;comb1_75_94&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990127cd0&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1011,
+ &#39;comb1_75_97&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f3990158700&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1017,
+ &#39;comb1_75_98&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911c83d0&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1014,
+ &#39;comb1_75_103&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39900fe7f0&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1017,
+ &#39;comb1_75_105&#39;: &lt;protlego.builder.chimera.Chimera object at 0x7f39911ecaf0&gt;
+ Protein with:
+ Number of residues: 135
+ Number of atoms: 1018}
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chimera</span> <span class="o">=</span> <span class="n">chimeras</span><span class="p">[</span><span class="s1">&#39;comb1_4_73&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>User can run mimization by using the code as shown below. The function requires the name of the chimera object to be minimized, the choice of forcefield, i.e., “amber/charmm”, choice of using the GPU and path to the output file.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scorer</span><span class="o">.</span><span class="n">mm_energies</span><span class="o">.</span><span class="n">minimize_potential_energy</span><span class="p">(</span><span class="n">chimera</span><span class="p">,</span><span class="s2">&quot;charmm&quot;</span><span class="p">,</span> <span class="n">cuda</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+---- Molecule chain report ----
+Chain A:
+    First residue: ASN     1
+    Final residue: GLY   149
+---- End of chain report ----
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2023-09-22 13:28:57,689 - protlego - INFO - Energy before minimization -17671.611720243785 kcal/mol
+2023-09-22 13:29:38,564 - protlego - INFO - Energy after minimization -98374.7684631931 kcal/mol
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(Quantity(value=-17671.611720243785, unit=kilocalorie/mole),
+ Quantity(value=-98374.7684631931, unit=kilocalorie/mole),
+ &lt;protlego.builder.chimera.Chimera object at 0x7f3966f95ee0&gt;
+ Protein with:
+ Number of residues: 8077
+ Number of atoms: 26064)
+</pre></div></div>
+</div>
+<p>The end result is the pre and post minimized energy in kcal/mol and the minimized chimera along with the chimera object saved to the output path.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building.html" class="btn btn-neutral float-left" title="Building chimeras" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structural.html" class="btn btn-neutral float-right" title="Structural analysis of chimeras" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Noelia Ferruz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

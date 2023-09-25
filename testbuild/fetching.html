@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetching from the Fuzzle database &mdash; ProtLego 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Drawing networks" href="network.html" />
+    <link rel="prev" title="Introduction to Jupyter-notebooks and Python primer" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ProtLego
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#pip-installation">PIP installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#conda-installation">CONDA installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#installing-from-environment-file">Installing from environment file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fetching from the Fuzzle database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#1.-Fetching-from-ID">1. Fetching from ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#2.-Search-all-the-hits-that-contain-a-specific-domain">2. Search all the hits that contain a specific domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.-Fetch-by-parents-(finding-a-hit-between-two-domains)">3. Fetch by parents (finding a hit between two domains)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#4.-Fetching-two-groups">4. Fetching two groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#4.1-Fetching-between-two-families">4.1 Fetching between two families</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#4.2-Fetch-between-two-superfamilies">4.2 Fetch between two superfamilies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#4.3-Fetch-between-two-folds">4.3 Fetch between two folds</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#5.-Fetching-subspaces">5. Fetching subspaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#5.1-All-hits-that-contain-a-TIM-barrel">5.1 All hits that contain a TIM-barrel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#5.2-fetch-full-universes">5.2 fetch full universes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ProtLego</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Fetching from the Fuzzle database</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fetching.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="Fetching-from-the-Fuzzle-database">
+<h1>Fetching from the Fuzzle database<a class="headerlink" href="#Fetching-from-the-Fuzzle-database" title="Permalink to this heading"></a></h1>
+<p>First import the ProtLego module.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlego.all</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<p>The webserver fuzzle is a useful source to find fragments shared by different folds. It uses the SCOP95 subset of the SCOP database. For each domain a Hidden Markov Model (HMM) was generated and all-against-all HMM profile comparisons with HHsearch were perfomed. The structural similarity was measured using TM-align. A final set of more than 10 million Hits have been identified and are contained in fuzzle.</p>
+<p>You can check the web here <a class="reference external" href="https://fuzzle.uni-bayreuth.de/2.0">https://fuzzle.uni-bayreuth.de/2.0</a></p>
+<div class="section" id="1.-Fetching-from-ID">
+<h2>1. Fetching from ID<a class="headerlink" href="#1.-Fetching-from-ID" title="Permalink to this heading"></a></h2>
+<p>There are several ways to fetch from the Fuzzle database, perhaps one of the easiest way is fetching by the Hit ID. Each Hit in fuzzle has an ID which eases its identification.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhit</span><span class="o">=</span> <span class="n">fetch_id</span><span class="p">(</span><span class="s1">&#39;4413706&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+protlego.database.data.Hit
+</pre></div></div>
+</div>
+<p>You can always get the documentation of any function or variable by using the function help()</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">myhit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on Hit in module protlego.database.data object:
+
+class Hit(builtins.tuple)
+ |  Some of the documentation of this function was
+ |  taken from the hhsuite python documentation:
+ |  https://github.com/soedinglab/hh-suite/wiki
+ |  as the sequence information from the Fuzzle hits
+ |  come from HHsearch.
+ |  The structural superimpositions were performed with
+ |  TMalign:   https://zhanglab.ccmb.med.umich.edu/TM-align/
+ |
+ |  =======================================================
+ |
+ |  Method resolution order:
+ |      Hit
+ |      builtins.tuple
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  __getnewargs__(self)
+ |      Return self as a plain tuple.  Used by copy and pickle.
+ |
+ |  __repr__(self)
+ |      Return repr(self).
+ |
+ |  _asdict(self)
+ |      Return a new OrderedDict which maps field names to their values.
+ |
+ |  _replace(_self, **kwds)
+ |      Return a new Hit object replacing specified fields with new values
+ |
+ |  ----------------------------------------------------------------------
+ |  Class methods defined here:
+ |
+ |  _make(iterable, new=&lt;built-in method __new__ of type object at 0x55c615dfe240&gt;, len=&lt;built-in function len&gt;) from builtins.type
+ |      Make a new Hit object from a sequence or iterable
+ |
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |
+ |  __new__(_cls, id:int, query:str, q_scop_id:str, no:int, sbjct:str, s_scop_id:str, s_desc:str, prob:float, eval:float, pval:float, score:float, ss:float, cols:int, q_start:int, q_end:int, s_start:int, s_end:int, hmm:int, ident:float, q_sufam_id:str, s_sufam_id:str, q_fold_id:str, s_fold_id:str, rmsd_pair:float, ca_pair:int, rmsd_tm_pair:float, score_tm_pair:float, ca_tm_pair:int, rmsd_tm:float, score_tm:float, ca_tm:int, q_tm_start:int, q_tm_end:int, s_tm_start:int, s_tm_end:int, q_cluster:str, s_cluster:str)
+ |      Create new instance of Hit(id, query, q_scop_id, no, sbjct, s_scop_id, s_desc, prob, eval, pval, score, ss, cols, q_start, q_end, s_start, s_end, hmm, ident, q_sufam_id, s_sufam_id, q_fold_id, s_fold_id, rmsd_pair, ca_pair, rmsd_tm_pair, score_tm_pair, ca_tm_pair, rmsd_tm, score_tm, ca_tm, q_tm_start, q_tm_end, s_tm_start, s_tm_end, q_cluster, s_cluster)
+ |
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |
+ |  id
+ |      Alias for field number 0
+ |
+ |  query
+ |      Alias for field number 1
+ |
+ |  q_scop_id
+ |      Alias for field number 2
+ |
+ |  no
+ |      Alias for field number 3
+ |
+ |  sbjct
+ |      Alias for field number 4
+ |
+ |  s_scop_id
+ |      Alias for field number 5
+ |
+ |  s_desc
+ |      Alias for field number 6
+ |
+ |  prob
+ |      Alias for field number 7
+ |
+ |  eval
+ |      Alias for field number 8
+ |
+ |  pval
+ |      Alias for field number 9
+ |
+ |  score
+ |      Alias for field number 10
+ |
+ |  ss
+ |      Alias for field number 11
+ |
+ |  cols
+ |      Alias for field number 12
+ |
+ |  q_start
+ |      Alias for field number 13
+ |
+ |  q_end
+ |      Alias for field number 14
+ |
+ |  s_start
+ |      Alias for field number 15
+ |
+ |  s_end
+ |      Alias for field number 16
+ |
+ |  hmm
+ |      Alias for field number 17
+ |
+ |  ident
+ |      Alias for field number 18
+ |
+ |  q_sufam_id
+ |      Alias for field number 19
+ |
+ |  s_sufam_id
+ |      Alias for field number 20
+ |
+ |  q_fold_id
+ |      Alias for field number 21
+ |
+ |  s_fold_id
+ |      Alias for field number 22
+ |
+ |  rmsd_pair
+ |      Alias for field number 23
+ |
+ |  ca_pair
+ |      Alias for field number 24
+ |
+ |  rmsd_tm_pair
+ |      Alias for field number 25
+ |
+ |  score_tm_pair
+ |      Alias for field number 26
+ |
+ |  ca_tm_pair
+ |      Alias for field number 27
+ |
+ |  rmsd_tm
+ |      Alias for field number 28
+ |
+ |  score_tm
+ |      Alias for field number 29
+ |
+ |  ca_tm
+ |      Alias for field number 30
+ |
+ |  q_tm_start
+ |      Alias for field number 31
+ |
+ |  q_tm_end
+ |      Alias for field number 32
+ |
+ |  s_tm_start
+ |      Alias for field number 33
+ |
+ |  s_tm_end
+ |      Alias for field number 34
+ |
+ |  q_cluster
+ |      Alias for field number 35
+ |
+ |  s_cluster
+ |      Alias for field number 36
+ |
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |
+ |  __annotations__ = OrderedDict([(&#39;id&#39;, &lt;class &#39;int&#39;&gt;), (&#39;query&#39;, &lt;c...&#39;...
+ |
+ |  _field_defaults = {}
+ |
+ |  _field_types = OrderedDict([(&#39;id&#39;, &lt;class &#39;int&#39;&gt;), (&#39;query&#39;, &lt;c...&#39;, &lt;...
+ |
+ |  _fields = (&#39;id&#39;, &#39;query&#39;, &#39;q_scop_id&#39;, &#39;no&#39;, &#39;sbjct&#39;, &#39;s_scop_id&#39;, &#39;s_...
+ |
+ |  _source = &#34;from builtins import property as _property, tupl...temgette...
+ |
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from builtins.tuple:
+ |
+ |  __add__(self, value, /)
+ |      Return self+value.
+ |
+ |  __contains__(self, key, /)
+ |      Return key in self.
+ |
+ |  __eq__(self, value, /)
+ |      Return self==value.
+ |
+ |  __ge__(self, value, /)
+ |      Return self&gt;=value.
+ |
+ |  __getattribute__(self, name, /)
+ |      Return getattr(self, name).
+ |
+ |  __getitem__(self, key, /)
+ |      Return self[key].
+ |
+ |  __gt__(self, value, /)
+ |      Return self&gt;value.
+ |
+ |  __hash__(self, /)
+ |      Return hash(self).
+ |
+ |  __iter__(self, /)
+ |      Implement iter(self).
+ |
+ |  __le__(self, value, /)
+ |      Return self&lt;=value.
+ |
+ |  __len__(self, /)
+ |      Return len(self).
+ |
+ |  __lt__(self, value, /)
+ |      Return self&lt;value.
+ |
+ |  __mul__(self, value, /)
+ |      Return self*value.
+ |
+ |  __ne__(self, value, /)
+ |      Return self!=value.
+ |
+ |  __rmul__(self, value, /)
+ |      Return value*self.
+ |
+ |  count(...)
+ |      T.count(value) -&gt; integer -- return number of occurrences of value
+ |
+ |  index(...)
+ |      T.index(value, [start, [stop]]) -&gt; integer -- return first index of value.
+ |      Raises ValueError if the value is not present.
+
+</pre></div></div>
+</div>
+<p>As we can see from the help, a hit contains lots of info stored in it. For example: the length, the probability, the domain names, and SCOP-IDs of the parents as well as the TM-align score.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">prob</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">q_cluster</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">s_cluster</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">rmsd_tm_pair</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">q_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">s_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhit</span><span class="o">.</span><span class="n">score_tm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+101
+81.7
+d2dfda1_1
+d1wa5a__2
+2.86
+c.2.1.5
+c.37.1.8
+0.54938
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="2.-Search-all-the-hits-that-contain-a-specific-domain">
+<h2>2. Search all the hits that contain a specific domain<a class="headerlink" href="#2.-Search-all-the-hits-that-contain-a-specific-domain" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits</span><span class="o">=</span><span class="n">fetch_by_domain</span><span class="p">(</span><span class="s1">&#39;d1wa5a_&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 9 hits belonging to 3 fold(s)
+</pre></div></div>
+</div>
+<p>The variable myhits could contain one or more hits (or none), depending on the promiscuity of the domain. In this case it appears in 9 hits, where overall 9 different folds are involved.</p>
+<p>From the variable myhits, we can directly retrieve a few statistical values:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">myhits</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhits</span><span class="o">.</span><span class="n">avg_len</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhits</span><span class="o">.</span><span class="n">std_len</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhits</span><span class="o">.</span><span class="n">list_folds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[2290353, 361595, 787549, 1181040, 1258170, 2081517, 4413706, 6818256, 9075069, 7536792, 7536798, 7536807, 7536816, 7536888, 7536911, 7536939, 7536971, 7536978]
+66.5555555556
+41.6616293251
+[&#39;c.2&#39; &#39;c.37&#39; &#39;c.91&#39;]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="3.-Fetch-by-parents-(finding-a-hit-between-two-domains)">
+<h2>3. Fetch by parents (finding a hit between two domains)<a class="headerlink" href="#3.-Fetch-by-parents-(finding-a-hit-between-two-domains)" title="Permalink to this heading"></a></h2>
+<p>One can also fetch by the domain names of the two parents. This type of search could also produce none, one, or several hits, as there could be query-subject and subject combinations, along with different ways to superimpose the structures in each of them.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits2</span> <span class="o">=</span> <span class="n">fetch_by_domains</span><span class="p">(</span><span class="s1">&#39;d1wa5a_&#39;</span><span class="p">,</span><span class="s1">&#39;d2dfda1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 2 hits belonging to 2 fold(s)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">fetch_by_domains</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function fetch_by_domains in module protlego.database.data:
+
+fetch_by_domains(domain1:str, domain2:str, prob:int=70, rmsd:float=3.0, ca_min:int=10, ca_max:int=200, score_tm_pair:float=0.3, ratio:float=1.25, diff_folds:bool=True)
+    Fetch all the hits between two parent domains
+
+    :param domain1: The 7 letter code for one of the parents
+    :param domain2: The 7 letter code for one of the parents
+    :param prob: the minimum allowed HHsearch probability
+    :param rmsd: The maximum allowed RMSD (rmsd_tm_pair: &#34;RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)
+    :param ca_min: The minimum allowed fragment length (for the TMalign alignment)
+    :param ca_max: The maximun allowed fragment length (for the TMalign alignment)
+    :param score_tm_pair: The minimum allowed TM-score (for the TMalign alignment)
+    :param ratio: the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)
+    :param diff_folds: Whether to exclude hits from the same fold (True) or not (False)
+    :return: A result class obtaining the hits that fulfill these criteria
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mynewhit</span><span class="o">=</span><span class="n">myhits2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mynewhit</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mynewhit</span><span class="o">.</span><span class="n">prob</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mynewhit</span><span class="o">.</span><span class="n">q_cluster</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mynewhit</span><span class="o">.</span><span class="n">s_cluster</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mynewhit</span><span class="o">.</span><span class="n">q_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mynewhit</span><span class="o">.</span><span class="n">s_scop_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mynewhit</span><span class="o">.</span><span class="n">score_tm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+101
+76.2
+d1wa5a__2
+d2dfda1_1
+c.37.1.8
+c.2.1.5
+0.48058
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="4.-Fetching-two-groups">
+<h2>4. Fetching two groups<a class="headerlink" href="#4.-Fetching-two-groups" title="Permalink to this heading"></a></h2>
+<p>There is also the possibilty to fetch between two SCOP groups, for example between two families. Other options are searching between two superfamilies or two folds.</p>
+<div class="section" id="4.1-Fetching-between-two-families">
+<h3>4.1 Fetching between two families<a class="headerlink" href="#4.1-Fetching-between-two-families" title="Permalink to this heading"></a></h3>
+<p>In this case we try a different combination, between the Flavodoxin folds, and the PBP fold:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits3</span><span class="o">=</span><span class="n">fetch_group</span><span class="p">(</span><span class="s1">&#39;c.23.1.1&#39;</span><span class="p">,</span><span class="s1">&#39;c.93.1.0&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhits3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 472 hits belonging to 2 fold(s)
+</pre></div></div>
+</div>
+<p>As before, the variable myhits contains the hits and additional information, like the average length of the hits and the standard deviation or the folds.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">myhits3</span><span class="o">.</span><span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># printing the first hit because why not</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhits3</span><span class="o">.</span><span class="n">avg_len</span><span class="p">)</span> <span class="c1"># average length between the hits in these two families</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhits3</span><span class="o">.</span><span class="n">std_len</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">myhits3</span><span class="o">.</span><span class="n">list_folds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Hit between d2b4aa1 and d4nqra_ with probability 71.4 %
+
+78.2330508475
+14.8673772953
+[&#39;c.23&#39; &#39;c.93&#39;]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="4.2-Fetch-between-two-superfamilies">
+<h3>4.2 Fetch between two superfamilies<a class="headerlink" href="#4.2-Fetch-between-two-superfamilies" title="Permalink to this heading"></a></h3>
+<p>One can also fetch between two superfamilies. In the previous section we had 472 hits between two families belonging to these superfamilies. Presumably we will obtain now many more:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits4</span><span class="o">=</span><span class="n">fetch_group</span><span class="p">(</span><span class="s1">&#39;c.23.1&#39;</span><span class="p">,</span><span class="s1">&#39;c.93.1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits4</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 1859 hits belonging to 2 fold(s)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="4.3-Fetch-between-two-folds">
+<h3>4.3 Fetch between two folds<a class="headerlink" href="#4.3-Fetch-between-two-folds" title="Permalink to this heading"></a></h3>
+<p>We can also search hits between two folds. Of course we can impose some criteria, like a certain probability, RMDS or or a certain minimal fragment length</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits_1</span> <span class="o">=</span> <span class="n">fetch_group</span><span class="p">(</span><span class="s1">&#39;c.23&#39;</span><span class="p">,</span><span class="s1">&#39;c.93&#39;</span><span class="p">,</span><span class="n">prob</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span> <span class="c1"># searching for hits with probability over 70%</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits_1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 4946 hits belonging to 2 fold(s)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits_2</span> <span class="o">=</span> <span class="n">fetch_group</span><span class="p">(</span><span class="s1">&#39;c.23&#39;</span><span class="p">,</span><span class="s1">&#39;c.93&#39;</span><span class="p">,</span><span class="n">prob</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span><span class="n">rmsd</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># fetching hits with prob. over 80 and rmsd &lt;3</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits_2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 2554 hits belonging to 2 fold(s)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits_3</span><span class="o">=</span><span class="n">fetch_group</span><span class="p">(</span><span class="s1">&#39;c.23&#39;</span><span class="p">,</span><span class="s1">&#39;c.93&#39;</span><span class="p">,</span><span class="n">prob</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">rmsd</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">ca_min</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># fetching hits that besides\</span>
+<span class="c1">#are larger than 50 aminoacids</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits_3</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 2478 hits belonging to 2 fold(s)
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="5.-Fetching-subspaces">
+<h2>5. Fetching subspaces<a class="headerlink" href="#5.-Fetching-subspaces" title="Permalink to this heading"></a></h2>
+<p>Additionally, there is the possibility to fetch a group or a single query against the rest of the database.</p>
+<div class="section" id="5.1-All-hits-that-contain-a-TIM-barrel">
+<h3>5.1 All hits that contain a TIM-barrel<a class="headerlink" href="#5.1-All-hits-that-contain-a-TIM-barrel" title="Permalink to this heading"></a></h3>
+<p>With the function fetch_subspace we can obtain sets of hits that fullfil any criteria. For example all hits belonging to the TIM-barrel fold. Take into account that these functions present some default cutoffs:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits5</span> <span class="o">=</span> <span class="n">fetch_subspace</span><span class="p">(</span><span class="n">scop_q</span><span class="o">=</span><span class="s1">&#39;c.1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits5</span><span class="o">.</span><span class="n">list_folds</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;a.1&#39;, &#39;a.100&#39;, &#39;a.101&#39;, &#39;a.102&#39;, &#39;a.108&#39;, &#39;a.114&#39;, &#39;a.118&#39;,
+       &#39;a.121&#39;, &#39;a.126&#39;, &#39;a.127&#39;, &#39;a.128&#39;, &#39;a.13&#39;, &#39;a.137&#39;, &#39;a.140&#39;,
+       &#39;a.144&#39;, &#39;a.149&#39;, &#39;a.15&#39;, &#39;a.150&#39;, &#39;a.152&#39;, &#39;a.153&#39;, &#39;a.156&#39;,
+       &#39;a.157&#39;, &#39;a.159&#39;, &#39;a.16&#39;, &#39;a.168&#39;, &#39;a.174&#39;, &#39;a.177&#39;, &#39;a.178&#39;,
+       &#39;a.179&#39;, &#39;a.18&#39;, &#39;a.182&#39;, &#39;a.185&#39;, &#39;a.186&#39;, &#39;a.193&#39;, &#39;a.199&#39;, &#39;a.2&#39;,
+       &#39;a.20&#39;, &#39;a.204&#39;, &#39;a.206&#39;, &#39;a.21&#39;, &#39;a.218&#39;, &#39;a.219&#39;, &#39;a.22&#39;, &#39;a.222&#39;,
+       &#39;a.229&#39;, &#39;a.23&#39;, &#39;a.237&#39;, &#39;a.24&#39;, &#39;a.244&#39;, &#39;a.247&#39;, &#39;a.248&#39;, &#39;a.25&#39;,
+       &#39;a.253&#39;, &#39;a.254&#39;, &#39;a.258&#39;, &#39;a.26&#39;, &#39;a.271&#39;, &#39;a.272&#39;, &#39;a.277&#39;,
+       &#39;a.28&#39;, &#39;a.284&#39;, &#39;a.287&#39;, &#39;a.29&#39;, &#39;a.291&#39;, &#39;a.293&#39;, &#39;a.294&#39;,
+       &#39;a.297&#39;, &#39;a.298&#39;, &#39;a.3&#39;, &#39;a.30&#39;, &#39;a.300&#39;, &#39;a.301&#39;, &#39;a.31&#39;, &#39;a.32&#39;,
+       &#39;a.34&#39;, &#39;a.35&#39;, &#39;a.36&#39;, &#39;a.39&#39;, &#39;a.4&#39;, &#39;a.40&#39;, &#39;a.41&#39;, &#39;a.42&#39;,
+       &#39;a.43&#39;, &#39;a.45&#39;, &#39;a.46&#39;, &#39;a.47&#39;, &#39;a.48&#39;, &#39;a.5&#39;, &#39;a.53&#39;, &#39;a.55&#39;,
+       &#39;a.56&#39;, &#39;a.58&#39;, &#39;a.59&#39;, &#39;a.6&#39;, &#39;a.60&#39;, &#39;a.61&#39;, &#39;a.64&#39;, &#39;a.65&#39;,
+       &#39;a.69&#39;, &#39;a.7&#39;, &#39;a.73&#39;, &#39;a.74&#39;, &#39;a.77&#39;, &#39;a.8&#39;, &#39;a.80&#39;, &#39;a.81&#39;,
+       &#39;a.86&#39;, &#39;a.88&#39;, &#39;a.89&#39;, &#39;a.9&#39;, &#39;a.92&#39;, &#39;a.93&#39;, &#39;a.95&#39;, &#39;a.96&#39;,
+       &#39;b.1&#39;, &#39;b.101&#39;, &#39;b.106&#39;, &#39;b.11&#39;, &#39;b.111&#39;, &#39;b.121&#39;, &#39;b.122&#39;, &#39;b.124&#39;,
+       &#39;b.129&#39;, &#39;b.136&#39;, &#39;b.137&#39;, &#39;b.14&#39;, &#39;b.143&#39;, &#39;b.144&#39;, &#39;b.159&#39;,
+       &#39;b.163&#39;, &#39;b.174&#39;, &#39;b.176&#39;, &#39;b.178&#39;, &#39;b.19&#39;, &#39;b.2&#39;, &#39;b.22&#39;, &#39;b.26&#39;,
+       &#39;b.29&#39;, &#39;b.31&#39;, &#39;b.34&#39;, &#39;b.35&#39;, &#39;b.36&#39;, &#39;b.38&#39;, &#39;b.40&#39;, &#39;b.43&#39;,
+       &#39;b.45&#39;, &#39;b.47&#39;, &#39;b.49&#39;, &#39;b.50&#39;, &#39;b.51&#39;, &#39;b.52&#39;, &#39;b.53&#39;, &#39;b.54&#39;,
+       &#39;b.55&#39;, &#39;b.59&#39;, &#39;b.6&#39;, &#39;b.60&#39;, &#39;b.61&#39;, &#39;b.62&#39;, &#39;b.7&#39;, &#39;b.71&#39;,
+       &#39;b.72&#39;, &#39;b.73&#39;, &#39;b.80&#39;, &#39;b.82&#39;, &#39;b.84&#39;, &#39;b.85&#39;, &#39;b.87&#39;, &#39;b.88&#39;,
+       &#39;b.92&#39;, &#39;c.1&#39;, &#39;c.100&#39;, &#39;c.101&#39;, &#39;c.102&#39;, &#39;c.103&#39;, &#39;c.105&#39;, &#39;c.107&#39;,
+       &#39;c.108&#39;, &#39;c.109&#39;, &#39;c.110&#39;, &#39;c.111&#39;, &#39;c.112&#39;, &#39;c.114&#39;, &#39;c.115&#39;,
+       &#39;c.116&#39;, &#39;c.119&#39;, &#39;c.12&#39;, &#39;c.120&#39;, &#39;c.121&#39;, &#39;c.122&#39;, &#39;c.123&#39;,
+       &#39;c.124&#39;, &#39;c.125&#39;, &#39;c.127&#39;, &#39;c.128&#39;, &#39;c.129&#39;, &#39;c.13&#39;, &#39;c.131&#39;,
+       &#39;c.133&#39;, &#39;c.135&#39;, &#39;c.136&#39;, &#39;c.138&#39;, &#39;c.14&#39;, &#39;c.141&#39;, &#39;c.144&#39;,
+       &#39;c.145&#39;, &#39;c.149&#39;, &#39;c.15&#39;, &#39;c.150&#39;, &#39;c.151&#39;, &#39;c.154&#39;, &#39;c.155&#39;,
+       &#39;c.16&#39;, &#39;c.17&#39;, &#39;c.18&#39;, &#39;c.19&#39;, &#39;c.2&#39;, &#39;c.20&#39;, &#39;c.23&#39;, &#39;c.24&#39;,
+       &#39;c.25&#39;, &#39;c.26&#39;, &#39;c.27&#39;, &#39;c.28&#39;, &#39;c.3&#39;, &#39;c.30&#39;, &#39;c.31&#39;, &#39;c.32&#39;,
+       &#39;c.33&#39;, &#39;c.34&#39;, &#39;c.36&#39;, &#39;c.37&#39;, &#39;c.38&#39;, &#39;c.4&#39;, &#39;c.41&#39;, &#39;c.42&#39;,
+       &#39;c.44&#39;, &#39;c.45&#39;, &#39;c.46&#39;, &#39;c.47&#39;, &#39;c.48&#39;, &#39;c.49&#39;, &#39;c.5&#39;, &#39;c.50&#39;,
+       &#39;c.51&#39;, &#39;c.52&#39;, &#39;c.53&#39;, &#39;c.54&#39;, &#39;c.55&#39;, &#39;c.56&#39;, &#39;c.57&#39;, &#39;c.58&#39;,
+       &#39;c.59&#39;, &#39;c.6&#39;, &#39;c.60&#39;, &#39;c.61&#39;, &#39;c.62&#39;, &#39;c.65&#39;, &#39;c.66&#39;, &#39;c.67&#39;,
+       &#39;c.68&#39;, &#39;c.69&#39;, &#39;c.7&#39;, &#39;c.70&#39;, &#39;c.71&#39;, &#39;c.72&#39;, &#39;c.73&#39;, &#39;c.74&#39;,
+       &#39;c.77&#39;, &#39;c.78&#39;, &#39;c.79&#39;, &#39;c.8&#39;, &#39;c.80&#39;, &#39;c.82&#39;, &#39;c.83&#39;, &#39;c.84&#39;,
+       &#39;c.85&#39;, &#39;c.86&#39;, &#39;c.87&#39;, &#39;c.88&#39;, &#39;c.89&#39;, &#39;c.9&#39;, &#39;c.90&#39;, &#39;c.92&#39;,
+       &#39;c.93&#39;, &#39;c.94&#39;, &#39;c.95&#39;, &#39;c.96&#39;, &#39;c.97&#39;, &#39;c.98&#39;, &#39;d.1&#39;, &#39;d.10&#39;,
+       &#39;d.100&#39;, &#39;d.101&#39;, &#39;d.104&#39;, &#39;d.106&#39;, &#39;d.108&#39;, &#39;d.11&#39;, &#39;d.110&#39;,
+       &#39;d.111&#39;, &#39;d.112&#39;, &#39;d.113&#39;, &#39;d.115&#39;, &#39;d.116&#39;, &#39;d.118&#39;, &#39;d.120&#39;,
+       &#39;d.122&#39;, &#39;d.124&#39;, &#39;d.125&#39;, &#39;d.126&#39;, &#39;d.128&#39;, &#39;d.129&#39;, &#39;d.13&#39;,
+       &#39;d.130&#39;, &#39;d.131&#39;, &#39;d.133&#39;, &#39;d.136&#39;, &#39;d.139&#39;, &#39;d.14&#39;, &#39;d.140&#39;,
+       &#39;d.141&#39;, &#39;d.142&#39;, &#39;d.144&#39;, &#39;d.145&#39;, &#39;d.146&#39;, &#39;d.147&#39;, &#39;d.15&#39;,
+       &#39;d.150&#39;, &#39;d.151&#39;, &#39;d.153&#39;, &#39;d.155&#39;, &#39;d.157&#39;, &#39;d.159&#39;, &#39;d.16&#39;,
+       &#39;d.160&#39;, &#39;d.161&#39;, &#39;d.162&#39;, &#39;d.163&#39;, &#39;d.164&#39;, &#39;d.165&#39;, &#39;d.166&#39;,
+       &#39;d.168&#39;, &#39;d.169&#39;, &#39;d.17&#39;, &#39;d.173&#39;, &#39;d.175&#39;, &#39;d.178&#39;, &#39;d.18&#39;,
+       &#39;d.184&#39;, &#39;d.185&#39;, &#39;d.186&#39;, &#39;d.194&#39;, &#39;d.197&#39;, &#39;d.198&#39;, &#39;d.2&#39;,
+       &#39;d.201&#39;, &#39;d.202&#39;, &#39;d.205&#39;, &#39;d.206&#39;, &#39;d.21&#39;, &#39;d.211&#39;, &#39;d.212&#39;,
+       &#39;d.213&#39;, &#39;d.217&#39;, &#39;d.218&#39;, &#39;d.22&#39;, &#39;d.224&#39;, &#39;d.225&#39;, &#39;d.227&#39;,
+       &#39;d.230&#39;, &#39;d.235&#39;, &#39;d.236&#39;, &#39;d.24&#39;, &#39;d.241&#39;, &#39;d.242&#39;, &#39;d.243&#39;,
+       &#39;d.247&#39;, &#39;d.248&#39;, &#39;d.25&#39;, &#39;d.250&#39;, &#39;d.254&#39;, &#39;d.256&#39;, &#39;d.259&#39;,
+       &#39;d.26&#39;, &#39;d.264&#39;, &#39;d.267&#39;, &#39;d.268&#39;, &#39;d.273&#39;, &#39;d.274&#39;, &#39;d.276&#39;,
+       &#39;d.277&#39;, &#39;d.282&#39;, &#39;d.283&#39;, &#39;d.288&#39;, &#39;d.290&#39;, &#39;d.293&#39;, &#39;d.3&#39;,
+       &#39;d.304&#39;, &#39;d.306&#39;, &#39;d.31&#39;, &#39;d.310&#39;, &#39;d.311&#39;, &#39;d.316&#39;, &#39;d.319&#39;,
+       &#39;d.32&#39;, &#39;d.321&#39;, &#39;d.326&#39;, &#39;d.327&#39;, &#39;d.328&#39;, &#39;d.332&#39;, &#39;d.335&#39;,
+       &#39;d.340&#39;, &#39;d.344&#39;, &#39;d.346&#39;, &#39;d.349&#39;, &#39;d.350&#39;, &#39;d.356&#39;, &#39;d.358&#39;,
+       &#39;d.361&#39;, &#39;d.364&#39;, &#39;d.365&#39;, &#39;d.367&#39;, &#39;d.368&#39;, &#39;d.37&#39;, &#39;d.370&#39;,
+       &#39;d.379&#39;, &#39;d.38&#39;, &#39;d.381&#39;, &#39;d.39&#39;, &#39;d.390&#39;, &#39;d.391&#39;, &#39;d.4&#39;, &#39;d.40&#39;,
+       &#39;d.41&#39;, &#39;d.42&#39;, &#39;d.44&#39;, &#39;d.45&#39;, &#39;d.49&#39;, &#39;d.50&#39;, &#39;d.51&#39;, &#39;d.52&#39;,
+       &#39;d.54&#39;, &#39;d.56&#39;, &#39;d.58&#39;, &#39;d.59&#39;, &#39;d.6&#39;, &#39;d.60&#39;, &#39;d.64&#39;, &#39;d.65&#39;,
+       &#39;d.66&#39;, &#39;d.67&#39;, &#39;d.68&#39;, &#39;d.7&#39;, &#39;d.70&#39;, &#39;d.73&#39;, &#39;d.74&#39;, &#39;d.75&#39;,
+       &#39;d.76&#39;, &#39;d.78&#39;, &#39;d.79&#39;, &#39;d.8&#39;, &#39;d.80&#39;, &#39;d.81&#39;, &#39;d.82&#39;, &#39;d.85&#39;,
+       &#39;d.86&#39;, &#39;d.87&#39;, &#39;d.88&#39;, &#39;d.9&#39;, &#39;d.90&#39;, &#39;d.91&#39;, &#39;d.92&#39;, &#39;d.93&#39;,
+       &#39;d.94&#39;, &#39;d.95&#39;, &#39;d.96&#39;, &#39;d.99&#39;, &#39;e.10&#39;, &#39;e.13&#39;, &#39;e.19&#39;, &#39;e.22&#39;,
+       &#39;e.23&#39;, &#39;e.24&#39;, &#39;e.26&#39;, &#39;e.3&#39;, &#39;e.32&#39;, &#39;e.37&#39;, &#39;e.39&#39;, &#39;e.51&#39;,
+       &#39;e.52&#39;, &#39;e.53&#39;, &#39;e.6&#39;, &#39;e.7&#39;, &#39;e.74&#39;, &#39;e.79&#39;, &#39;e.8&#39;, &#39;e.80&#39;, &#39;f.1&#39;,
+       &#39;f.17&#39;, &#39;f.21&#39;, &#39;f.23&#39;, &#39;f.3&#39;, &#39;f.31&#39;, &#39;f.48&#39;, &#39;g.18&#39;, &#39;g.19&#39;,
+       &#39;g.2&#39;, &#39;g.3&#39;, &#39;g.31&#39;, &#39;g.32&#39;, &#39;g.36&#39;, &#39;g.37&#39;, &#39;g.39&#39;, &#39;g.40&#39;,
+       &#39;g.41&#39;, &#39;g.44&#39;, &#39;g.46&#39;, &#39;g.66&#39;, &#39;g.72&#39;, &#39;g.75&#39;, &#39;g.81&#39;, &#39;g.9&#39;,
+       &#39;g.96&#39;, &#39;g.97&#39;, &#39;g.98&#39;],
+      dtype=&#39;&lt;U5&#39;)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="5.2-fetch-full-universes">
+<h3>5.2 fetch full universes<a class="headerlink" href="#5.2-fetch-full-universes" title="Permalink to this heading"></a></h3>
+<p>We can also fetch the whole universe setting some cutoffs, like for example probability and rmsd. All the hits that present probability over 70 % , and rsmd below 2.0, for example:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits6</span> <span class="o">=</span> <span class="n">fetch_subspace</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span><span class="n">rmsd</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myhits6</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Query from Fuzzle with 95755 hits belonging to 451 fold(s)
+</pre></div></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction to Jupyter-notebooks and Python primer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="network.html" class="btn btn-neutral float-right" title="Drawing networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Noelia Ferruz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

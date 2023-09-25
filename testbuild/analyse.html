@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clusters &mdash; ProtLego 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Energy scoring" href="energy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ProtLego
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-structural.hh_networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-structural.analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#pip-installation">PIP installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#conda-installation">CONDA installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#installing-from-environment-file">Installing from environment file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fuzzle.html">Visit Fuzzle</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ProtLego</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Clusters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/analyse.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-structural.clusters">
+<span id="clusters"></span><h1>Clusters<a class="headerlink" href="#module-structural.clusters" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="structural.clusters.Atom">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">Atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Atom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.Atom" title="Permalink to this definition"></a></dt>
+<dd><p>Class to handle ILV atoms
+index: the vmd atom index
+mol: an htmd.htmd.molecule object</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="structural.clusters.Atom.get_neighbors">
+<span class="sig-name descname"><span class="pre">get_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#Atom.get_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.Atom.get_neighbors" title="Permalink to this definition"></a></dt>
+<dd><p>Provides all indices of atoms within 6.56 A of this atom.
+6.56 is the upper bound of a possible neighbor 1.88 (C) + 1.4 + 1.4 + 1.88 (C).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="structural.clusters.Cluster">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">Cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chains</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contacts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_contacts_residue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_area_residue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.Cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="structural.clusters.Cluster.area">
+<span class="sig-name descname"><span class="pre">area</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">array</span></em><a class="headerlink" href="#structural.clusters.Cluster.area" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="structural.clusters.Cluster.chains">
+<span class="sig-name descname"><span class="pre">chains</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#structural.clusters.Cluster.chains" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="structural.clusters.Cluster.contacts">
+<span class="sig-name descname"><span class="pre">contacts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#structural.clusters.Cluster.contacts" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="structural.clusters.Cluster.ratio_area_residue">
+<span class="sig-name descname"><span class="pre">ratio_area_residue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#structural.clusters.Cluster.ratio_area_residue" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="structural.clusters.Cluster.ratio_contacts_residue">
+<span class="sig-name descname"><span class="pre">ratio_contacts_residue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#structural.clusters.Cluster.ratio_contacts_residue" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="structural.clusters.Cluster.residues">
+<span class="sig-name descname"><span class="pre">residues</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#structural.clusters.Cluster.residues" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.add_clusters">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">add_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PropertyArray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#add_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.add_clusters" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mol</strong> – </p></li>
+<li><p><strong>g</strong> – </p></li>
+<li><p><strong>components</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Molecule representations
+A list with Cluster objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.create_graph">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">create_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resid_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resid_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff_area</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Graph</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#create_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.create_graph" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resid_matrix</strong> – the ILVresid x ILVresid area matrix</p></li>
+<li><p><strong>resid_list</strong> – the index x index area matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Graph object where each component is a ILV cluster</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.fill_matrices">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">fill_matrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#structural.clusters.Atom" title="structural.clusters.Atom"><span class="pre">Atom</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resid_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom_to_residposition</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">array</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">array</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/structural/clusters.html#fill_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.fill_matrices" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom</strong> – An Atom class</p></li>
+<li><p><strong>mol</strong> – an htmd.htmd.molecule object</p></li>
+<li><p><strong>atom_matrix</strong> – the index x index area matrix</p></li>
+<li><p><strong>resid_matrix</strong> – the ILVresid x ILVresid area matrix</p></li>
+<li><p><strong>indices</strong> – the indices that belong to ILV sidechain heavy atoms</p></li>
+<li><p><strong>resids</strong> – the resids that belong to ILV sidechain heavy atoms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Updated atom_matrix and resid_matrix</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.filter_mol">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">filter_mol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Molecule</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#filter_mol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.filter_mol" title="Permalink to this definition"></a></dt>
+<dd><p>Loads, filters the object to chain A and writes filtered pdb out.
+:param inputmolfile: path to the pdb file
+:return: the Molecule object</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.generate_sphere_points">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">generate_sphere_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">610</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.88</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#generate_sphere_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.generate_sphere_points" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords</strong> – The coordinates of the center of the atom</p></li>
+<li><p><strong>n</strong> – number of points to sample</p></li>
+<li><p><strong>radius</strong> – the radius of the atom</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a nx3 vector with the point coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.postprocess_session">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">postprocess_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#postprocess_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.postprocess_session" title="Permalink to this definition"></a></dt>
+<dd><p>Modifies the VMD session to not include tmp files
+:param outputname: The vmd session (output file)
+:param inputmolfile: Path to the pdb file already processed (filtered and or protonated)
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.retrieve_indices">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">retrieve_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborpositions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.88</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#retrieve_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.retrieve_indices" title="Permalink to this definition"></a></dt>
+<dd><p>Computes if each of the n sphere points are penetrating neighboring spheres
+:param matrix: n x m Distance matrix where n is the number of sphere points and m the number of neighbors
+:param coords: the coordinates of the atom
+:param neighborpositions: Coordinates of the neighbors
+:param radius: radius of the atom
+:return: The atoms that are in closest with each n sphere points.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.retrieve_neighbor_positions">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">retrieve_neighbor_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#structural.clusters.Atom" title="structural.clusters.Atom"><span class="pre">Atom</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">array</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/structural/clusters.html#retrieve_neighbor_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.retrieve_neighbor_positions" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom</strong> – an Atom object</p></li>
+<li><p><strong>mol</strong> – a htmd.htmd.molecule object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+<p>Positions of the neighboring atoms
+A dictionary indexing column positions to resid positions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.write_clusters">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">write_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PropertyArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#write_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.write_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>This function prints the clusters to the terminal and outputs them
+into a VMD session
+:param g: A Graph object
+:param outputname: The pdb filename.
+:param outputname: The file name to output the VMD session to.
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.clusters.write_largest_cluster">
+<span class="sig-prename descclassname"><span class="pre">structural.clusters.</span></span><span class="sig-name descname"><span class="pre">write_largest_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/structural/clusters.html#write_largest_cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.clusters.write_largest_cluster" title="Permalink to this definition"></a></dt>
+<dd><p>This function prints the clusters to the terminal and outputs them
+into a VMD session
+:param g: A Graph object
+:param outputname: The pdb filename.
+:param outputname: The file name to output the VMD session to.
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-structural.hh_networks">
+<span id="hh-networks"></span><h1>HH-networks<a class="headerlink" href="#module-structural.hh_networks" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.hh_networks.make_graph_hh">
+<span class="sig-prename descclassname"><span class="pre">structural.hh_networks.</span></span><span class="sig-name descname"><span class="pre">make_graph_hh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hbonds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Trajectory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resi_to_chain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Graph</span></span></span><a class="reference internal" href="_modules/structural/hh_networks.html#make_graph_hh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.hh_networks.make_graph_hh" title="Permalink to this definition"></a></dt>
+<dd><p>This function creates a graph with the hbond networks. Each component in the network will be a
+separate network in the final analysis.
+:param hbonds: a np.array indicating indexes of atoms that have an h-bond
+:param trajectory: an mdtraj trajectory. It can also be a pdb file processed with mdtraj as trajectory
+:return: A graph-tool graph object</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.hh_networks.protonate_mol">
+<span class="sig-prename descclassname"><span class="pre">structural.hh_networks.</span></span><span class="sig-name descname"><span class="pre">protonate_mol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Molecule</span></span></span><a class="reference internal" href="_modules/structural/hh_networks.html#protonate_mol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.hh_networks.protonate_mol" title="Permalink to this definition"></a></dt>
+<dd><p>Loads, filters the object to chain A and protonates the selection.
+It then writes the filtered protonated pdb out.
+:param inputmolfile: path to the pdb file
+:return: the Molecule object</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.hh_networks.write_networks">
+<span class="sig-prename descclassname"><span class="pre">structural.hh_networks.</span></span><span class="sig-name descname"><span class="pre">write_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PropertyArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputmolfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/structural/hh_networks.html#write_networks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.hh_networks.write_networks" title="Permalink to this definition"></a></dt>
+<dd><p>This function outputs the HH networks into a VMD session
+:param g: A Graph object
+:param outputname: The pdb filename.
+:param outputname: The file name to output the VMD session to.
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-structural.salt_bridges">
+<span id="salt-bridges"></span><h1>Salt-bridges<a class="headerlink" href="#module-structural.salt_bridges" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.salt_bridges.add_networks_salts">
+<span class="sig-prename descclassname"><span class="pre">structural.salt_bridges.</span></span><span class="sig-name descname"><span class="pre">add_networks_salts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/salt_bridges.html#add_networks_salts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.salt_bridges.add_networks_salts" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – a graph-tool graph object with the networks property</p></li>
+<li><p><strong>components</strong> – the components from the graph</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Includes the representations in the Chimera object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.salt_bridges.make_graph_salts">
+<span class="sig-prename descclassname"><span class="pre">structural.salt_bridges.</span></span><span class="sig-name descname"><span class="pre">make_graph_salts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">salts</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Graph</span></span></span><a class="reference internal" href="_modules/structural/salt_bridges.html#make_graph_salts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.salt_bridges.make_graph_salts" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hbonds</strong> – a np.array indicating indexes of atoms that have an h-bond</p></li>
+<li><p><strong>trajectory</strong> – an mdtraj trajectory. It can also be a pdb file processed with mdtraj as trajectory</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A graph-tool graph object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.salt_bridges.write_salt_bridges">
+<span class="sig-prename descclassname"><span class="pre">structural.salt_bridges.</span></span><span class="sig-name descname"><span class="pre">write_salt_bridges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/structural/salt_bridges.html#write_salt_bridges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.salt_bridges.write_salt_bridges" title="Permalink to this definition"></a></dt>
+<dd><p>This function outputs the HH networks into a VMD session
+:param g: A Graph object
+:param outputname: The pdb filename.
+:param outputname: The file name to output the VMD session to.
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-structural.analysis">
+<span id="further-structural-analysis"></span><h1>Further structural analysis<a class="headerlink" href="#module-structural.analysis" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.analysis.calc_contact_order">
+<span class="sig-prename descclassname"><span class="pre">structural.analysis.</span></span><span class="sig-name descname"><span class="pre">calc_contact_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diss_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_contact_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_contact_order" title="Permalink to this definition"></a></dt>
+<dd><p>The contact order of a protein is a measure of the locality of the inter-amino acid contacts in the
+native folded state. It is computed as the average seqeuence distance between residues that form contacts
+below a threshold in the folded protein divided by the total length of the protein”
+:param chimera: A Chimera object with n residues.
+:param filename: path to a pdb file
+:param diss_cutoff: The maximum distance in Armstrong between two residues to be in contact, default 8 Angstroms
+:return: the contact order (%)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.analysis.calc_dist_matrix">
+<span class="sig-prename descclassname"><span class="pre">structural.analysis.</span></span><span class="sig-name descname"><span class="pre">calc_dist_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'residue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'contacts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_dist_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_dist_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a matrix of C-alpha distances for a given pdb
+:param chimera: A Chimera object with n residues.
+:param filename: path to a pdb file
+:param selection: How to compute the distance. ‘residue’ (the closest two
+:param type: between contacts (contact map when distances are below 8 armstrongs) or distances atoms between two residues) or ‘alpha’ distance of the alpha carbons.
+:param plot: whether to plot the distance matrix. Default is False
+:return: matrix. np.array. An n by n distance matrix.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.analysis.calc_dssp">
+<span class="sig-prename descclassname"><span class="pre">structural.analysis.</span></span><span class="sig-name descname"><span class="pre">calc_dssp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_dssp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_dssp" title="Permalink to this definition"></a></dt>
+<dd><p>Compute Dictionary of protein secondary structure (DSSP) secondary structure assignments.
+This funcion uses the MDtraj compute_dssp implementation as a basis.
+:param chimera: A Chimera object.
+:param filename: path to a pdb file
+:param simplified: Use the simplified 3-category assignment scheme. Otherwise the original 8-category scheme is used.
+:return: assignments np.ndarray. The secondary structure assignment for each residue</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.analysis.calc_sasa">
+<span class="sig-prename descclassname"><span class="pre">structural.analysis.</span></span><span class="sig-name descname"><span class="pre">calc_sasa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sphere_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">960</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sasa_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'total'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#calc_sasa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.calc_sasa" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the Solvent Accessible Surface Area of the protein.
+This funcion uses the MDtraj shrake_rupley implementation as a basis.
+:param chimera: A Chimera object.
+:param filename: Path to a pdb file
+:param probe_radius: The radius of the probe, in nm.
+:param n_sphere_points: the number of points representing the sufrace of each atom. Higher values lead to more accuracy.
+:param sasa_type: Type of calculation to perform. To select from polar, apolar, or total.
+:return: areas: np.array containing the area of the chimera in Angstrom^2</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="structural.analysis.hhbond_plot">
+<span class="sig-prename descclassname"><span class="pre">structural.analysis.</span></span><span class="sig-name descname"><span class="pre">hhbond_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/analysis.html#hhbond_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#structural.analysis.hhbond_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Computes a hhbond plot of a chimera object or a file. One of the two inputs
+must be provided.
+:param chimera: the chimera from where to compute the hydrogen bond plot
+:param filename: a path where to find the pdb file.
+:return: A contact map with hydrogen bond as metric</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="energy.html" class="btn btn-neutral float-left" title="Energy scoring" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Noelia Ferruz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

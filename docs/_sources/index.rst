@@ -38,7 +38,7 @@ and analyze their structural features (hydrogen networks, salt bridges, hydropho
    fetching
    network
    building
-   energy
+   energy_min
    structural
 
 
