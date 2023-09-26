@@ -4,6 +4,10 @@ import numpy as np
 import sqlite3
 from typing import NamedTuple
 
+conn = sqlite3.connect('fuzzle2.07.db')
+cur = conn.cursor()
+
+
 class Hit(NamedTuple):
     """
     Some of the documentation of this function was
