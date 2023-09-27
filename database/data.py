@@ -3,10 +3,19 @@ from typing import List
 import numpy as np
 import sqlite3
 from typing import NamedTuple
+import os
 
-conn = sqlite3.connect('fuzzle2.07.db')
-cur = conn.cursor()
+#db_file = 'fuzzle2.07.db'
 
+#if os.path.isfile('./protlego/database/fuzzle2.07.db') :
+
+#    conn = sqlite3.connect('./protlego/database/fuzzle2.07.db')
+#    cur = conn.cursor()
+
+#    conn.close()
+
+#else :
+#    raise FileNotFoundError(f"The database file fuzzle2.07.db doesnot exist. Please download it and putit in the folder protlego/database/")
 
 class Hit(NamedTuple):
     """
