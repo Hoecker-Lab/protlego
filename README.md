@@ -17,9 +17,7 @@ Follow these steps to install and run the tool on your local machine.
   git clone -n add-features https://github.com/Hoecker-Lab/protlego/tree/add_features
   ```
 
-2. Download fuzzle database using the following link below :
-
-  https://fuzzle.uni-bayreuth.de:8443/static/fuzzle2.07.db
+2. Download fuzzle database using the following link below : https://fuzzle.uni-bayreuth.de:8443/static/fuzzle2.07.db
 
 3. cd into the folder where protlego is installed and move the fuzzle database file to ./protlego/database folder.
 
