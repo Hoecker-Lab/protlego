@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetching hits from Fuzzle &mdash; ProtLego 2.0.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Networks" href="networks.html" />
+    <link rel="prev" title="Building Chimeras" href="builder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ProtLego
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ProtLego</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Fetching hits from Fuzzle</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/database.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-database.data">
+<span id="fetching-hits-from-fuzzle"></span><h1>Fetching hits from Fuzzle<a class="headerlink" href="#module-database.data" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="database.data.Hit">
+<em class="property">class </em><code class="descclassname">database.data.</code><code class="descname">Hit</code><a class="reference internal" href="_modules/database/data.html#Hit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.Hit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Some of the documentation of this function was
+taken from the hhsuite python documentation:
+<a class="reference external" href="https://github.com/soedinglab/hh-suite/wiki">https://github.com/soedinglab/hh-suite/wiki</a>
+as the sequence information from the Fuzzle hits
+come from HHsearch.
+The structural superimpositions were performed with
+TMalign:   <a class="reference external" href="https://zhanglab.ccmb.med.umich.edu/TM-align/">https://zhanglab.ccmb.med.umich.edu/TM-align/</a></p>
+<dl class="attribute">
+<dt id="database.data.Hit.ca_pair">
+<code class="descname">ca_pair</code><a class="headerlink" href="#database.data.Hit.ca_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of alpha carbon pairs that were used for the rmsd_pair calculation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.ca_tm">
+<code class="descname">ca_tm</code><a class="headerlink" href="#database.data.Hit.ca_tm" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of alpha carbon pairs that were used for the rmsd_tm calculation</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.ca_tm_pair">
+<code class="descname">ca_tm_pair</code><a class="headerlink" href="#database.data.Hit.ca_tm_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of alpha carbon pairs that were used for the rmsd_tm_pair calculation</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.cols">
+<code class="descname">cols</code><a class="headerlink" href="#database.data.Hit.cols" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of aligned Match columns in the HMM-HMM alignment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.eval">
+<code class="descname">eval</code><a class="headerlink" href="#database.data.Hit.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>E-value</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.hmm">
+<code class="descname">hmm</code><a class="headerlink" href="#database.data.Hit.hmm" title="Permalink to this definition">¶</a></dt>
+<dd><p>int</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.id">
+<code class="descname">id</code><a class="headerlink" href="#database.data.Hit.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The database id for this hit</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.ident">
+<code class="descname">ident</code><a class="headerlink" href="#database.data.Hit.ident" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identity %  for the sequence alignment</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.no">
+<code class="descname">no</code><a class="headerlink" href="#database.data.Hit.no" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HHsearch hit number for this query</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.prob">
+<code class="descname">prob</code><a class="headerlink" href="#database.data.Hit.prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>HHsearch probability</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.pval">
+<code class="descname">pval</code><a class="headerlink" href="#database.data.Hit.pval" title="Permalink to this definition">¶</a></dt>
+<dd><p>p-value</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_cluster">
+<code class="descname">q_cluster</code><a class="headerlink" href="#database.data.Hit.q_cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query cluster where this fragment belongs to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_end">
+<code class="descname">q_end</code><a class="headerlink" href="#database.data.Hit.q_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue where the alignment ends for the query domain (sequence position)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_fold_id">
+<code class="descname">q_fold_id</code><a class="headerlink" href="#database.data.Hit.q_fold_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The fold the query belongs to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_scop_id">
+<code class="descname">q_scop_id</code><a class="headerlink" href="#database.data.Hit.q_scop_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The SCOP family the query belongs to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_start">
+<code class="descname">q_start</code><a class="headerlink" href="#database.data.Hit.q_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue where the alignment starts for the query domain (sequence position)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_sufam_id">
+<code class="descname">q_sufam_id</code><a class="headerlink" href="#database.data.Hit.q_sufam_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The superfamily the query belongs to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_tm_end">
+<code class="descname">q_tm_end</code><a class="headerlink" href="#database.data.Hit.q_tm_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue in the query structure where the rmsd_tm_pair alignment ends</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.q_tm_start">
+<code class="descname">q_tm_start</code><a class="headerlink" href="#database.data.Hit.q_tm_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue in the query structure where the rmsd_tm_pair alignment starts</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.query">
+<code class="descname">query</code><a class="headerlink" href="#database.data.Hit.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>The 7-letter SCOP95 code for the query domain</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.rmsd_pair">
+<code class="descname">rmsd_pair</code><a class="headerlink" href="#database.data.Hit.rmsd_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>RMSD for the alignment between the two domains, strictly taking the alpha carbons from the structures that exactly appear in the HHsearch sequence alignment</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.rmsd_tm">
+<code class="descname">rmsd_tm</code><a class="headerlink" href="#database.data.Hit.rmsd_tm" title="Permalink to this definition">¶</a></dt>
+<dd><p>RMSD for the TMalign alignment between the two domains without seed</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.rmsd_tm_pair">
+<code class="descname">rmsd_tm_pair</code><a class="headerlink" href="#database.data.Hit.rmsd_tm_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_cluster">
+<code class="descname">s_cluster</code><a class="headerlink" href="#database.data.Hit.s_cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subject cluster where this fragment belongs to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_desc">
+<code class="descname">s_desc</code><a class="headerlink" href="#database.data.Hit.s_desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description of the subject domain.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_end">
+<code class="descname">s_end</code><a class="headerlink" href="#database.data.Hit.s_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue where the alignment ends for the subject domain (sequence position)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_fold_id">
+<code class="descname">s_fold_id</code><a class="headerlink" href="#database.data.Hit.s_fold_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The fold the query belongs to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_scop_id">
+<code class="descname">s_scop_id</code><a class="headerlink" href="#database.data.Hit.s_scop_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The SCOP family the subject belongs to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_start">
+<code class="descname">s_start</code><a class="headerlink" href="#database.data.Hit.s_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue where the alignment starts for the subject domain (sequence position)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_sufam_id">
+<code class="descname">s_sufam_id</code><a class="headerlink" href="#database.data.Hit.s_sufam_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The superfamily the subject belongs to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_tm_end">
+<code class="descname">s_tm_end</code><a class="headerlink" href="#database.data.Hit.s_tm_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue in the subject structure where the rmsd_tm_pair alignment ends</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.s_tm_start">
+<code class="descname">s_tm_start</code><a class="headerlink" href="#database.data.Hit.s_tm_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Residue in the subject structure where the rmsd_tm_pair alignment starts</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.sbjct">
+<code class="descname">sbjct</code><a class="headerlink" href="#database.data.Hit.sbjct" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 7-letter SCOP95 code for the subject domain</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.score">
+<code class="descname">score</code><a class="headerlink" href="#database.data.Hit.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>The raw score is computed by the Viterbi HMM-HMM alignment excluding the secondary structure score. It is the sum of similarities of the aligned profile columns minus the position-specific gap penalties in bits.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.score_tm">
+<code class="descname">score_tm</code><a class="headerlink" href="#database.data.Hit.score_tm" title="Permalink to this definition">¶</a></dt>
+<dd><p>TM-score for the rmsd_tm superposition</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.score_tm_pair">
+<code class="descname">score_tm_pair</code><a class="headerlink" href="#database.data.Hit.score_tm_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>TM-score for the rmsd_tm_pair superposition</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Hit.ss">
+<code class="descname">ss</code><a class="headerlink" href="#database.data.Hit.ss" title="Permalink to this definition">¶</a></dt>
+<dd><p>The secondary structure score. This score tells you how well the PSIPRED-predicted (3-state) or actual DSSP-determined (8-state) secondary structure sequences agree with each other.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.data.Result">
+<em class="property">class </em><code class="descclassname">database.data.</code><code class="descname">Result</code><span class="sig-paren">(</span><em>ahits: List[database.data.Hit]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/data.html#Result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.Result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class handling the data obtained from fuzzle</p>
+<dl class="attribute">
+<dt id="database.data.Result.avg_len">
+<code class="descname">avg_len</code><a class="headerlink" href="#database.data.Result.avg_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns the Aminoacid average of the returned hits</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Result.ids">
+<code class="descname">ids</code><a class="headerlink" href="#database.data.Result.ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns all the hits IDs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Result.list_fams">
+<code class="descname">list_fams</code><a class="headerlink" href="#database.data.Result.list_fams" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns the list of unique folds in the hits list</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Result.list_folds">
+<code class="descname">list_folds</code><a class="headerlink" href="#database.data.Result.list_folds" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns the list of unique folds in the hits list</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Result.list_sufams">
+<code class="descname">list_sufams</code><a class="headerlink" href="#database.data.Result.list_sufams" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns the list of unique folds in the hits list</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Result.std_len">
+<code class="descname">std_len</code><a class="headerlink" href="#database.data.Result.std_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns the Aminoacid standard deviation in the hits list</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Result.unique_clusters">
+<code class="descname">unique_clusters</code><a class="headerlink" href="#database.data.Result.unique_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns a list of unique domains</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.data.Result.unique_domains">
+<code class="descname">unique_domains</code><a class="headerlink" href="#database.data.Result.unique_domains" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns a list of unique domains</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.fetch_byPDB">
+<code class="descclassname">database.data.</code><code class="descname">fetch_byPDB</code><span class="sig-paren">(</span><em>pdb: str</em>, <em>prob: int = 70</em>, <em>rmsd: float = 3.0</em>, <em>ca_min: int = 10</em>, <em>ca_max: int = 200</em>, <em>score_tm_pair: float = 0.3</em>, <em>ratio: float = 1.25</em>, <em>diff_folds: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/data.html#fetch_byPDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_byPDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the entries in Fuzzle that contain the representative domains that correspond to that PDB</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>prob</strong> – Lower cutoff for the hit probability</li>
+<li><strong>rmsd</strong> – Upper cutoff for rmsd_tm_pair</li>
+<li><strong>ca_min</strong> – Lower cutoff for the number of AA (ca_tm_pair)</li>
+<li><strong>ca_max</strong> – Upper cutoff for the number of AA (ca_tm_pair)</li>
+<li><strong>score_tm_pair</strong> – Lower cutoff for the tm_score</li>
+<li><strong>ratio</strong> – Proportion between cols/ca_tm_pair</li>
+<li><strong>scop_q</strong> – A SCOP class. It will retrieve hits that contains domains from this class</li>
+<li><strong>query</strong> – A SCOP protein domain. It will retrieve hits that contain this query</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Result object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.fetch_byPDBs">
+<code class="descclassname">database.data.</code><code class="descname">fetch_byPDBs</code><span class="sig-paren">(</span><em>pdb1: str</em>, <em>pdb2: str</em>, <em>prob: int = 70</em>, <em>rmsd: float = 3.0</em>, <em>ca_min: int = 10</em>, <em>ca_max: int = 200</em>, <em>score_tm_pair: float = 0.3</em>, <em>ratio: float = 1.25</em>, <em>diff_folds: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/data.html#fetch_byPDBs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_byPDBs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Includes all hits among the domains that belong to a pair of PDBs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pdb1</strong> – The first PDB to check</li>
+<li><strong>pdb2</strong> – The second PDB to check</li>
+<li><strong>prob</strong> – the minimum allowed HHsearch probability</li>
+<li><strong>rmsd</strong> – The maximum allowed RMSD (rmsd_tm_pair: “RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</li>
+<li><strong>ca_min</strong> – The minimum allowed fragment length (for the TMalign alignment)</li>
+<li><strong>ca_max</strong> – The maximun allowed fragment length (for the TMalign alignment)</li>
+<li><strong>score_tm_pair</strong> – The minimum allowed TM-score (for the TMalign alignment)</li>
+<li><strong>ratio</strong> – the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</li>
+<li><strong>diff_folds</strong> – Whether to exclude hits from the same fold (True) or not (False)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A result class obtaining the hits that fulfill these criteria</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.fetch_by_domain">
+<code class="descclassname">database.data.</code><code class="descname">fetch_by_domain</code><span class="sig-paren">(</span><em>domain: str</em>, <em>prob: int = 70</em>, <em>rmsd: float = 3.0</em>, <em>ca_min: int = 10</em>, <em>ca_max: int = 200</em>, <em>score_tm_pair: float = 0.3</em>, <em>ratio: float = 1.25</em>, <em>diff_folds: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/data.html#fetch_by_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_by_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch all the hits that contain a specific domain</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>domain</strong> – The 7 letter code for one of the parents</li>
+<li><strong>prob</strong> – the minimum allowed HHsearch probability</li>
+<li><strong>rmsd</strong> – The maximum allowed RMSD (rmsd_tm_pair: “RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</li>
+<li><strong>ca_min</strong> – The minimum allowed fragment length (for the TMalign alignment)</li>
+<li><strong>ca_max</strong> – The maximun allowed fragment length (for the TMalign alignment)</li>
+<li><strong>score_tm_pair</strong> – The minimum allowed TM-score (for the TMalign alignment)</li>
+<li><strong>ratio</strong> – the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</li>
+<li><strong>diff_folds</strong> – Whether to exclude hits from the same fold (True) or not (False)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A result class obtaining the hits that fulfill these criteria</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.fetch_by_domains">
+<code class="descclassname">database.data.</code><code class="descname">fetch_by_domains</code><span class="sig-paren">(</span><em>domain1: str</em>, <em>domain2: str</em>, <em>prob: int = 70</em>, <em>rmsd: float = 3.0</em>, <em>ca_min: int = 10</em>, <em>ca_max: int = 200</em>, <em>score_tm_pair: float = 0.3</em>, <em>ratio: float = 1.25</em>, <em>diff_folds: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/data.html#fetch_by_domains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_by_domains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch all the hits between two parent domains</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>domain1</strong> – The 7 letter code for one of the parents</li>
+<li><strong>domain2</strong> – The 7 letter code for one of the parents</li>
+<li><strong>prob</strong> – the minimum allowed HHsearch probability</li>
+<li><strong>rmsd</strong> – The maximum allowed RMSD (rmsd_tm_pair: “RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</li>
+<li><strong>ca_min</strong> – The minimum allowed fragment length (for the TMalign alignment)</li>
+<li><strong>ca_max</strong> – The maximun allowed fragment length (for the TMalign alignment)</li>
+<li><strong>score_tm_pair</strong> – The minimum allowed TM-score (for the TMalign alignment)</li>
+<li><strong>ratio</strong> – the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</li>
+<li><strong>diff_folds</strong> – Whether to exclude hits from the same fold (True) or not (False)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A result class obtaining the hits that fulfill these criteria</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.fetch_group">
+<code class="descclassname">database.data.</code><code class="descname">fetch_group</code><span class="sig-paren">(</span><em>group1</em>, <em>group2=None</em>, <em>prob: int = 70</em>, <em>rmsd: float = 3.0</em>, <em>ca_min: int = 10</em>, <em>ca_max: int = 200</em>, <em>score_tm_pair: float = 0.3</em>, <em>ratio: float = 1.25</em>, <em>diff_folds: bool = True</em><span class="sig-paren">)</span> &#x2192; database.data.Result<a class="reference internal" href="_modules/database/data.html#fetch_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetching all hits between two specific groups (folds, superfamilies and families)
+or inside one specific group (group1)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>group1</strong> – The first group from where to search. E.g ‘c.2’</li>
+<li><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>group2</em>) – The second group from where to search. E.g ‘c.2’</li>
+<li><strong>prob</strong> – the minimum allowed HHsearch probability</li>
+<li><strong>rmsd</strong> – The maximum allowed RMSD (rmsd_tm_pair: “RMSD for the TMalign alignment between the two domains, passing the sequence alignment as seed)</li>
+<li><strong>ca_min</strong> – The minimum allowed fragment length (for the TMalign alignment)</li>
+<li><strong>ca_max</strong> – The maximun allowed fragment length (for the TMalign alignment)</li>
+<li><strong>score_tm_pair</strong> – The minimum allowed TM-score (for the TMalign alignment)</li>
+<li><strong>ratio</strong> – the maximum ratio for the sequence and structural alignment lengths (cols / ca_tm_pair)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Result class with the hits that fulfill these criteria</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.fetch_id">
+<code class="descclassname">database.data.</code><code class="descname">fetch_id</code><span class="sig-paren">(</span><em>fuzzle_id: int</em><span class="sig-paren">)</span> &#x2192; database.data.Hit<a class="reference internal" href="_modules/database/data.html#fetch_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the hit in fuzzle with that ID
+:param fuzzle_id: The Fuzzle HIT id to retrieve from hh207clusters
+:return: A Hit object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.fetch_subspace">
+<code class="descclassname">database.data.</code><code class="descname">fetch_subspace</code><span class="sig-paren">(</span><em>prob: int = 70</em>, <em>rmsd: float = 3.0</em>, <em>ca_min: int = 10</em>, <em>ca_max: int = 200</em>, <em>score_tm_pair: float = 0.3</em>, <em>ratio: float = 1.25</em>, <em>diff_folds: bool = True</em><span class="sig-paren">)</span> &#x2192; database.data.Result<a class="reference internal" href="_modules/database/data.html#fetch_subspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.fetch_subspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the entries in Fuzzle that satisfy the conditions:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>prob</strong> – Lower cutoff for the hit probability</li>
+<li><strong>rmsd</strong> – Upper cutoff for rmsd_tm_pair</li>
+<li><strong>ca_min</strong> – Lower cutoff for the number of AA (ca_tm_pair)</li>
+<li><strong>ca_max</strong> – Upper cutoff for the number of AA (ca_tm_pair)</li>
+<li><strong>score_tm_pair</strong> – Lower cutoff for the tm_score</li>
+<li><strong>ratio</strong> – Proportion between cols/ca_tm_pair</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Result object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.filter_hits_domain">
+<code class="descclassname">database.data.</code><code class="descname">filter_hits_domain</code><span class="sig-paren">(</span><em>ahits</em>, <em>domain</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/data.html#filter_hits_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.filter_hits_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search all hits from a Result class where a certain domain appears</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ahits</strong> – An object Result</li>
+<li><strong>domain</strong> – a SCOPe domain identifier</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">np.array. The starts and ends for the domains in all the hits it appears.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.parse_hit">
+<code class="descclassname">database.data.</code><code class="descname">parse_hit</code><span class="sig-paren">(</span><em>line: List[str]</em><span class="sig-paren">)</span> &#x2192; database.data.Hit<a class="reference internal" href="_modules/database/data.html#parse_hit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.parse_hit" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>line</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="database.data.validate_scopid">
+<code class="descclassname">database.data.</code><code class="descname">validate_scopid</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/database/data.html#validate_scopid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#database.data.validate_scopid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A SCOP domain is  A 7-character sid that consists of “d”
+followed by the 4-character PDB ID of the file of origin,
+the PDB chain ID (‘_’ if none, ‘.’ if multiple as is the
+case in genetic domains), and a single character
+(usually an integer) if needed to specify the domain uniquely
+(‘_’ if not). Sids are currently all lower case,
+even when the chain letter is upper case.
+Examples:  include d4akea1, d1reqa2, and d1cph.1.
+:param query: The seven letter domain for the query</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="builder.html" class="btn btn-neutral float-left" title="Building Chimeras" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="networks.html" class="btn btn-neutral float-right" title="Networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Noelia Ferruz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

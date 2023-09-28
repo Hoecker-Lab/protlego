@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to ProtLego! An Open-source Python Library for Chimera Design and Analysis &mdash; ProtLego 2.0.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Building Chimeras" href="builder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            ProtLego
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ProtLego</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to ProtLego! An Open-source Python Library for Chimera Design and Analysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="welcome-to-protlego-an-open-source-python-library-for-chimera-design-and-analysis">
+<h1>Welcome to ProtLego! An Open-source Python Library for Chimera Design and Analysis<a class="headerlink" href="#welcome-to-protlego-an-open-source-python-library-for-chimera-design-and-analysis" title="Permalink to this headline">¶</a></h1>
+<p>ProtLego is a tool that enables constructing protein chimeras and its structural analysis.
+ProtLego is writen in Python, so it facilitates that other scientists can extend it to their needs.</p>
+<p>With ProtLego, it is possible to go from a pair of PDBs that share a structural fragment in common, to build
+all possible chimeras between the two, rank them with the AMBER or CHARMM molecular mechanics forcefields,
+and analyze their structural features (hydrogen networks, salt bridges, hydrophobic clusters…etc.)</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#How-to-use-Jupyter-notebook">How to use Jupyter-notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#Programming-basics-with-Python">Programming basics with Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fetching.html#1.-Fetching-from-ID">1. Fetching from ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fetching.html#2.-Search-all-the-hits-that-contain-a-specific-domain">2. Search all the hits that contain a specific domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fetching.html#3.-Fetch-by-parents-(finding-a-hit-between-two-domains)">3. Fetch by parents (finding a hit between two domains)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fetching.html#4.-Fetching-two-groups">4. Fetching two groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fetching.html#5.-Fetching-subspaces">5. Fetching subspaces</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="network.html#1.-Drawing-relationships-between-two-superfamilies">1. Drawing relationships between two superfamilies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building.html#Chimera-Building-using-Protlego">Chimera-Building using Protlego</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structural.html#1.-Hydrophobic-cluster-analysis">1. Hydrophobic cluster analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structural.html#2.-Salt-bridges-analysis">2. Salt bridges analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structural.html#3.-Hydrogen-Network-analysis">3. Hydrogen Network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structural.html#4.-Further-structural-analysis">4. Further structural analysis</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="publications">
+<h1>Publications<a class="headerlink" href="#publications" title="Permalink to this headline">¶</a></h1>
+<p><strong>Protlego: A Python package for the analysis and design of chimeric proteins.</strong>
+Noelia Ferruz, Jakob Noske, Birte Höcker.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="builder.html" class="btn btn-neutral float-right" title="Building Chimeras" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Noelia Ferruz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clusters &mdash; ProtLego 2.0.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to Jupyter-notebooks and Python primer" href="introduction.html" />
+    <link rel="prev" title="Energy scoring" href="energy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ProtLego
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#hh-networks">HH-networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-structural.salt_bridges">Salt-bridges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#further-structural-analysis">Further structural analysis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to Jupyter-notebooks and Python primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ProtLego</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Clusters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/analyse.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-structural.clusters">
+<span id="clusters"></span><h1>Clusters<a class="headerlink" href="#module-structural.clusters" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="structural.clusters.Atom">
+<em class="property">class </em><code class="descclassname">structural.clusters.</code><code class="descname">Atom</code><span class="sig-paren">(</span><em>index: int</em>, <em>mol: moleculekit.molecule.Molecule</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.Atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to handle ILV atoms
+index: the vmd atom index
+mol: an htmd.htmd.molecule object</p>
+<dl class="method">
+<dt id="structural.clusters.Atom.get_neighbors">
+<code class="descname">get_neighbors</code><span class="sig-paren">(</span><em>mol: moleculekit.molecule.Molecule</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/structural/clusters.html#Atom.get_neighbors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.Atom.get_neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides all indices of atoms within 6.56 A of this atom.
+6.56 is the upper bound of a possible neighbor 1.88 (C) + 1.4 + 1.4 + 1.88 (C).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="structural.clusters.Cluster">
+<em class="property">class </em><code class="descclassname">structural.clusters.</code><code class="descname">Cluster</code><span class="sig-paren">(</span><em>area</em>, <em>residues</em>, <em>chains</em>, <em>contacts</em>, <em>ratio_contacts_residue</em>, <em>ratio_area_residue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#Cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.Cluster" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="structural.clusters.Cluster.area">
+<code class="descname">area</code><a class="headerlink" href="#structural.clusters.Cluster.area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="structural.clusters.Cluster.chains">
+<code class="descname">chains</code><a class="headerlink" href="#structural.clusters.Cluster.chains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="structural.clusters.Cluster.contacts">
+<code class="descname">contacts</code><a class="headerlink" href="#structural.clusters.Cluster.contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="structural.clusters.Cluster.ratio_area_residue">
+<code class="descname">ratio_area_residue</code><a class="headerlink" href="#structural.clusters.Cluster.ratio_area_residue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="structural.clusters.Cluster.ratio_contacts_residue">
+<code class="descname">ratio_contacts_residue</code><a class="headerlink" href="#structural.clusters.Cluster.ratio_contacts_residue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="structural.clusters.Cluster.residues">
+<code class="descname">residues</code><a class="headerlink" href="#structural.clusters.Cluster.residues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.add_clusters">
+<code class="descclassname">structural.clusters.</code><code class="descname">add_clusters</code><span class="sig-paren">(</span><em>mol</em>, <em>g: graph_tool.Graph</em>, <em>components: graph_tool.PropertyArray</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/clusters.html#add_clusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.add_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mol</strong> – </li>
+<li><strong>g</strong> – </li>
+<li><strong>components</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Molecule representations
+A list with Cluster objects</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.create_graph">
+<code class="descclassname">structural.clusters.</code><code class="descname">create_graph</code><span class="sig-paren">(</span><em>resid_matrix: numpy.array</em>, <em>resid_list: numpy.array</em>, <em>chain_list: numpy.array</em>, <em>cutoff_area: float = 10.0</em><span class="sig-paren">)</span> &#x2192; graph_tool.Graph<a class="reference internal" href="_modules/structural/clusters.html#create_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.create_graph" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>resid_matrix</strong> – the ILVresid x ILVresid area matrix</li>
+<li><strong>resid_list</strong> – the index x index area matrix</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Graph object where each component is a ILV cluster</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.fill_matrices">
+<code class="descclassname">structural.clusters.</code><code class="descname">fill_matrices</code><span class="sig-paren">(</span><em>atom: structural.clusters.Atom</em>, <em>mol: moleculekit.molecule.Molecule</em>, <em>resid_matrix: numpy.array</em>, <em>indices: numpy.array</em>, <em>atom_to_residposition</em><span class="sig-paren">)</span> &#x2192; Tuple[numpy.array, numpy.array]<a class="reference internal" href="_modules/structural/clusters.html#fill_matrices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.fill_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>atom</strong> – An Atom class</li>
+<li><strong>mol</strong> – an htmd.htmd.molecule object</li>
+<li><strong>atom_matrix</strong> – the index x index area matrix</li>
+<li><strong>resid_matrix</strong> – the ILVresid x ILVresid area matrix</li>
+<li><strong>indices</strong> – the indices that belong to ILV sidechain heavy atoms</li>
+<li><strong>resids</strong> – the resids that belong to ILV sidechain heavy atoms</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Updated atom_matrix and resid_matrix</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.filter_mol">
+<code class="descclassname">structural.clusters.</code><code class="descname">filter_mol</code><span class="sig-paren">(</span><em>inputmolfile: str</em><span class="sig-paren">)</span> &#x2192; moleculekit.molecule.Molecule<a class="reference internal" href="_modules/structural/clusters.html#filter_mol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.filter_mol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads, filters the object to chain A and writes filtered pdb out.
+:param inputmolfile: path to the pdb file
+:return: the Molecule object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.generate_sphere_points">
+<code class="descclassname">structural.clusters.</code><code class="descname">generate_sphere_points</code><span class="sig-paren">(</span><em>coords: numpy.array</em>, <em>n: int = 610</em>, <em>radius: float = 1.88</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/structural/clusters.html#generate_sphere_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.generate_sphere_points" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coords</strong> – The coordinates of the center of the atom</li>
+<li><strong>n</strong> – number of points to sample</li>
+<li><strong>radius</strong> – the radius of the atom</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a nx3 vector with the point coordinates</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.postprocess_session">
+<code class="descclassname">structural.clusters.</code><code class="descname">postprocess_session</code><span class="sig-paren">(</span><em>inputmolfile: str</em>, <em>outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/clusters.html#postprocess_session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.postprocess_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the VMD session to not include tmp files
+:param outputname: The vmd session (output file)
+:param inputmolfile: Path to the pdb file already processed (filtered and or protonated)
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.retrieve_indices">
+<code class="descclassname">structural.clusters.</code><code class="descname">retrieve_indices</code><span class="sig-paren">(</span><em>matrix: numpy.array</em>, <em>coords: numpy.array</em>, <em>neighborpositions: numpy.array</em>, <em>radius: float = 1.88</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/structural/clusters.html#retrieve_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.retrieve_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes if each of the n sphere points are penetrating neighboring spheres
+:param matrix: n x m Distance matrix where n is the number of sphere points and m the number of neighbors
+:param coords: the coordinates of the atom
+:param neighborpositions: Coordinates of the neighbors
+:param radius: radius of the atom
+:return: The atoms that are in closest with each n sphere points.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.retrieve_neighbor_positions">
+<code class="descclassname">structural.clusters.</code><code class="descname">retrieve_neighbor_positions</code><span class="sig-paren">(</span><em>atom: structural.clusters.Atom</em>, <em>mol: moleculekit.molecule.Molecule</em><span class="sig-paren">)</span> &#x2192; Tuple[numpy.array, Dict[int, int]]<a class="reference internal" href="_modules/structural/clusters.html#retrieve_neighbor_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.retrieve_neighbor_positions" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>atom</strong> – an Atom object</li>
+<li><strong>mol</strong> – a htmd.htmd.molecule object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Positions of the neighboring atoms
+A dictionary indexing column positions to resid positions</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.write_clusters">
+<code class="descclassname">structural.clusters.</code><code class="descname">write_clusters</code><span class="sig-paren">(</span><em>g: graph_tool.Graph</em>, <em>components: graph_tool.PropertyArray</em>, <em>inputmolfile: str</em>, <em>outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/clusters.html#write_clusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.write_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function prints the clusters to the terminal and outputs them
+into a VMD session
+:param g: A Graph object
+:param outputname: The pdb filename.
+:param outputname: The file name to output the VMD session to.
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.clusters.write_largest_cluster">
+<code class="descclassname">structural.clusters.</code><code class="descname">write_largest_cluster</code><span class="sig-paren">(</span><em>g: graph_tool.Graph</em>, <em>inputmolfile: str</em>, <em>outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/clusters.html#write_largest_cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.clusters.write_largest_cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function prints the clusters to the terminal and outputs them
+into a VMD session
+:param g: A Graph object
+:param outputname: The pdb filename.
+:param outputname: The file name to output the VMD session to.
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="hh-networks">
+<h1>HH-networks<a class="headerlink" href="#hh-networks" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="module-structural.salt_bridges">
+<span id="salt-bridges"></span><h1>Salt-bridges<a class="headerlink" href="#module-structural.salt_bridges" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="structural.salt_bridges.add_networks_salts">
+<code class="descclassname">structural.salt_bridges.</code><code class="descname">add_networks_salts</code><span class="sig-paren">(</span><em>g</em>, <em>components</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structural/salt_bridges.html#add_networks_salts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.salt_bridges.add_networks_salts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>g</strong> – a graph-tool graph object with the networks property</li>
+<li><strong>components</strong> – the components from the graph</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Includes the representations in the Chimera object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.salt_bridges.make_graph_salts">
+<code class="descclassname">structural.salt_bridges.</code><code class="descname">make_graph_salts</code><span class="sig-paren">(</span><em>salts</em><span class="sig-paren">)</span> &#x2192; graph_tool.Graph<a class="reference internal" href="_modules/structural/salt_bridges.html#make_graph_salts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.salt_bridges.make_graph_salts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hbonds</strong> – a np.array indicating indexes of atoms that have an h-bond</li>
+<li><strong>trajectory</strong> – an mdtraj trajectory. It can also be a pdb file processed with mdtraj as trajectory</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A graph-tool graph object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="structural.salt_bridges.write_salt_bridges">
+<code class="descclassname">structural.salt_bridges.</code><code class="descname">write_salt_bridges</code><span class="sig-paren">(</span><em>data: numpy.ndarray</em>, <em>mapping: pandas.core.frame.DataFrame</em>, <em>mol: moleculekit.molecule.Molecule</em>, <em>outputname: str</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/structural/salt_bridges.html#write_salt_bridges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structural.salt_bridges.write_salt_bridges" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function outputs the HH networks into a VMD session
+:param g: A Graph object
+:param outputname: The pdb filename.
+:param outputname: The file name to output the VMD session to.
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="further-structural-analysis">
+<h1>Further structural analysis<a class="headerlink" href="#further-structural-analysis" title="Permalink to this headline">¶</a></h1>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="energy.html" class="btn btn-neutral float-left" title="Energy scoring" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction to Jupyter-notebooks and Python primer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Noelia Ferruz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
