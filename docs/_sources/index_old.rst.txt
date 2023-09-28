@@ -22,6 +22,14 @@ and analyze their structural features (hydrogen networks, salt bridges, hydropho
    energy
    analyse
 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: User Guide
+
+   installation
+   fuzzle
+
 .. toctree::
    :maxdepth: 2
    :caption: Tutorials
