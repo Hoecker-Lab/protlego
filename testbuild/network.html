@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drawing networks &mdash; ProtLego 1.1.0 documentation</title>
+  <title>Drawing networks &mdash; ProtLego 2.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
@@ -39,7 +39,7 @@
               <img src="_static/logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1
+                2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -52,14 +52,14 @@
               <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -80,6 +80,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
 </ul>
 
@@ -113,7 +114,10 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlego.all</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;YOUR_PATH_TO_PROTLEGO_FOLDER&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">protlego.all</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>

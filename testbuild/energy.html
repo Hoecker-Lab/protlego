@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Energy scoring &mdash; ProtLego 1.1.0 documentation</title>
+  <title>Energy scoring &mdash; ProtLego 2.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -36,7 +36,7 @@
               <img src="_static/logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1
+                2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -49,14 +49,14 @@
               <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -74,6 +74,7 @@
 <li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
 </ul>
 
@@ -101,35 +102,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-scorer.mm_energies">
-<span id="energy-scoring"></span><h1>Energy scoring<a class="headerlink" href="#module-scorer.mm_energies" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="scorer.mm_energies.minimize_potential_energy">
-<span class="sig-prename descclassname"><span class="pre">scorer.mm_energies.</span></span><span class="sig-name descname"><span class="pre">minimize_potential_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'/tmp/build'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_output_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restraint_backbone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scorer/mm_energies.html#minimize_potential_energy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scorer.mm_energies.minimize_potential_energy" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>chimera</strong> – A chimera object where to perform the minimization</p></li>
-<li><p><strong>forcefield</strong> – The forcefield to use for the minimization. Select between “amber” and “charmm”</p></li>
-<li><p><strong>output</strong> – A folder where to keep the files. If not provided they will be stored in the /tmp folder and later removed.</p></li>
-<li><p><strong>cuda</strong> – Whether to use GPU acceleration</p></li>
-<li><p><strong>restraint_backbone</strong> – Keep the backbone atoms constraint in space</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The chimera object that was minimized and the potential energy value.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="scorer.mm_energies.prepare_protein">
-<span class="sig-prename descclassname"><span class="pre">scorer.mm_energies.</span></span><span class="sig-name descname"><span class="pre">prepare_protein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chimera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Chimera</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Molecule</span></span></span><a class="reference internal" href="_modules/scorer/mm_energies.html#prepare_protein"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scorer.mm_energies.prepare_protein" title="Permalink to this definition"></a></dt>
-<dd><p>Builds a water box around the chimera
-:param chimera:
-:return:</p>
-</dd></dl>
-
+  <div class="section" id="energy-scoring">
+<h1>Energy scoring<a class="headerlink" href="#energy-scoring" title="Permalink to this heading"></a></h1>
 </div>
 
 

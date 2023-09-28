@@ -36,6 +36,9 @@
     }
    ],
    "source": [
+    "import sys\n",
+    "sys.path.append(\"YOUR_PATH_TO_PROTLEGO_FOLDER\")\n",
+    "\n",
     "from protlego.all import *"
    ]
   },
@@ -525,7 +528,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.9.0"
+   "version": "3.9.18"
   }
  },
  "nbformat": 4,

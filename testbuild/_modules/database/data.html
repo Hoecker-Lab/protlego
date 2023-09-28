@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>database.data &mdash; ProtLego 1.1.0 documentation</title>
+  <title>database.data &mdash; ProtLego 2.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -34,7 +34,7 @@
               <img src="../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1
+                2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -47,14 +47,14 @@
               <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builder.html#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#module-structural.analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -72,6 +72,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fetching.html">Fetching from the Fuzzle database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../network.html">Drawing networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../energy_min.html">Energy minimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../structural.html">Structural analysis of chimeras</a></li>
 </ul>
 
@@ -105,6 +106,19 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1">#db_file = &#39;fuzzle2.07.db&#39;</span>
+
+<span class="c1">#if os.path.isfile(&#39;./protlego/database/fuzzle2.07.db&#39;) :</span>
+
+<span class="c1">#    conn = sqlite3.connect(&#39;./protlego/database/fuzzle2.07.db&#39;)</span>
+<span class="c1">#    cur = conn.cursor()</span>
+
+<span class="c1">#    conn.close()</span>
+
+<span class="c1">#else :</span>
+<span class="c1">#    raise FileNotFoundError(f&quot;The database file fuzzle2.07.db doesnot exist. Please download it and putit in the folder protlego/database/&quot;)</span>
 
 <div class="viewcode-block" id="Hit"><a class="viewcode-back" href="../../database.html#database.data.Hit">[docs]</a><span class="k">class</span> <span class="nc">Hit</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

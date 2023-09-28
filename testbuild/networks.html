@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Networks &mdash; ProtLego 1.1.0 documentation</title>
+  <title>Networks &mdash; ProtLego 2.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -36,7 +36,7 @@
               <img src="_static/logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1
+                2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -49,14 +49,14 @@
               <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="builder.html">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builder.html#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builder.html#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -74,6 +74,7 @@
 <li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
 </ul>
 
@@ -101,93 +102,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-network.networks">
-<span id="networks"></span><h1>Networks<a class="headerlink" href="#module-network.networks" title="Permalink to this heading"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="network.networks.Network">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">network.networks.</span></span><span class="sig-name descname"><span class="pre">Network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/network/networks.html#Network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#network.networks.Network" title="Permalink to this definition"></a></dt>
-<dd><p>Graph constructor and visualizer
-.. rubric:: Examples</p>
-<p>hits = fetch_subspace(args)
-g = Network(hits)
-g.create_graph()
-g.plot_graph(labels=[‘ids’,’domains’,’folds’])
-g.get_fragments()
-g.view_vertex(v1)
-g.view_edge(v1,v2)
-g.view_component(n)</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="network.networks.Network.create_network">
-<span class="sig-name descname"><span class="pre">create_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Graph</span></span></span><a class="reference internal" href="_modules/network/networks.html#Network.create_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#network.networks.Network.create_network" title="Permalink to this definition"></a></dt>
-<dd><p>Creates a network based on the hits. It draws a node for every unique cluster
-and links two cluster when they have a fragment (hit) in common.
-:return: A Graph object</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="network.networks.Network.fragments">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fragments</span></span><a class="headerlink" href="#network.networks.Network.fragments" title="Permalink to this definition"></a></dt>
-<dd><p>This function creates and prints out the number of fragments in the graph
-:rtype: integer, number of fragments</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="network.networks.Network.get_representative_domain">
-<span class="sig-name descname"><span class="pre">get_representative_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/network/networks.html#Network.get_representative_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#network.networks.Network.get_representative_domain" title="Permalink to this definition"></a></dt>
-<dd><p>Gets the most representative domain of a fragment (or graph component)
-:param frag: the index of the fragment
-:return: A vertex object</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="network.networks.Network.plot_graph">
-<span class="sig-name descname"><span class="pre">plot_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">keyword_parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/network/networks.html#Network.plot_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#network.networks.Network.plot_graph" title="Permalink to this definition"></a></dt>
-<dd><p>This function plots the graph
-with customized labels
-:param graph: A graph-tool object to plot
-:param fill: To choose between [‘fam’,’sufam’,’fold’,’class’]
-:param keyword_parameters: labels, output (filename). labels can be: “domain”,”fam”,”sufam”,”fold”,”scopclass”
-:return: A plot of the computed with the customized colors</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="network.networks.Network.show_component">
-<span class="sig-name descname"><span class="pre">show_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fragment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/network/networks.html#Network.show_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#network.networks.Network.show_component" title="Permalink to this definition"></a></dt>
-<dd><p>Aligns the fragment(s) of all domains belonging to a component, provided the component
-has less than 50 vertices.
-Note that all domains in the same component present a fragment
-in common in different protein environments
-:param fragment:
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="network.networks.Network.show_edge">
-<span class="sig-name descname"><span class="pre">show_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Chimera</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/network/networks.html#Network.show_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#network.networks.Network.show_edge" title="Permalink to this definition"></a></dt>
-<dd><p>Shows an alignment of the two domains that the edge links with their respective
-fragment they have in common colored in red
-:param edge: A graph tool edge object
-:return: The query and subject chimera objects. It also opens a VMD window with the superimposition.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="network.networks.Network.show_vertex">
-<span class="sig-name descname"><span class="pre">show_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">vertex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Chimera</span></span></span><a class="reference internal" href="_modules/network/networks.html#Network.show_vertex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#network.networks.Network.show_vertex" title="Permalink to this definition"></a></dt>
-<dd><p>Shows the protein that corresponds to that specific vertex with the
-fragment colored in red
-:param vertex: A Graph.vertex object. The domain to be shown,
-:return: A Chimera object with an internal representation of the fragment</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="network.networks.Network.sizes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sizes</span></span><a class="headerlink" href="#network.networks.Network.sizes" title="Permalink to this definition"></a></dt>
-<dd><p>Computes the average size for each fragment.
-:return: list of tuples with the average and the stds of sizes (float)</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="networks">
+<h1>Networks<a class="headerlink" href="#networks" title="Permalink to this heading"></a></h1>
 </div>
 
 

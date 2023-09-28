@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Building Chimeras &mdash; ProtLego 1.1.0 documentation</title>
+  <title>Building Chimeras &mdash; ProtLego 2.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -36,7 +36,7 @@
               <img src="_static/logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1
+                2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -49,14 +49,14 @@
               <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Building Chimeras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#module-builder.chimera">Chimera Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#chimera-class">Chimera Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Fetching hits from Fuzzle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="energy.html">Energy scoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html">Clusters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.hh_networks">HH-networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.salt_bridges">Salt-bridges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analyse.html#module-structural.analysis">Further structural analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse.html#further-structural-analysis">Further structural analysis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -74,6 +74,7 @@
 <li class="toctree-l1"><a class="reference internal" href="fetching.html">Fetching from the Fuzzle database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network.html">Drawing networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building chimeras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energy_min.html">Energy minimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structural.html">Structural analysis of chimeras</a></li>
 </ul>
 
@@ -101,265 +102,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-builder.builder">
-<span id="building-chimeras"></span><h1>Building Chimeras<a class="headerlink" href="#module-builder.builder" title="Permalink to this heading"></a></h1>
-<dl class="py exception">
-<dt class="sig sig-object py" id="builder.builder.BackboneClashError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.builder.</span></span><span class="sig-name descname"><span class="pre">BackboneClashError</span></span><a class="reference internal" href="_modules/builder/builder.html#BackboneClashError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.BackboneClashError" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="builder.builder.BbClashError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.builder.</span></span><span class="sig-name descname"><span class="pre">BbClashError</span></span><a class="reference internal" href="_modules/builder/builder.html#BbClashError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.BbClashError" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="builder.builder.Builder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.builder.</span></span><span class="sig-name descname"><span class="pre">Builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/builder.html#Builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder" title="Permalink to this definition"></a></dt>
-<dd><p>Graph constructor and visualizer</p>
-<p class="rubric">Examples</p>
-<p>myhit= fetch_id(‘10002347’)
-a=Builder(myhit)
-aln=a.get_alignment(myhit.query,myhit.no)
-qPDB, sPDB = a.superimpose_structures(aln,partial_alignment=True)
-chimeras=a.build_chimeras(partial_alignment=True)</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.build_insert">
-<span class="sig-name descname"><span class="pre">build_insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partial_alignment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff_distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/builder.html#Builder.build_insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.build_insert" title="Permalink to this definition"></a></dt>
-<dd><p>#TODO for now implemented only to be GLOBAL ALIGNMENT
-#TODO NEEDS TESTING - still working with resids
-#TODO perhaps is a good idea to follow this algorithm for the single crossover chimeras
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.build_recomb">
-<span class="sig-name descname"><span class="pre">build_recomb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partial_alignment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Chimera</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/builder/builder.html#Builder.build_recomb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.build_recomb" title="Permalink to this definition"></a></dt>
-<dd><p>Build all possible chimeras between the two proteins that fulfill
-these two criteria:
-1) That the distance between the fusion points is below the cutoff distance
-2) That the resulting chimera does not present any backbone clashes</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A dictionary with all the possible chimeras</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.check_bb_clashes">
-<span class="sig-name descname"><span class="pre">check_bb_clashes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chim_mol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/builder.html#Builder.check_bb_clashes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.check_bb_clashes" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>chim_mol</strong> – </p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.check_connection_gap">
-<span class="sig-name descname"><span class="pre">check_connection_gap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/builder.html#Builder.check_connection_gap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.check_connection_gap" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.find_nonstandards">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_nonstandards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/builder/builder.html#Builder.find_nonstandards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.find_nonstandards" title="Permalink to this definition"></a></dt>
-<dd><p>Finds non-standard aminoacids
-:param pdb: Molecule or Chimera object where to find non-standard aminoacids.
-:return: list of non-standard residues</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.get_alignment">
-<span class="sig-name descname"><span class="pre">get_alignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HHpredHitAlignment</span></span></span><a class="reference internal" href="_modules/builder/builder.html#Builder.get_alignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.get_alignment" title="Permalink to this definition"></a></dt>
-<dd><p>Obtain the HHS alignment ‘no’ for query ‘query’.
-Only the alignment from the fragment region is retrieved.
-This implies that when the fragment is not located in the
-N-terminus hit.q_start and the position in the output won’t
-be the same. For example, if q_start = 20, that aminoacid is
-in position 0 in aln.query.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>query</strong> – str. Domain query</p></li>
-<li><p><strong>no</strong> – int. Specifies the position in the file (alignment with subject)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>HHpredHitAlignment. Alignment between query and subject for the fragment region.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.mutate_nonstandards">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mutate_nonstandards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Molecule</span></span></span><a class="reference internal" href="_modules/builder/builder.html#Builder.mutate_nonstandards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.mutate_nonstandards" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pdb</strong> – The pdb to mutate the residues to</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The pdb with the mutated residues -if there are any-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.plot_curves">
-<span class="sig-name descname"><span class="pre">plot_curves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/builder.html#Builder.plot_curves"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.plot_curves" title="Permalink to this definition"></a></dt>
-<dd><p>Plots the distance between the alpha carbons in the structure for the fragment region along with the number of backbone clashes of the resulting chimera for each position</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dst</strong> – np.ndarray: an array containign the distance for each fragment position</p></li>
-<li><p><strong>bbContacts1</strong> – an array containing the number of bb contacts for each fragment position for the resulting chimera of combination query-subject</p></li>
-<li><p><strong>bbContacts2</strong> – an array containing the number of bb contacts for each fragment position for the resulting chimera of combination subject - query</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a matplotlib.pyplot figure.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.remove_residue">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/builder.html#Builder.remove_residue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.remove_residue" title="Permalink to this definition"></a></dt>
-<dd><p>Removes a specific residue by its name
-:param pdb: The pdb to mutate the residues to
-:param resid:
-:return: The pdb with the filtered residues</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.seq2pdbaln">
-<span class="sig-name descname"><span class="pre">seq2pdbaln</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Molecule</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="_modules/builder/builder.html#Builder.seq2pdbaln"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.seq2pdbaln" title="Permalink to this definition"></a></dt>
-<dd><p>Obtains the resid (positions in the PDB) of the aminoacids involved in the fragment.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sequence</strong> – str. sequence of the fragment</p></li>
-<li><p><strong>pdb</strong> – Molecule. PDB from where to obtain the residues</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>mapping. The the PDB Positions of the fragment. A List of tuples of the form: (sequence aminoacid, pdb resid)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.builder.Builder.superimpose_structures">
-<span class="sig-name descname"><span class="pre">superimpose_structures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aln</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HHpredHitAlignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_alignment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/builder.html#Builder.superimpose_structures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.Builder.superimpose_structures" title="Permalink to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>Moves the two molecules to the origin of coordinates.</dt><dd><p>Aligns the full structures according the fragment and obtains RMSDs and distances.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>qpairs</strong> – List of CA to be aligned in the query structure</p></li>
-<li><p><strong>spairs</strong> – List of CA to be aligned in the subject structure</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="builder.builder.ConnectionGapError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.builder.</span></span><span class="sig-name descname"><span class="pre">ConnectionGapError</span></span><a class="reference internal" href="_modules/builder/builder.html#ConnectionGapError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.ConnectionGapError" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="builder.builder.NotCorrectPDBError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.builder.</span></span><span class="sig-name descname"><span class="pre">NotCorrectPDBError</span></span><a class="reference internal" href="_modules/builder/builder.html#NotCorrectPDBError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.NotCorrectPDBError" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="builder.builder.NotDiverseChimeraError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.builder.</span></span><span class="sig-name descname"><span class="pre">NotDiverseChimeraError</span></span><a class="reference internal" href="_modules/builder/builder.html#NotDiverseChimeraError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.builder.NotDiverseChimeraError" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="building-chimeras">
+<h1>Building Chimeras<a class="headerlink" href="#building-chimeras" title="Permalink to this heading"></a></h1>
 </div>
-<div class="section" id="module-builder.chimera">
-<span id="chimera-class"></span><h1>Chimera Class<a class="headerlink" href="#module-builder.chimera" title="Permalink to this heading"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="builder.chimera.Chimera">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">builder.chimera.</span></span><span class="sig-name descname"><span class="pre">Chimera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/chimera.html#Chimera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.chimera.Chimera" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="builder.chimera.Chimera.calc_resid_dist">
-<span class="sig-name descname"><span class="pre">calc_resid_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resid1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resid2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/builder/chimera.html#Chimera.calc_resid_dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.chimera.Chimera.calc_resid_dist" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the distance between the alpha carbons of two residues”
-:param resid1:index of residue 1 in the PDB structure
-:param resid2:index of residue 2 in the PDB structure
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.chimera.Chimera.compute_hydrogen_networks">
-<span class="sig-name descname"><span class="pre">compute_hydrogen_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sidechain_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/chimera.html#Chimera.compute_hydrogen_networks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.chimera.Chimera.compute_hydrogen_networks" title="Permalink to this definition"></a></dt>
-<dd><p>Analyzes the hydrogen bonds following the Baker Hubbard algorithm and
-clusters them. (Two residues are in the same cluster if there’s a path
-of hydrogen networks between them). This function adds protons to the protein.
-between them
-:param sidechain_only: The whole residue or sidechain only. Note: Computing networks
-including backbone leads to very large clusters harder to visualize.
-:return: A representation for each network</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="builder.chimera.Chimera.compute_hydrophobic_clusters">
-<span class="sig-name descname"><span class="pre">compute_hydrophobic_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'protein</span> <span class="pre">and</span> <span class="pre">not</span> <span class="pre">backbone</span> <span class="pre">and</span> <span class="pre">noh</span> <span class="pre">and</span> <span class="pre">resname</span> <span class="pre">ILE</span> <span class="pre">VAL</span> <span class="pre">LEU'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff_area</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/chimera.html#Chimera.compute_hydrophobic_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.chimera.Chimera.compute_hydrophobic_clusters" title="Permalink to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>:param</dt><dd><p>sel: VMD selection on which to compute the clusters.
-Default is every sidechain heavy atom ILE, VAL and LEU
-residues. “protein and not backbone and noh and resname ILE VAL LEU”
-cutoff_area: Minimum area between residues to be considered in contact.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A representation for each cluster</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="builder.chimera.get_FUZZLE_hhs">
-<span class="sig-prename descclassname"><span class="pre">builder.chimera.</span></span><span class="sig-name descname"><span class="pre">get_FUZZLE_hhs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/chimera.html#get_FUZZLE_hhs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.chimera.get_FUZZLE_hhs" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>domain</strong> – str. The domain to download from Fuzzle as hhs</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>filepath: path where the file is located.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="builder.chimera.get_SCOP_domain">
-<span class="sig-prename descclassname"><span class="pre">builder.chimera.</span></span><span class="sig-name descname"><span class="pre">get_SCOP_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/builder/chimera.html#get_SCOP_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#builder.chimera.get_SCOP_domain" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>domain</strong> – str. The SCOPe domain to download as pdb</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="chimera-class">
+<h1>Chimera Class<a class="headerlink" href="#chimera-class" title="Permalink to this heading"></a></h1>
 </div>
 
 
