@@ -33,4 +33,4 @@ Follow these steps to install and run the tool on your local machine.
  conda activate protlego
  ```
 
-6. Follow the latest guidelines at: https://hoecker-lab.github.io/protlego/installation.html
+6. Follow the latest guidelines at: https://hoecker-lab.github.io/protlego/index.html
